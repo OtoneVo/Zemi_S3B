@@ -10,6 +10,7 @@ public class ZemiS3BApplication {
 		SpringApplication.run(ZemiS3BApplication.class, args);
 		//S3A204井馬渉太
 		//S3A306柏谷弘輝
+		//S3A309隈元悠翔
 	}
 
 }
