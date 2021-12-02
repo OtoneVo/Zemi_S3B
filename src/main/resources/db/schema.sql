@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS m_user (
  * encrypted_password		暗号化パスワード
  * address					住所
  * phone_number				電話番号
- * number_of_reservations	予約人数
+ * number_of_reservations	予約可能人数
+ * reservations_count		予約済み人数
  */
 CREATE TABLE IF NOT EXISTS hospital_list (
 	hospital_id varchar(254),
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS hospital_list (
 	address varchar(254) NOT NULL,
 	phone_number varchar(20) NOT NULL,
 	number_of_reservations varchar(3) NOT NULL,
+	reservations_count int NOT NULL DEFAULT 0,
 	PRIMARY KEY (hospital_id)
 );
 
@@ -86,5 +88,7 @@ CREATE TABLE IF NOT EXISTS diagnosis_list (
 CREATE TABLE IF NOT EXISTS hospital_diagnosis_list (
 	hospital_id varchar(254),
 	diagnosis_id varchar(254),
-	PRIMARY KEY (hospital_id, diagnosis_id)
+	PRIMARY KEY (hospital_id, diagnosis_id),
+	FOREIGN KEY hospital_list (hospital_id) REFERENCES hospital_diagnosis_list (hospital_id) ON DELETE CASCADE,
+	FOREIGN KEY diagnosis_list (diagnosis_id) REFERENCES hospital_diagnosis_list (diagnosis_id) ON DELETE CASCADE
 );
