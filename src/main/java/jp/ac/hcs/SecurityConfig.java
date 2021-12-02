@@ -27,10 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	/** ユーザーIDとパスワードとアカウントの有効性を取得するSQL */
-	private static final String USER_SQL = "SELECT user_id, password, true FROM m_user WHERE user_id = ?";
+	private static final String USER_SQL = "SELECT user_id, encrypted_password, true FROM m_user WHERE user_id = ?";
 
 	/** ユーザーIDと権限を取得するSQL */
-	private static final String ROLE_SQL = "SELECT user_id, user_authority FROM m_user WHERE user_id = ?";
+	private static final String ROLE_SQL = "SELECT user_id, user_permission FROM m_user WHERE user_id = ?";
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
