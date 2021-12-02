@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS reservation_list (
 	user_id varchar(254),
 	diagnosis_id varchar(254),
 	reservation_date timestamp,
-	reservation_time timestamp,
+	reservation_time time,
 	PRIMARY KEY (hospital_id, user_id, diagnosis_id)
 );
 
@@ -89,6 +89,6 @@ CREATE TABLE IF NOT EXISTS hospital_diagnosis_list (
 	hospital_id varchar(254),
 	diagnosis_id varchar(254),
 	PRIMARY KEY (hospital_id, diagnosis_id),
-	FOREIGN KEY hospital_list (hospital_id) REFERENCES hospital_diagnosis_list (hospital_id) ON DELETE CASCADE,
-	FOREIGN KEY diagnosis_list (diagnosis_id) REFERENCES hospital_diagnosis_list (diagnosis_id) ON DELETE CASCADE
+	FOREIGN KEY (hospital_id) REFERENCES hospital_diagnosis_list (hospital_id) ON DELETE CASCADE,
+	FOREIGN KEY (diagnosis_id) REFERENCES hospital_diagnosis_list (diagnosis_id) ON DELETE CASCADE
 );
