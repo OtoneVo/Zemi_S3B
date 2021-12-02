@@ -62,8 +62,7 @@ CREATE TABLE IF NOT EXISTS reservation_list (
 	diagnosis_id varchar(254),
 	reservation_date timestamp,
 	reservation_time timestamp,
-	PRIMARY KEY (hospital_id, user_id, diagnosis_id),
-
+	PRIMARY KEY (hospital_id, user_id, diagnosis_id)
 );
 
 /**
