@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<title>>病院予約システム</title>
+
+<!-- モバイル設定 -->
+<meta id="viewport" name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<meta name="application-name" content=">病院予約システム">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content=">病院予約システム">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- アイコン設定 -->
+<link rel="icon" th:href="@{/img/favicon.ico}" sizes="192x192"
+	href="../static/img/favicon.ico">
+<link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}"
+	sizes="192x192">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}" sizes="58x58">
+
+<!-- スタイル設定 -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/ress.css}"
+	href="../static/css/ress.css">
+<link rel="stylesheet" th:href="@{/css/home.css}"
+	href="../static/css/home.css">
+
+</head>
+
+<body>
+	<br>
+	<br>
+	<h1 class=".text-dark" style="opacity: 0.7">病院予約システム.com</h1>
+	<br>
+	<br>
+	<div class="box" id="makeImg">
+		<br><br>
+		<h2 style="opacity: 0.7;">ログイン</h2>
+		<br><br>
+		<div class="input-form">
+			<!-- エラーメッセージ表示領域 -->
+			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+				class="text-danger">ログインエラーメッセージ</p>
+
+			<form method="post" th:action="@{/login}">
+				<label for="user_id" style="font-size: 20px;">ユーザID</label> <input
+					type="text" class="form-control input-box" name="user_id"
+					placeholder="ユーザIDを入力してください"> <label for="password"
+					style="font-size: 20px;">パスワード</label> <input type="password"
+					class="form-control input-box" name="password"
+					placeholder="パスワードを入力してください"><br>
+				<button type="submit" class="btn btn-primary"
+					style="width: 100%; height: 50px">ログイン</button>
+			</form>
+			<br> <br>
+		</div>
+	</div>
+	<div class="box" id="makeImg">
+		<br> <a th:href="@{'/'}">ユーザIDやパスワードを忘れたときはこちら</a> <br> <a
+			th:href="@{'/'}">ユーザ新規登録の方はこちら</a> <br> <br>
+	</div>
+	<br>
+	<br>
+</body>
+</html>
