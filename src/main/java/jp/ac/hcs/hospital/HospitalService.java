@@ -16,7 +16,7 @@ public class HospitalService {
 	/**
 	 * 病院の情報を取得する
 	 *
-	 * @return hospitalEntity
+	 * @return hospitalEntity	取得した病院データ
 	 */
 	public HospitalEntity getHospitals() {
 
@@ -30,6 +30,26 @@ public class HospitalService {
 		}
 		return hospitalEntity;
 
+	}
+
+	/**
+	 * 検索条件に合致する病院を一覧表示する
+	 *
+	 * @param	hospital_name	病院名
+	 * @param	address			病院住所
+	 * @return	hospitalEntity	取得した病院データ
+	 */
+	public HospitalEntity getHospitalSearch(String hospital_name, String address) {
+
+		HospitalEntity hospitalEntity = new HospitalEntity();
+
+		try {
+			hospitalEntity = hospitalRepository.selectSearch(hospital_name, address);
+		} catch (DataAccessException e) {
+			log.info("病院検索:異常発生");
+			hospitalEntity = null;
+		}
+		return hospitalEntity;
 	}
 
 }
