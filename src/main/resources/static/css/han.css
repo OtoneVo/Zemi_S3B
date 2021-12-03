@@ -9,6 +9,7 @@ label {
   right: 10px;
   top: 10px;
   z-index: 120;
+  opacity: 0.5;
 }
 
 span {
@@ -19,6 +20,7 @@ span {
   right: 15px;
   transition: .3s;
   z-index: 200;
+  opacity: 0.5;
 }
 
 .span1 {
