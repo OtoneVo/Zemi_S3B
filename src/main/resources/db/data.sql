@@ -16,6 +16,14 @@ VALUES('ima@hcs.ac.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1
 INSERT INTO hospital_list (hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations)
 VALUES('sapporo@hosp.ac.jp', '札幌市立病院', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '札幌市中央区北10条東5丁目', '090-2435-8204' , '30');
 
+/* 病院マスタのデータ PASS:password */
+INSERT INTO hospital_list (hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations)
+VALUES('takikawa@hosp.ac.jp', '滝川市立病院', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '滝川市空知町2丁目2−34', '090-5475-8164' , '30');
+
+/* 病院マスタのデータ PASS:password */
+INSERT INTO hospital_list (hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations)
+VALUES('sunagawa@hosp.ac.jp', '砂川市立病院', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '砂川市西7条北4', '090-2398-0214' , '30');
+
 
 /* 予約マスタテーブル */
 INSERT INTO reservation_list (hospital_id, user_id, diagnosis_id, reservation_date, reservation_time)
