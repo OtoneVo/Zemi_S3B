@@ -27,8 +27,6 @@ h1 {
 	font-family: 'ＭＳ 明朝';
 }
 
-hr{
-	border-width: 3px 0 0 0;
-	border-style: double;
-	border-color: #00bfff;
+button{
+	font-family: 'ＭＳ 明朝';
 }

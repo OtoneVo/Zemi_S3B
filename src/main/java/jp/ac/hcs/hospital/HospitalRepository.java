@@ -17,13 +17,20 @@ public class HospitalRepository {
 	/** SQL病院情報全件取得 */
 	private static final String SQL_SELECT_ALL = "SELECT * FROM hospital_List ORDER BY hospital_id";
 
+	/** SQL病院検索結果取得 */
+	private static final String SQL_SELECT_SEARCH = "SELECT * FROM hospital_List "
+			+ "WHERE CASE WHEN hospital_name <> '' THEN hospital_name = ?"
+			+ "WHEN address <> '' THEN address = ?"
+			+ "ORDER BY hospital_id";
+
 	@Autowired
 	JdbcTemplate jdbc;
 
 	/**
 	 * hospital_Listテーブルの全要素を取得
 	 *
-	 * @return hospitalEntity
+	 * @return hospitalEntity	取得した病院データ
+	 * @throws	DataAccessException	データベースエラー
 	 */
 	public HospitalEntity selectAll() throws DataAccessException {
 
@@ -35,10 +42,25 @@ public class HospitalRepository {
 	}
 
 	/**
-	 * Taskテーブルから取得したデータをTaskEntity形式にマッピングする
+	 * Hospital_Listテーブルから条件に合致する要素を取得
 	 *
-	 * @param resultList Taskテーブルから取得したデータ
-	 * @return TaskEntity
+	 * @param	hospital_name	病院名
+	 * @param	address			病院住所
+	 * @return	hospitalEntity	取得した病院データ
+	 */
+	public HospitalEntity selectSearch(String hospital_name, String address) throws DataAccessException {
+
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SELECT_SEARCH, hospital_name, address);
+		HospitalEntity hospitalEntity = mappingSelectResult(resultList);
+
+		return hospitalEntity;
+	}
+
+	/**
+	 * Hospital_Listテーブルから取得したデータをHospitalEntity形式にマッピングする
+	 *
+	 * @param	resultList 		Hospital_Listテーブルから取得したデータ
+	 * @return HospitalEntity	変換されたhospitalEntityデータ
 	 */
 	private HospitalEntity mappingSelectResult(List<Map<String, Object>> resultList) throws DataAccessException {
 		HospitalEntity hospitalEntity = new HospitalEntity();
