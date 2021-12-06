@@ -3,7 +3,19 @@
  1ページにしか使わない設定は、各html内で直接styleタグで指定する.
  */
 body {
-	 background   : linear-gradient(to bottom, #e0ffff,#afeeee, #e0ffff);
+	background: linear-gradient(to bottom, #e0ffff, #afeeee, #e0ffff);
+}
+
+label {
+	font-family: 'ＭＳ 明朝';
+}
+
+a {
+	font-family: 'ＭＳ 明朝';
+}
+
+h1 {
+	font-family: 'ＭＳ 明朝';
 }
 
 .input-form {
@@ -16,39 +28,26 @@ body {
 }
 
 .box {
-  margin       : auto;
-  width        : 50%;
-  height       : 50%;
-  background-color: #FFFFFF;
-  text-align: center;
-}
-
-h1 {
-	font-family: 'ＭＳ 明朝';
-}
-
-button{
-	font-family: 'ＭＳ 明朝';
+	margin: auto;
+	width: 50%;
+	height: 50%;
+	background-color: #FFFFFF;
+	text-align: center;
 }
 
 .side {
-  width:30%;
-  height:300px;
-  text-align:center;
-  margin-left:10px;/*サイドバーとメインコンテンツの間に隙間をあけた*/
-  margin-right: 10px;
+	width: 30%;
+	height: 100%;
+	text-align: center;
 }
 
 .content {
-  width:70%;
-  height:300px;
-  text-align:left;
+	width: 70%;
+	height: 100%;
+	text-align: left;
 }
 
 article {
-  display:flex;/*サイドバーとメインコンテンツを横並びにする指定をした*/
+	display: flex; /*サイドバーとメインコンテンツを横並びにする指定をした*/
 }
 
-label {
-	font-family: 'ＭＳ 明朝';
-}
