@@ -18,6 +18,16 @@ h1 {
 	font-family: 'ＭＳ 明朝';
 }
 
+h2 {
+	padding: 1rem 2rem;
+	color: #000;
+	background: #add8e6;
+	-webkit-box-shadow: 5px 5px 0 #87ceeb;
+	box-shadow: 5px 5px 0 #87ceeb;
+	font-family: 'ＭＳ 明朝';
+
+}
+
 .input-form {
 	margin: 2px auto;
 	max-width: 600px;
@@ -50,4 +60,3 @@ h1 {
 article {
 	display: flex; /*サイドバーとメインコンテンツを横並びにする指定をした*/
 }
-
