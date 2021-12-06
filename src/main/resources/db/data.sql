@@ -26,19 +26,19 @@ VALUES('sunagawa@hosp.ac.jp', '砂川市立病院', '$2a$10$xRTXvpMWly0oGiu65WZl
 
 
 /* 予約マスタテーブル */
-INSERT INTO reservation_list (hospital_id, user_id, diagnosis_id, reservation_date, reservation_time)
+INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)
 VALUES('sapporo@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2021-12-22', '12:30:00');
 
 
 /* 診療科マスタテーブル 1：外科 */
-INSERT INTO diagnosis_list (diagnosis_id, diagnosis_name)
+INSERT INTO diagnosis_list (medical_id, medical_name)
 VALUES('1', '外科');
 
 /* 診療科マスタテーブル 2：内科 */
-INSERT INTO diagnosis_list (diagnosis_id, diagnosis_name)
+INSERT INTO diagnosis_list (medical_id, medical_name)
 VALUES('2', '内科');
 
 
 /* 病院診療科テーブル */
-INSERT INTO hospital_diagnosis_list (hospital_id, diagnosis_id)
+INSERT INTO hospital_diagnosis_list (hospital_id, medical_id)
 VALUES('sapporo@hosp.ac.jp', '1');
