@@ -1,21 +1,22 @@
 @charset "UTF-8";
 
 
-label {
+.han_label {
   width: 30px;
   height: 30px;
-  border: 2px solid black;
+  border: 2px solid #191970;
   position: fixed;
   right: 10px;
   top: 10px;
   z-index: 120;
   opacity: 0.5;
+  background-color: #191970;
 }
 
-span {
+.han_span {
   width: 20px;
   height: 1px;
-  background-color: black;
+  background-color: white;
   position: fixed;
   right: 15px;
   transition: .3s;
@@ -41,18 +42,18 @@ span {
 }
 
 #check:checked ~ .span1 {
-  width: 27px;
+  width: 30px;
   transform: rotate(45deg);
-  top: 27px;
-  right: 12px;
+  top: 25px;
+  right: 10px;
 
 }
 
 #check:checked ~ .span3 {
-  width: 27px;
+  width: 30px;
   transform: rotate(-45deg);
-  top: 27px;
-  right: 12px;
+  top: 25px;
+  right: 10px;
 }
 
 #check {

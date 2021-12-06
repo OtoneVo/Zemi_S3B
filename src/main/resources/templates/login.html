@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>>病院予約システム</title>
+<title>病院予約システム</title>
 
 <!-- モバイル設定 -->
 <meta id="viewport" name="viewport"
@@ -39,19 +39,20 @@
 <body>
 	<br>
 	<br>
-	<h1 class=".text-dark" style="opacity: 0.7">病院予約システム.com</h1>
+	<h1 class=".text-dark" style="opacity: 0.7; text-align: center;">病院予約システム.com</h1>
 	<br>
 	<br>
 	<div class="box" id="makeImg">
-		<br><br>
+		<br>
+		<br>
 		<h2 style="opacity: 0.7;">ログイン</h2>
-		<br><br>
+		<br>
 		<div class="input-form">
 			<!-- エラーメッセージ表示領域 -->
 			<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
 				th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
 				class="text-danger">ログインエラーメッセージ</p>
-
+			<br>
 			<form method="post" th:action="@{/login}">
 				<label for="user_id" style="font-size: 20px;">メールアドレス</label> <input
 					type="text" class="form-control input-box" name="user_id"
@@ -60,7 +61,7 @@
 					class="form-control input-box" name="password"
 					placeholder="パスワードを入力してください"><br>
 				<button type="submit" class="btn btn-primary"
-					style="width: 100%; height: 50px">ログイン</button>
+					style="width: 100%; height: 60px; font-size: 30px;">ログイン</button>
 			</form>
 			<br> <br>
 		</div>

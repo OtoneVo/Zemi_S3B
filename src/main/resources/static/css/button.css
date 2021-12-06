@@ -1,0 +1,19 @@
+/*色や主な共通部分は省略*/
+
+a.btn--circle {
+  border-radius: 50%;
+  line-height: 250px;
+  width: 250px;
+  height: 250px;
+  padding: 0;
+  -webkit-box-shadow: 0 5px 0 #e6d900;
+  box-shadow: 0 5px 0 #c0c0c0;
+  background-color: #FFFFFF;
+}
+
+a.btn--circle:hover {
+  -webkit-transform: translate(0, 3px);
+  transform: translate(0, 3px);
+  -webkit-box-shadow: 0 2px 0 #c0c0c0;
+  box-shadow: 0 2px 0 #c0c0c0;
+}

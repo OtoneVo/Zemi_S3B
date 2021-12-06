@@ -37,53 +37,71 @@
 	href="../static/css/home.css">
 <link rel="stylesheet" th:href="@{/css/han.css}"
 	href="../static/css/han.css">
+<link rel="stylesheet" th:href="@{/css/button.css}"
+	href="../static/css/buttan.css">
 
 </head>
 <body>
 	<!-- 共通ヘッダ -->
-		<h1 style="font-size: 100px;margin: 20%">病院予約システム</h1>
-		<input type="checkbox" id="check"> <span class="span1"></span>
-		<span class="span2"></span> <span class="span3"></span> <label
-			for="check"></label>
-		<ul>
-			<li><form class="my-2 my-lg-0" method="post"
-					th:action="@{/logout}">
-					<button type="submit"
-						style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">Logout</button>
-				</form></li>
-			<li><button type="submit"
-					style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">ユーザ管理</button></li>
-			<li><button type="submit"
-					style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">ほにゃらら管理</button></li>
-		</ul>
-	<!-- コンテンツ -->
-	<div class="col-sm-12">
-		<form method="get" th:action="@{/hospitalList}">
-			<button type="submit" class="btn btn-primary" name="task"
-				style="width: 100%; height: 200px; font-size: 100px">予約</button>
-		</form>
-	</div>
-	<br>
-	<br>
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="content-box">
-				<form method="post" th:action="@{/}">
-					<button type="submit" class="btn btn-primary"
-						style="width: 95%; height: 200px; font-size: 100px">履歴</button>
-				</form>
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="content-box">
-				<form method="post" th:action="@{/}">
-					<button type="submit" class="btn btn-primary" name="weather"
-						style="width: 95%; height: 200px; font-size: 100px">診断</button>
-				</form>
-			</div>
-		</div>
-	</div>
+	<header style="height: 300px; background-color: #00bfff;">
+		<label style="font-size: 50px; margin-top: 50px; text-align: left;">病院予約システム</label>
+	</header>
 
+	<!-- ハンバーガーメニュー -->
+	<input type="checkbox" id="check">
+	<span class="span1 han_span"></span>
+	<span class="span2 han_span"></span>
+	<span class="span3 han_span"></span>
+	<label class="han_label" for="check"></label>
+	<ul>
+		<li><form class="my-2 my-lg-0" method="post"
+				th:action="@{/logout}">
+				<button type="submit"
+					style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">Logout</button>
+			</form></li>
+		<li><button type="submit"
+				style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">ユーザ管理</button></li>
+		<li><button type="submit"
+				style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">ほにゃらら管理</button></li>
+	</ul>
+
+	<!-- コンテンツ -->
+	<br>
+	<article>
+		<div class="content">
+			<h1 style="margin-left: 30px; opacity: 0.8;">予約機能</h1>
+		</div>
+		<div class="side">
+			<br> <a href="" class="btn btn--circle"><img
+				alt="/img/予約一覧画像.png" src="/img/予約一覧用画像.png"
+				style="width: 200px; height: 100px;"></a>
+		</div>
+	</article>
+	<hr style="background-color: #dcdcdc;">
+	<article>
+		<div class="content">
+			<h1 style="margin-left: 30px; opacity: 0.8;">診断機能</h1>
+		</div>
+		<hr style="background-color: #dcdcdc;">
+		<div class="side">
+			<br> <a href="" class="btn btn--circle"><img
+				alt="/img/予約一覧画像.png" src="/img/予約一覧用画像.png"
+				style="width: 200px; height: 100px;"></a>
+		</div>
+	</article>
+	<hr style="background-color: #dcdcdc;">
+	<article>
+		<div class="content">
+			<h1 style="margin-left: 30px; opacity: 0.8;">履歴機能</h1>
+		</div>
+		<div class="side">
+			<br> <a href="" class="btn btn--circle"><img
+				alt="/img/予約一覧画像.png" src="/img/予約一覧用画像.png"
+				style="width: 200px; height: 100px;"></a>
+		</div>
+	</article>
+	<hr style="background-color: #dcdcdc;">
+	<footer style="height: 300px;"> </footer>
 
 </body>
 </html>

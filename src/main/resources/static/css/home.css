@@ -3,7 +3,6 @@
  1ページにしか使わない設定は、各html内で直接styleタグで指定する.
  */
 body {
-	text-align: center;
 	 background   : linear-gradient(to bottom, #e0ffff,#afeeee, #e0ffff);
 }
 
@@ -21,6 +20,7 @@ body {
   width        : 50%;
   height       : 50%;
   background-color: #FFFFFF;
+  text-align: center;
 }
 
 h1 {
@@ -28,5 +28,27 @@ h1 {
 }
 
 button{
+	font-family: 'ＭＳ 明朝';
+}
+
+.side {
+  width:30%;
+  height:300px;
+  text-align:center;
+  margin-left:10px;/*サイドバーとメインコンテンツの間に隙間をあけた*/
+  margin-right: 10px;
+}
+
+.content {
+  width:70%;
+  height:300px;
+  text-align:left;
+}
+
+article {
+  display:flex;/*サイドバーとメインコンテンツを横並びにする指定をした*/
+}
+
+label {
 	font-family: 'ＭＳ 明朝';
 }
