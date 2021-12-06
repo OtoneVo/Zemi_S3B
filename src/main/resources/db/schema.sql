@@ -54,41 +54,41 @@ CREATE TABLE IF NOT EXISTS hospital_list (
  *
  * hospital_id			病院ID
  * user_id				ユーザID
- * diagnosis_id			診療科ID
+ * medical_id			診療科ID
  * reservation_date		予約日付
  * reservation_time		予約時刻
  */
 CREATE TABLE IF NOT EXISTS reservation_list (
 	hospital_id varchar(254),
 	user_id varchar(254),
-	diagnosis_id varchar(254),
+	medical_id varchar(254),
 	reservation_date timestamp,
 	reservation_time time,
-	PRIMARY KEY (hospital_id, user_id, diagnosis_id)
+	PRIMARY KEY (hospital_id, user_id, medical_id)
 );
 
 /**
  * 診療科マスタテーブル
  *
- * diagnosis_id		診療科ID
+ * medical_id		診療科ID
  * diagnosis_name	診療科名
  */
-CREATE TABLE IF NOT EXISTS diagnosis_list (
-	diagnosis_id varchar(254),
-	diagnosis_name varchar(50) NOT NULL,
-	PRIMARY KEY (diagnosis_id)
+CREATE TABLE IF NOT EXISTS medical_list (
+	medical_id varchar(254),
+	medical_name varchar(50) NOT NULL,
+	PRIMARY KEY (medical_id)
 );
 
 /**
  * 病院診療科テーブル
  *
  * hospital_id		病院ID
- * diagnosis_id		診療科ID
+ * medical_id		診療科ID
  */
-CREATE TABLE IF NOT EXISTS hospital_diagnosis_list (
+CREATE TABLE IF NOT EXISTS hospital_medical_list (
 	hospital_id varchar(254),
-	diagnosis_id varchar(254),
-	PRIMARY KEY (hospital_id, diagnosis_id),
-	FOREIGN KEY (hospital_id) REFERENCES hospital_diagnosis_list (hospital_id) ON DELETE CASCADE,
-	FOREIGN KEY (diagnosis_id) REFERENCES hospital_diagnosis_list (diagnosis_id) ON DELETE CASCADE
+	medical_id varchar(254),
+	PRIMARY KEY (hospital_id, medical_id),
+	FOREIGN KEY (hospital_id) REFERENCES hospital_medical_list (hospital_id) ON DELETE CASCADE,
+	FOREIGN KEY (medical_id) REFERENCES hospital_medical_list (medical_id) ON DELETE CASCADE
 );

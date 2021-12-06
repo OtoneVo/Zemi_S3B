@@ -26,7 +26,7 @@ public class HospitalService {
 			hospitalEntity = hospitalRepository.selectAll();
 		} catch (DataAccessException e) {
 			log.info("全件取得:異常発生");
-			hospitalEntity = null;
+			throw e;
 		}
 		return hospitalEntity;
 
@@ -47,7 +47,7 @@ public class HospitalService {
 			hospitalEntity = hospitalRepository.selectSearch(hospital_name, address);
 		} catch (DataAccessException e) {
 			log.info("病院検索:異常発生");
-			hospitalEntity = null;
+			throw e;
 		}
 		return hospitalEntity;
 	}
