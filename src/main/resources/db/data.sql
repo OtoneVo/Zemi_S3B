@@ -31,14 +31,14 @@ VALUES('sapporo@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2021-12-22', '12:30:00
 
 
 /* 診療科マスタテーブル 1：外科 */
-INSERT INTO diagnosis_list (medical_id, medical_name)
+INSERT INTO medical_list (medical_id, medical_name)
 VALUES('1', '外科');
 
 /* 診療科マスタテーブル 2：内科 */
-INSERT INTO diagnosis_list (medical_id, medical_name)
+INSERT INTO medical_list (medical_id, medical_name)
 VALUES('2', '内科');
 
 
 /* 病院診療科テーブル */
-INSERT INTO hospital_diagnosis_list (hospital_id, medical_id)
+INSERT INTO hospital_medical_list (hospital_id, medical_id)
 VALUES('sapporo@hosp.ac.jp', '1');
