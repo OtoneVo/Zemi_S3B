@@ -43,4 +43,9 @@ public class HospitalData {
 	 */
 	private int reservations_count;
 
+	/**
+	 * 診療科ID	主キー、外部キー(診療科テーブル)
+	 */
+	private String medical_id;
+
 }

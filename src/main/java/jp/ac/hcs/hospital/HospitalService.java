@@ -52,4 +52,34 @@ public class HospitalService {
 		return hospitalEntity;
 	}
 
+	/**
+	 * 病院を新規登録する
+	 *
+	 * @param	hospitalData	入力された病院データ
+	 * @return
+	 */
+	public HospitalEntity getHospitalInsert(HospitalForm hForm) {
+
+		HospitalData hospitalData = new HospitalData();
+
+		hospitalData.setHospital_id(hForm.getHospital_id());
+		hospitalData.setHospital_name(hForm.getHospital_name());
+		hospitalData.setEncrypted_password(hForm.getEncrypted_password());
+		hospitalData.setAddress(hForm.getAddress());
+		hospitalData.setPhone_number(hForm.getPhone_number());
+		hospitalData.setNumber_of_reservations(hForm.getNumber_of_reservations());
+
+		hospitalData.setMedical_id(hForm.getMedical_id());
+		hospitalData.setHospital_id(hForm.getHospital_id());
+
+		try {
+			hospitalRepository.insertOne(hospitalData);
+		} catch (DataAccessException e) {
+			log.info("病院新規登録：異常");
+			throw e;
+		}
+
+		return getHospitals();
+	}
+
 }

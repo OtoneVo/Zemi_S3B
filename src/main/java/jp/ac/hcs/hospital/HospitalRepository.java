@@ -1,11 +1,13 @@
 package jp.ac.hcs.hospital;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,14 +16,23 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class HospitalRepository {
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
 	/** SQL病院情報全件取得 */
 	private static final String SQL_SELECT_ALL = "SELECT * FROM hospital_List ORDER BY hospital_id";
 
 	/** SQL病院検索結果取得 */
 	private static final String SQL_SELECT_SEARCH = "SELECT * FROM hospital_List "
-			+ "WHERE CASE WHEN hospital_name <> '' THEN hospital_name = ?"
+			+ "WHERE CASE WHEN hospital_name <> '' THEN hospital_name LIKE '%?%'"
 			+ "WHEN address <> '' THEN address = ?"
 			+ "ORDER BY hospital_id";
+
+	/** SQL病院新規登録 */
+	private static final String SQL_INSERT_HOSPITAL = "INSERT INTO hospital_List(hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations) VALUES(?, ?, ?, ?, ?, ?)";
+
+	/** SQL診療科新規登録 */
+	private static final String SQL_INSERT_MEDICAL = "INSERT INTO hospital_medical_list(hospital_id, medical_id) VALUES (?, ?)";
 
 	@Autowired
 	JdbcTemplate jdbc;
@@ -78,6 +89,31 @@ public class HospitalRepository {
 			hospitalEntity.getHospitalList().add(data);
 		}
 		return hospitalEntity;
+	}
+
+	/**
+	 * Hospital_Listに入力されたデータを格納する
+	 *
+	 * @param	hospitalData	入力された病院データ
+	 * @param	medicalData		入力された診療科データ
+	 * @return	rowNumber		入力件数
+	 */
+	public int insertOne(HospitalData hospitalData) throws DataAccessException {
+
+		int rowNumber = jdbc.update(SQL_INSERT_HOSPITAL, hospitalData.getHospital_id(), hospitalData.getHospital_name(),
+				passwordEncoder.encode(hospitalData.getEncrypted_password()), hospitalData.getAddress(),
+				hospitalData.getPhone_number(), hospitalData.getNumber_of_reservations());
+
+		List<String> medicalList = Arrays.asList(hospitalData.getMedical_id().split(",", 0));
+
+		for (String medicalId : medicalList) {
+			if (medicalId != null && medicalId.isEmpty() == false) {
+				rowNumber += jdbc.update(SQL_INSERT_MEDICAL, hospitalData.getHospital_id(),
+						hospitalData.getMedical_id());
+			}
+		}
+
+		return rowNumber;
 	}
 
 }

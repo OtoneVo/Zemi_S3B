@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<p>病院新規登録画面</p>
+	<div class="container">
+		<div class="content-box">
+			<h2>ユーザ新規登録</h2>
+			<p>（管理者用）</p>
+
+			<div class="input-form">
+				<form method="post" th:action="@{/hospitalList/insert}"
+					th:object="${hospitalForm}">
+
+					<label for="hospital_id">病院ID(メールアドレス)</label>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="hospital_id"
+							placeholder="xxxxxxx@xxx.xxx">
+
+					</div>
+
+					<label for="user_name">病院名</label>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="hospital_name"
+							placeholder="〇〇〇〇病院">
+					</div>
+
+					<label for="encrypted_password">パスワード</label>
+					<div class="form-group input-box">
+						<input type="password" class="form-control" name="password"
+							placeholder="xxxxxxxx">
+
+					</div>
+
+					<label for="address">住所</label>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="address"
+							placeholder="xxxx-xx-xxxx">
+					</div>
+
+					<label for="phone_number">電話番号</label>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="phone_number"
+							placeholder="xxxx-xx-xxxx">
+					</div>
+
+					<label for="number_of_reservations">予約可能人数</label>
+					<div class="form-group input-box">
+						<input type="text" class="form-control"
+							name="number_of_reservations" placeholder="xxxx-xx-xxxx">
+					</div>
+
+					<label for="medical_id">診療科ID</label>
+					<div class="form-group input-box">
+						<input type="checkbox" name="medical_id" value="1"
+							class="checkbox_list" id="medical_id">外科 <input
+							type="checkbox" name="medical_id" value="2" class="checkbox_list"
+							id="medical_id">内科
+
+					</div>
+					<button type="submit" class="btn btn-warning">登録</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+	<br>
+	<br>
+
 </body>
 </html>

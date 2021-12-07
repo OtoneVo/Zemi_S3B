@@ -72,10 +72,12 @@ public class HospitalController {
 	/**
 	 * 病院登録画面に遷移する
 	 *
-	 * @return	病院新規登録画面
+	 * @param	principal		ログイン中のユーザ情報
+	 * @return	hospitalInsert	病院新規登録画面
 	 */
 	@GetMapping("/hospitalList/insert")
-	public String getHospitalRegistration() {
+	public String getHospitalRegistration(Principal principal) {
+		log.info(principal.getName() + "：病院新規登録");
 		return "/hospital/hospitalInsert";
 	}
 
@@ -83,11 +85,24 @@ public class HospitalController {
 	/**
 	 * システムに病院を登録する（管理者用）
 	 *
-	 * @return	トップ画面
+	 *@param	form			入力された病院情報
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	hospitalList	病院一覧画面
 	 */
 	@PostMapping("/hospitalList/insert")
-	public String getHospitalInsert() {
-		return "/index";
+	public String getHospitalInsert(HospitalForm hForm, Principal principal, Model model) {
+
+		try {
+			HospitalEntity hospitalEntity = hospitalService.getHospitalInsert(hForm);
+			model.addAttribute("hospitalEntity", hospitalEntity);
+			log.info(principal.getName() + "：病院新規登録：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：病院新規登録：異常");
+			return "errorMessage";
+		}
+
+		return "hospital/hospitalList";
 	}
 
 	//TODO 病院詳細画面
