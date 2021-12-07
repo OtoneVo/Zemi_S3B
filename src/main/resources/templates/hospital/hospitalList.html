@@ -82,8 +82,11 @@
 				<td class="nowrap" th:text="${hospital.address}"></td>
 				<td class="nowrap" th:text="${hospital.phone_number}"></td>
 				<td class="nowrap" th:text="${hospital.reservations_count}"></td>
+				<td class="nowrap"><p>病院詳細画面</p></td>
 			</tr>
 		</tbody>
 	</table>
+
+	<form method="get" action="/hospitalList/insert">病院新規登録画面</form>
 </body>
 </html>
