@@ -71,7 +71,7 @@ ul {
   right: -100%;
   transition: 0.7s;
   z-index: 100;
-  background   : linear-gradient(to bottom, #e0ffff,#afeeee, #e0ffff);
+  background: url('https://www.sozailab.jp/db_img/sozai/59040/7810c966292d01f519def4999176278d.jpg')
 }
 
 li {

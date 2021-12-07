@@ -206,3 +206,20 @@ a.btn-flat:hover:before {
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
 }
+
+/*検索*/
+.btn-flat-simple {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #00BCD4;
+  background: #ECECEC;
+  transition: .4s;
+}
+
+.btn-flat-simple:hover {
+  background: #00bcd4;
+  color: white;
+}

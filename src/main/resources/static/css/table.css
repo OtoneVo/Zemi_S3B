@@ -1,0 +1,18 @@
+table {
+	width: 70%;
+	border-spacing: 0;
+	text-align: center;
+	font-size: 15px;
+	font-family: 'ＭＳ 明朝';
+	margin: auto;
+}
+
+table th {
+	width:auto;
+	padding: 10px 0;
+}
+
+table td {
+	width:auto;
+	padding: 10px 0;
+}

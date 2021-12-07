@@ -18,7 +18,7 @@ h1 {
 	font-family: 'ＭＳ 明朝';
 }
 
-h2 {
+.h2_main {
 	padding: 1rem 2rem;
 	color: #000;
 	background: #add8e6;
@@ -47,13 +47,11 @@ h2 {
 
 .side {
 	width: 30%;
-	height: 100%;
-	text-align: center;
+	text-align: left;
 }
 
 .content {
 	width: 70%;
-	height: 100%;
 	text-align: left;
 }
 

@@ -40,13 +40,14 @@
 <link rel="stylesheet" th:href="@{/css/button.css}"
 	href="../static/css/buttan.css">
 
+
 </head>
 <body>
 	<!-- 共通ヘッダ -->
 	<header
 		style="background: url('https://www.sozailab.jp/db_img/sozai/59040/7810c966292d01f519def4999176278d.jpg'); height: 600px;">
-		<label style="font-size: 40px; margin-top: 200px; margin-left: 40%;">病院予約</label><br>
-		<label style="font-size: 40px; margin-left: 50%;">システム</label>
+		<label style="font-size: 60px; margin-top: 200px; margin-left: 35%;">病院予約</label><br>
+		<label style="font-size: 60px; margin-left: 45%;">システム</label>
 	</header>
 	<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
 	<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
@@ -59,28 +60,18 @@
 	<span class="span3 han_span"></span>
 	<label class="han_label" for="check"></label>
 	<ul>
-		<li><form class="my-2 my-lg-0" method="post"
-				th:action="@{/logout}">
-				<button type="submit"
-					style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">Logout</button>
-			</form></li>
-		<li><button type="submit"
-				style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">ユーザ管理</button></li>
-		<li><button type="submit"
-				style="width: 75%; height: 25%; font-size: 30px; background-color: #FFFFFF">ほにゃらら管理</button></li>
+		<li><a href="/logout" class="btn btn-flat" style="width: 100%;"><span>logout</span></a></li>
+		<li><a href="" class="btn btn-flat" style="width: 100%;"><span>ほにゃらら機能へ</span></a></li>
+		<li><a href="" class="btn btn-flat" style="width: 100%;"><span>ほにゃらら機能へ</span></a></li>
 	</ul>
 
 	<!-- コンテンツ -->
-	<br><br>
-	<h2 style="opacity: 0.8; font-size: 35px;"><b>予約機能</b></h2>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>予約機能</b>
+	</h2>
+	<p style="font-size: 25px; margin: 10%">予約機能の説明文</p>
 	<a href="/hospitalList" class="btn btn-3d-flip"> <span
 		class="btn-3d-flip-box"> <span
 			class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
@@ -92,15 +83,10 @@
 	</span>
 	</a>
 	<hr style="background-color: #dcdcdc;">
-	<h2 style="opacity: 0.8; font-size: 35px;"><b>診断機能</b></h2>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>診断機能</b>
+	</h2>
+	<p style="font-size: 25px; margin: 10%">診断機能の説明文</p>
 	<a href="" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
 			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
 				alt="/img/予約一覧画像.png" src="/img/予約一覧用画像.png"
@@ -111,18 +97,13 @@
 	</span>
 	</a>
 	<hr style="background-color: #dcdcdc;">
-	<h2 style="opacity: 0.8; font-size: 35px;"><b>履歴機能</b></h2>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>履歴機能</b>
+	</h2>
+	<p style="font-size: 25px; margin: 10%">履歴機能の説明文</p>
 	<a href="" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
 			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
-				alt="/img/予約一覧画像.png" src="/img/予約一覧用画像.png"
+				alt="/img/履歴用画像.png" src="/img/履歴用画像.png"
 				style="width: 90px; height: 30px;"><i
 				class="fas fa-angle-right fa-position-right"></i></span> <span
 			class="btn-3d-flip-box-face btn-3d-flip-box-face--back"
@@ -130,6 +111,8 @@
 	</span>
 	</a>
 	<br>
+
+	<!-- 共通フッタ -->
 	<footer style="height: 250px; background-color: #696969">
 		<a href="#" class="btn btn-secondary"
 			style="width: 100%; height: 50px; font-size: 25px;">↑</a><br> <br>
