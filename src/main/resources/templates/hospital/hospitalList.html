@@ -46,26 +46,8 @@
 	<!-- 共通ヘッダ -->
 	<header
 		style="background: url('https://www.sozailab.jp/db_img/sozai/59040/7810c966292d01f519def4999176278d.jpg'); height: 135px;">
-		<article>
-			<div class="content">
-				<label style="font-size: 45px; margin-top: 0px; margin-left: 10px;">病院予約</label><br>
-				<label style="font-size: 45px; margin-left: 10px;">システム</label>
-			</div>
-			<div class="side">
-				<form method="post" th:action="@{/}">
-					<div class="input-group">
-						<input type="search" class="form-control" name="search"
-							placeholder="検索"
-							style="font-size: 20px; height: 30px; margin-top: 23%">
-						<button type="submit"
-							style="font-size: 20px; height: 30px; margin-top: 23%; width: 30px; margin-right: 10px;">
-							<img alt="/img/search.png" src="/img/search.png"
-								style="width: 25px; height: 23px;">
-						</button>
-					</div>
-				</form>
-			</div>
-		</article>
+		<label style="font-size: 45px; margin-top: 0px; margin-left: 10px;">病院予約</label><br>
+		<label style="font-size: 45px; margin-left: 10px;">システム</label>
 	</header>
 	<div style="width: 100%">
 		<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
@@ -82,43 +64,65 @@
 	<ul>
 		<li><a href="/logout" class="btn btn-flat"
 			style="width: 100%; font-size: 30px;"><span>logout</span></a></li>
-		<li><a href="" class="btn btn-flat"
-			style="width: 100%; font-size: 30px;"><span>管理画面へ</span></a></li>
+		<li><a href="/" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"><span>トップ画面へ</span></a></li>
 		<li><a href="" class="btn btn-flat"
 			style="width: 100%; font-size: 30px;"><span>ほにゃらら機能へ</span></a></li>
 	</ul>
 
 	<!-- コンテンツ -->
+	<br>
 	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
 		<b>病院一覧</b>
 	</h2>
-
-	<table class="table_box" style="margin-top: 10px">
+	<form method="post" th:action="@{/}">
+		<div class="input-group">
+			<input type="search" class="form-control" name="search"
+				placeholder="検索" style="font-size: 20px; height: 30px;">
+			<button type="submit" style="height: 30px; width: 30px;">
+				<img alt="/img/search.png" src="/img/search.png"
+					style="width: 25px; height: 23px;">
+			</button>
+		</div>
+	</form>
+	<br>
+	<table class="table_box">
 		<tbody th:each="hospital : ${hospitalEntity.hospitalList}"
 			th:object="${hospital}">
 			<tr class="box">
-				<th>病院名</th>
-				<td class="nowrap" th:text="${hospital.hospital_name}"></td>
-				<th>住所</th>
-				<td class="nowrap" th:text="${hospital.address}"></td>
-				<th>電話番号</th>
-				<td class="nowrap" th:text="${hospital.phone_number}"></td>
-				<th>予約状況</th>
-				<td class="nowrap" th:text="${hospital.reservations_count}"></td>
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">病院名</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${hospital.hospital_name}"></td>
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">住所</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${hospital.address}"></td>
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">電話番号</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${hospital.phone_number}"></td>
+
+
 			</tr>
 
 			<tr class="box" id="makeImg">
-				<th>予約画面へ移動</th>
-				<td></td>
+				<th style="border-left: solid 2px #c0c0c0;">本日の予約状況</th>
+				<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+					th:text="${hospital.reservations_count}"></td>
 				<th></th>
-				<td></td>
+				<td style="font-size: 20px"><b>予約画面へ移動</b></td>
+				<th style="font-size: 20px">➔</th>
+				<td style="border-right: solid 2px #c0c0c0;"><a href="/"
+					class="btn btn-info" style="width: 80%;"><span>予約</span></a></td>
 				<th></th>
-				<td></td>
-				<th></th>
-				<td><a href="/" class="btn btn-flat" style="width: 100%;"><span>予約</span></a></td>
+
 			</tr>
 			<tr>
-				<th><br></th>
+				<th style="margin: 20%"></th>
 			</tr>
 		</tbody>
 	</table>
