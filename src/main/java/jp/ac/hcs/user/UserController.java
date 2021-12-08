@@ -1,6 +1,12 @@
 package jp.ac.hcs.user;
 
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -8,70 +14,28 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserController {
 
-	//TODO ユーザ一覧画面
+	@Autowired
+	private UserService userService;
+
 	/**
-	 * 登録したユーザの一覧を表示する機能
+	 * ユーザ一覧画面に遷移する
 	 *
-	 * @return	ユーザ一覧画面
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	hospitalList	正常：ユーザ一覧画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
-	public String getUsers() {
-		return null;
-	}
+	@GetMapping("/userList")
+	public String getUsers(Principal principal, Model model) {
 
-	//TODO ユーザ検索機能
-	/**
-	 * 条件に合致するユーザを表示する
-	 * @return	ユーザ一覧画面
-	 */
-	public String getUserSearch() {
-		return null;
-	}
+		try {
+			UserEntity userEntity = userService.getUsers();
+			model.addAttribute("userEntity", userEntity);
+			log.info(principal.getName() + "：ユーザ一覧画面：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：ユーザ一覧画面：異常");
+			return "errorMessage";
+		}
+		return "user/userList";
 
-	//TODO ユーザ新規登録画面
-	/**
-	 * ユーザを登録する画面に遷移する
-	 *
-	 * @return	ユーザ新規登録画面
-	 */
-	public String getUserRegistration() {
-		return null;
-	}
-
-	//TODO ユーザ新規登録機能
-	/**
-	 * 入力したユーザ情報を保存する機能
-	 */
-	public String getUserInsert() {
-		return null;
-	}
-
-	//TODO ユーザ詳細画面
-	/**
-	 * ユーザの詳細情報を表示する画面に遷移する
-	 *
-	 * @return	ユーザ詳細画面
-	 */
-	public String getUserDetail() {
-		return null;
-	}
-
-	//TODO ユーザ情報変更機能
-	/**
-	 * 保存しているユーザの情報を変更する
-	 *
-	 * @return	ユーザ詳細画面
-	 */
-	public String getUserUpdate() {
-		return null;
-	}
-
-	//TODO ユーザ削除機能
-	/**
-	 * 詳細画面に表示しているユーザを削除する
-	 *
-	 * @return ユーザ一覧画面
-	 */
-	public String getUserDelete() {
-		return null;
 	}
 }
