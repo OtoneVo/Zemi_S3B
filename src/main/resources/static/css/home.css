@@ -58,3 +58,7 @@ h1 {
 article {
 	display: flex; /*サイドバーとメインコンテンツを横並びにする指定をした*/
 }
+
+.modal-open {
+    padding-right: 0px !important;
+}

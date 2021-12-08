@@ -15,7 +15,7 @@ public class UserService {
 	/**
 	 * ユーザ情報を取得する
 	 *
-	 * @return hospitalEntity	取得したユーザデータ
+	 * @return userEntity	取得したユーザデータ
 	 */
 	public UserEntity getUsers() {
 
@@ -23,6 +23,25 @@ public class UserService {
 
 		try {
 			userEntity = userRepository.selectAll();
+		} catch (DataAccessException e) {
+			log.info("全件取得:異常発生");
+			throw e;
+		}
+		return userEntity;
+
+	}
+
+	/**
+	 * ユーザ情報を削除する
+	 *
+	 * @return userEntity	取得したユーザデータ
+	 */
+	public UserEntity userDelete(String user_id) {
+
+		UserEntity userEntity = new UserEntity();
+
+		try {
+			userEntity = userRepository.userDelete(user_id);
 		} catch (DataAccessException e) {
 			log.info("全件取得:異常発生");
 			throw e;

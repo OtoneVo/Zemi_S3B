@@ -22,6 +22,9 @@ public class UserRepository {
 	/** SQLユーザ情報全件取得 */
 	private static final String SQL_SELECT_ALL = "SELECT * FROM m_user ORDER BY user_id";
 
+	/** SQLユーザ情報全件取得 */
+	private static final String SQL_USER_DELETE = "DELETE FROM m_user WHERE user_id = ?";
+
 	@Autowired
 	JdbcTemplate jdbc;
 
@@ -40,15 +43,28 @@ public class UserRepository {
 
 	}
 
+	public UserEntity userDelete(String user_id) throws DataAccessException {
+
+		jdbc.update(SQL_USER_DELETE,user_id);
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SELECT_ALL);
+		UserEntity userEntity = mappingSelectResult(resultList);
+
+		return userEntity;
+
+	}
+
 	private UserEntity mappingSelectResult(List<Map<String, Object>> resultList) throws DataAccessException {
 		UserEntity userEntity = new UserEntity();
 
 		for (Map<String, Object> map : resultList) {
 
 			UserData userData = new UserData();
+
+			//必要な変数を宣言
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY年MM月dd日");
 			String birth_date = sdf.format(map.get("birth_date"));
 
+			//UserDataに適切な型に変換し、セットする
 			userData.setUser_id((String) map.get("user_id"));
 			userData.setUser_name((String) map.get("user_name"));
 			userData.setUser_permission((String) map.get("user_permission"));
@@ -57,6 +73,29 @@ public class UserRepository {
 			userData.setBirth_date(birth_date);
 			userData.setAddress((String) map.get("address"));
 			userData.setPhone_number((String) map.get("phone_number"));
+
+			//ユーザ権限表示変換
+			switch (userData.getUser_permission()){
+			  case "HOSPITAL":
+				  userData.setUser_permission("病院");
+			    break;
+			  case "GENERAL":
+				  userData.setUser_permission("一般");
+			    break;
+			  case "ADMIN":
+				  userData.setUser_permission("管理者");
+				    break;
+			}
+
+			//身体性別表示変換
+			switch (userData.getGender()){
+			  case "1":
+				  userData.setGender("男");
+			    break;
+			  case "2":
+				  userData.setGender("女");
+			    break;
+			}
 
 			userEntity.getUserList().add(userData);
 		}
