@@ -41,4 +41,4 @@ VALUES('2', '内科');
 
 /* 病院診療科テーブル */
 INSERT INTO hospital_medical_list (hospital_id, medical_id)
-VALUES('sapporo@hosp.ac.jp', '1');
+VALUES('sapporo@hosp.ac.jp', '1,2');
