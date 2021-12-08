@@ -63,4 +63,24 @@ public class UserController {
 
 	}
 
+	/**
+	 * 管理画面に遷移する
+	 *
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	userList	正常：ユーザ一覧画面 errorMessage 異常：エラーメッセージ表示画面
+	 */
+	@GetMapping("/userList/UserManagement")
+	public String management(Principal principal, Model model) {
+
+		try {
+			log.info(principal.getName() + "：ユーザ一覧画面：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：ユーザ一覧画面：異常");
+			return "errorMessage";
+		}
+		return "user/userManagement";
+
+	}
+
 }
