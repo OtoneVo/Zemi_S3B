@@ -44,7 +44,6 @@
 </head>
 <body>
 	<!-- 共通ヘッダ -->
-	<!-- 共通ヘッダ -->
 	<header
 		style="background: url('https://www.sozailab.jp/db_img/sozai/59040/7810c966292d01f519def4999176278d.jpg'); height: 135px;">
 		<label style="font-size: 45px; margin-top: 0px; margin-left: 10px;">病院予約</label><br>
@@ -62,30 +61,12 @@
 	<span class="span2 han_span"></span>
 	<span class="span3 han_span"></span>
 	<label class="han_label" for="check"></label>
-	<!-- 管理者メニュー -->
+	<!-- 一般メニュー -->
 	<ul>
 		<li><a href="/logout" class="btn btn-flat"
 			style="width: 100%; font-size: 30px;"><span>logout</span></a></li>
-		<li><div role="presentation"
-				sec:authorize="hasAuthority('ADMIN')">
-				<a href="/userList" class="btn btn-flat"
-					style="width: 100%; font-size: 30px;"><span>ユーザ管理</span></a>
-			</div></li>
-		<li><div role="presentation"
-				sec:authorize="hasAuthority('GENERAL')">
-				<a href="/userList/UserManagement" class="btn btn-flat"
-					style="width: 100%; font-size: 30px;"><span>ユーザ管理</span></a>
-			</div></li>
-		<li><div role="presentation"
-				sec:authorize="hasAuthority('ADMIN')">
-				<a href="" class="btn btn-flat"
-					style="width: 100%; font-size: 30px;"><span>病院管理</span></a>
-			</div></li>
-		<li><div role="presentation"
-				sec:authorize="hasAuthority('HOSPITAL')">
-				<a href="" class="btn btn-flat"
-					style="width: 100%; font-size: 30px;"><span>病院管理</span></a>
-			</div></li>
+		<li><a href="/" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"><span>トップ画面へ</span></a></li>
 	</ul>
 
 	<!-- コンテンツ -->
@@ -96,11 +77,26 @@
 	<p style="font-size: 25px; margin: 10%">ユーザ情報更新の説明文</p>
 	<a href="" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
 			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
-				alt="/img/履歴用画像.png" src="/img/履歴用画像.png"
+				alt="/img/ユーザ更新画像.png" src="/img/ユーザ更新用画像.png"
 				style="width: 90px; height: 30px;"><i
 				class="fas fa-angle-right fa-position-right"></i></span> <span
 			class="btn-3d-flip-box-face btn-3d-flip-box-face--back"
 			style="font-size: 20px">ユーザ情報更新画面へ</span>
+	</span>
+	</a>
+	<br>
+
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>ユーザ情報削除依頼</b>
+	</h2>
+	<p style="font-size: 25px; margin: 10%">ユーザ情報削除依頼の説明文</p>
+	<a href="" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
+			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
+				alt="/img/ユーザ更新画像.png" src="/img/ユーザ更新用画像.png"
+				style="width: 90px; height: 30px;"><i
+				class="fas fa-angle-right fa-position-right"></i></span> <span
+			class="btn-3d-flip-box-face btn-3d-flip-box-face--back"
+			style="font-size: 20px">ユーザ情報削除依頼</span>
 	</span>
 	</a>
 	<br>

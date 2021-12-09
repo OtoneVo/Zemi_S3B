@@ -91,7 +91,13 @@
 	<br>
 	<table class="table_box" style="width: 100%">
 		<tbody th:each="user : ${userEntity.userList}" th:object="${user}">
+
 			<tr class="box">
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザID</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${user.user_id}"></td>
 
 				<th
 					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ名</th>
@@ -110,7 +116,9 @@
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
 					class="nowrap" th:text="${user.gender}"></td>
+			</tr>
 
+			<tr class="box">
 				<th
 					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">年齢</th>
 				<td
@@ -134,59 +142,96 @@
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
 					class="nowrap" th:text="${user.phone_number}"></td>
-
-			</tr>
-
-			<tr class="box" id="makeImg">
-				<th></th>
-				<td></td>
-				<th></th>
-				<td></td>
-				<th></th>
-				<td></td>
-				<th></th>
-				<td></td>
-				<th></th>
-				<td></td>
-				<th></th>
-				<td></td>
-				<th></th>
-				<td>
-					<button type="button" class="btn btn-danger" data-toggle="modal"
-						data-target="#testModal"style="width: 80%;">削除</button>
-
-						<!-- ボタン後に表示される画面の内容 -->
-					<div class="modal fade" id="testModal" tabindex="-1" role="dialog"
-						aria-labelledby="basicModal" aria-hidden="true"
-						style="margin-top: 230px;">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="myModalLabel">削除確認画面</h4>
-								</div>
-								<div class="modal-body">
-									<label>ユーザを削除しますか？</label>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">閉じる</button>
-									<form method="post" th:action="@{/userList/delete}">
-										<button type="submit" class="btn btn-danger"
-											th:value="${user.user_id}" name="user_id">削除</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</td>
-
 			</tr>
 
 			<tr>
 				<th style="margin: 20%"></th>
 			</tr>
+
 		</tbody>
 	</table>
+
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>ユーザ新規登録</b>
+	</h2>
+	<p style="font-size: 25px; margin: 10%">ユーザ新規登録の説明文</p>
+	<a href="" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
+			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
+				alt="/img/ユーザ登録画像.png" src="/img/ユーザ登録用画像.png"
+				style="width: 90px; height: 30px;"><i
+				class="fas fa-angle-right fa-position-right"></i></span> <span
+			class="btn-3d-flip-box-face btn-3d-flip-box-face--back"
+			style="font-size: 20px">ユーザ新規登録画面へ</span>
+	</span>
+	</a>
+	<br>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>ユーザ削除</b>
+	</h2>
+	<p style="font-size: 25px; margin: 10%">ユーザ削除の説明文</p>
+
+	<a href="" class="btn btn-3d-flip" data-toggle="modal"
+		data-target="#deleteModal"> <span class="btn-3d-flip-box">
+			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
+				alt="/img/ユーザ削除画像.png" src="/img/ユーザ削除用画像.png"
+				style="width: 90px; height: 30px;"><i
+				class="fas fa-angle-right fa-position-right"></i></span> <span
+			class="btn-3d-flip-box-face btn-3d-flip-box-face--back"
+			style="font-size: 20px">削除するユーザを選ぶ</span>
+	</span>
+	</a>
+	<!-- ボタン後に表示される画面の内容 -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+		aria-labelledby="basicModal" aria-hidden="true"
+		style="margin-top: 230px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">
+						<b>削除ユーザ選択</b>
+					</h4>
+				</div>
+				<form method="post" th:action="@{/userList/delete}">
+					<div class="modal-body">
+
+						<b><label style="font-size: 15px;">削除したいユーザのユーザIDを選択してください。</label></b>
+
+						<select class="form-control" name="user_id"
+							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+							<option th:each="user:${userEntity.userList}"
+								th:value="${user.user_id}" th:text="${user.user_id}"></option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+						<button type="button" class="btn btn-danger mb-12"
+							data-toggle="modal" data-target="#confirmationModal">削除</button>
+					</div>
+					<!-- ボタン・リンククリック後に表示される画面の内容 -->
+					<div class="modal fade" id="confirmationModal" tabindex="-1"
+						role="dialog" aria-labelledby="basicModal" aria-hidden="true"
+						style="margin-top: 230px;">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="myModalLabel">削除確認</h4>
+								</div>
+								<div class="modal-body" style="height: 88px;">
+								<br>
+									<h2 style="margin-left: 28%">本当によろしいですか？</h2>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal">いいえ</button>
+									<button type="submit" class="btn btn-danger">はい</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 	<!-- 共通フッタ -->
 	<footer style="height: 250px; background-color: #696969">

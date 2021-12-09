@@ -3,7 +3,7 @@ package jp.ac.hcs.user;
 import lombok.Data;
 
 /**
- * 1件分の病院情報
+ * 1件分のユーザ情報
  */
 @Data
 public class UserData {

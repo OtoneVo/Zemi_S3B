@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 /**
- * ユーザ情報のデータを管理する - m_userテーブル
+ * ユーザ情報を管理する - m_userテーブル
  */
 @Repository
 public class UserRepository {
@@ -29,7 +29,7 @@ public class UserRepository {
 	JdbcTemplate jdbc;
 
 	/**
-	 * m_userテーブルの全要素を取得
+	 * m_userテーブルに存在する全てのユーザ情報を取得
 	 *
 	 * @return hospitalEntity	取得したユーザデータ
 	 * @throws	DataAccessException	データベースエラー
@@ -43,9 +43,15 @@ public class UserRepository {
 
 	}
 
+	/**
+	 * m_userテーブルのユーザ情報を一件削除
+	 *
+	 * @return userEntity	取得したユーザデータ
+	 * @throws	DataAccessException	データベースエラー
+	 */
 	public UserEntity userDelete(String user_id) throws DataAccessException {
 
-		jdbc.update(SQL_USER_DELETE,user_id);
+		jdbc.update(SQL_USER_DELETE, user_id);
 		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SELECT_ALL);
 		UserEntity userEntity = mappingSelectResult(resultList);
 
@@ -54,11 +60,12 @@ public class UserRepository {
 	}
 
 	private UserEntity mappingSelectResult(List<Map<String, Object>> resultList) throws DataAccessException {
+
+		//必要な変数を宣言
 		UserEntity userEntity = new UserEntity();
+		UserData userData = new UserData();
 
 		for (Map<String, Object> map : resultList) {
-
-			UserData userData = new UserData();
 
 			//必要な変数を宣言
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY年MM月dd日");
@@ -75,30 +82,34 @@ public class UserRepository {
 			userData.setPhone_number((String) map.get("phone_number"));
 
 			//ユーザ権限表示変換
-			switch (userData.getUser_permission()){
-			  case "HOSPITAL":
-				  userData.setUser_permission("病院");
-			    break;
-			  case "GENERAL":
-				  userData.setUser_permission("一般");
-			    break;
-			  case "ADMIN":
-				  userData.setUser_permission("管理者");
-				    break;
+			switch (userData.getUser_permission()) {
+			case "HOSPITAL":
+				userData.setUser_permission("病院");
+				break;
+			case "GENERAL":
+				userData.setUser_permission("一般");
+				break;
+			case "ADMIN":
+				userData.setUser_permission("管理者");
+				break;
 			}
 
 			//身体性別表示変換
-			switch (userData.getGender()){
-			  case "1":
-				  userData.setGender("男");
-			    break;
-			  case "2":
-				  userData.setGender("女");
-			    break;
+			switch (userData.getGender()) {
+			case "1":
+				userData.setGender("男");
+				break;
+			case "2":
+				userData.setGender("女");
+				break;
 			}
 
 			userEntity.getUserList().add(userData);
+
 		}
+
 		return userEntity;
+
 	}
+
 }

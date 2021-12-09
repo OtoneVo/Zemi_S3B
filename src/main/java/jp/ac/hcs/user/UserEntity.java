@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * 病院情報 各項目のデータ仕様も合わせて管理する
+ * ユーザ情報 各項目のデータ仕様も合わせて管理する
  */
 @Data
 public class UserEntity {

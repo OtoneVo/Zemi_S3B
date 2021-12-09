@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,7 +49,7 @@ public class UserController {
 	 * @return	userList	正常：ユーザ一覧画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/userList/delete")
-	public String userDelete(String user_id, Principal principal, Model model) {
+	public String userDelete(@RequestParam("user_id")String user_id, Principal principal, Model model) {
 
 		try {
 			UserEntity userEntity = userService.userDelete(user_id);
@@ -64,7 +65,7 @@ public class UserController {
 	}
 
 	/**
-	 * 管理画面に遷移する
+	 * ユーザ管理画面に遷移する
 	 *
 	 * @param	principal		ログイン中のユーザ情報
 	 * @param	model			モデル情報
