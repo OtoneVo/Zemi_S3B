@@ -63,11 +63,11 @@ public class UserRepository {
 
 		//必要な変数を宣言
 		UserEntity userEntity = new UserEntity();
-		UserData userData = new UserData();
 
 		for (Map<String, Object> map : resultList) {
 
 			//必要な変数を宣言
+			UserData userData = new UserData();
 			SimpleDateFormat sdf = new SimpleDateFormat("YYYY年MM月dd日");
 			String birth_date = sdf.format(map.get("birth_date"));
 
