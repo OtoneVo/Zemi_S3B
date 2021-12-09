@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import jp.ac.hcs.medical.MedicalEntity;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -58,6 +59,7 @@ public class HospitalService {
 	 * @param	hospitalData	入力された病院データ
 	 * @return
 	 */
+	/*
 	public HospitalEntity getHospitalInsert(HospitalForm hForm) {
 
 		HospitalData hospitalData = new HospitalData();
@@ -69,9 +71,6 @@ public class HospitalService {
 		hospitalData.setPhone_number(hForm.getPhone_number());
 		hospitalData.setNumber_of_reservations(hForm.getNumber_of_reservations());
 
-		hospitalData.setMedical_id(hForm.getMedical_id());
-		hospitalData.setHospital_id(hForm.getHospital_id());
-
 		try {
 			hospitalRepository.insertOne(hospitalData);
 		} catch (DataAccessException e) {
@@ -80,6 +79,24 @@ public class HospitalService {
 		}
 
 		return getHospitals();
+	}
+	*/
+	/**
+	 * 診療科テーブルの内容を取得する
+	 *
+	 * @return	medicalEntity	取得した診療科データ
+	 */
+	public MedicalEntity getMedicals() {
+		MedicalEntity medicalEntity = new MedicalEntity();
+
+		try {
+			medicalEntity = hospitalRepository.selectMedicals();
+		} catch (DataAccessException e) {
+			log.info("診療科全件取得：異常");
+			throw e;
+		}
+
+		return medicalEntity;
 	}
 
 }

@@ -3,7 +3,6 @@ package jp.ac.hcs.medical;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.ac.hcs.hospital.HospitalData;
 import lombok.Data;
 
 /**
@@ -13,5 +12,6 @@ import lombok.Data;
 public class MedicalEntity {
 
 	/** 診療科情報のリスト */
-	private List<HospitalData> HospitalList = new ArrayList<HospitalData>();
+	private List<MedicalData> MedicalList = new ArrayList<MedicalData>();
+
 }

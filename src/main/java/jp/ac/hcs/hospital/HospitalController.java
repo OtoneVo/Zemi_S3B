@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jp.ac.hcs.medical.MedicalEntity;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,7 +31,10 @@ public class HospitalController {
 
 		try {
 			HospitalEntity hospitalEntity = hospitalService.getHospitals();
+			MedicalEntity medicalEntity = hospitalService.getMedicals();
+
 			model.addAttribute("hospitalEntity", hospitalEntity);
+			model.addAttribute("medicalEntity", medicalEntity);
 			log.info(principal.getName() + "：病院一覧画面：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院一覧画面：異常");
@@ -90,6 +94,8 @@ public class HospitalController {
 	 * @param	model			モデル情報
 	 * @return	hospitalList	病院一覧画面
 	 */
+
+	/*
 	@PostMapping("/hospitalList/insert")
 	public String getHospitalInsert(HospitalForm hForm, Principal principal, Model model) {
 
@@ -104,7 +110,7 @@ public class HospitalController {
 
 		return "hospital/hospitalList";
 	}
-
+	*/
 	//TODO 病院詳細画面
 	/**
 	 * 病院詳細画面に遷移する
