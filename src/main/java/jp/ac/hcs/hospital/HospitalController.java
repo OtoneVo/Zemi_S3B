@@ -1,6 +1,8 @@
 package jp.ac.hcs.hospital;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -9,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jp.ac.hcs.medical.MedicalEntity;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,16 +31,20 @@ public class HospitalController {
 	public String getHospitals(Principal principal, Model model) {
 
 		try {
-			HospitalEntity hospitalEntity = hospitalService.getHospitals();
-			MedicalEntity medicalEntity = hospitalService.getMedicals();
-
-			model.addAttribute("hospitalEntity", hospitalEntity);
-			model.addAttribute("medicalEntity", medicalEntity);
+			//病院テーブル全件取得
+			List<Map<String, Object>> hospitalList = hospitalService.getHospitals();
+			//病院Idをもとに診療科名を取得
+			List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalList);
+			//病院と診療科名を結合
+			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalList, HMList);
+			model.addAttribute("HMEntity", HMEntity);
 			log.info(principal.getName() + "：病院一覧画面：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院一覧画面：異常");
+			e.printStackTrace();
 			return "errorMessage";
 		}
+
 		return "hospital/hospitalList";
 	}
 

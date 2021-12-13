@@ -1,10 +1,13 @@
 package jp.ac.hcs.hospital;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import jp.ac.hcs.medical.MedicalEntity;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,18 +22,79 @@ public class HospitalService {
 	 *
 	 * @return hospitalEntity	取得した病院データ
 	 */
-	public HospitalEntity getHospitals() {
+	public List<Map<String, Object>> getHospitals() {
 
-		HospitalEntity hospitalEntity = new HospitalEntity();
+		//HospitalEntity hospitalEntity = new HospitalEntity();
+
+		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
 
 		try {
-			hospitalEntity = hospitalRepository.selectAll();
+			hospitalList = hospitalRepository.selectAll();
 		} catch (DataAccessException e) {
 			log.info("全件取得:異常発生");
 			throw e;
 		}
-		return hospitalEntity;
+		return hospitalList;
 
+	}
+
+	/**
+	 * 病院IDから診療科名を取得する
+	 *
+	 * @param hospital_id	病院ID
+	 * @return	Hospital_medicalEntity
+	 */
+	public List<Map<String, Object>> getHospitalMedicals(List<Map<String, Object>> hospitalList) {
+
+		List<Map<String, Object>> HMList = new ArrayList<Map<String, Object>>();
+
+		for (int count = 0; count < hospitalList.size(); count++) {
+			String hospitalId = (String) hospitalList.get(count).get("hospital_id");
+			try {
+				HMList.addAll(hospitalRepository.hospitalMedicaiList(hospitalId));
+			} catch (DataAccessException e) {
+				log.info("全件取得:異常発生");
+				throw e;
+			}
+		}
+		return HMList;
+	}
+
+	/**
+	 * 病院が所持する診療科名をカンマ区切りで格納する
+	 */
+	public Hospital_medicalEntity getHospitalMedicalSplit(List<Map<String, Object>> hospitalList,
+			List<Map<String, Object>> HMList) {
+		Hospital_medicalEntity HMEntity = new Hospital_medicalEntity();
+
+		for (Map<String, Object> map : hospitalList) {
+			Hospital_medicalData hmData = new Hospital_medicalData();
+
+			hmData.setHospital_id((String) map.get("hospital_id"));
+			hmData.setHospital_name((String) map.get("hospital_name"));
+			hmData.setEncrypted_password((String) map.get("encrypted_password"));
+			hmData.setAddress((String) map.get("address"));
+			hmData.setPhone_number((String) map.get("phone_number"));
+			hmData.setNumber_of_reservations((String) map.get("number_of_reservations"));
+			hmData.setReservations_count((Integer) map.get("reservations_count"));
+
+			String medicalName = "";
+
+			for (int num = 0; num < HMList.size(); num++) {
+				if (hmData.getHospital_id().equals(HMList.get(num).get("hospital_id"))) {
+					if (medicalName.isEmpty()) {
+						medicalName = (String) HMList.get(num).get("medical_name");
+					} else {
+						medicalName += "," + (String) HMList.get(num).get("medical_name");
+					}
+				}
+			}
+			hmData.setMedical_name(medicalName);
+
+			HMEntity.getHospital_medicalList().add(hmData);
+		}
+
+		return HMEntity;
 	}
 
 	/**
@@ -81,22 +145,4 @@ public class HospitalService {
 		return getHospitals();
 	}
 	*/
-	/**
-	 * 診療科テーブルの内容を取得する
-	 *
-	 * @return	medicalEntity	取得した診療科データ
-	 */
-	public MedicalEntity getMedicals() {
-		MedicalEntity medicalEntity = new MedicalEntity();
-
-		try {
-			medicalEntity = hospitalRepository.selectMedicals();
-		} catch (DataAccessException e) {
-			log.info("診療科全件取得：異常");
-			throw e;
-		}
-
-		return medicalEntity;
-	}
-
 }
