@@ -66,9 +66,13 @@
 	<label class="han_label" for="check"></label>
 	<ul>
 		<li><a href="/logout" class="btn btn-flat"
-			style="width: 100%; font-size: 30px;"><span>logout</span></a></li>
+			style="width: 100%; font-size: 30px;"><span>logout<img
+					alt="/img/ログアウト用アイコン.png" src="/img/ログアウト用アイコン.png"
+					style="height: 30px;"></span></a></li>
 		<li><a href="/" class="btn btn-flat"
-			style="width: 100%; font-size: 30px;"><span>トップ画面へ</span></a></li>
+			style="width: 100%; font-size: 30px;"><span>トップ画面へ<img
+					alt="/img/トップ用アイコン.png" src="/img/トップ用アイコン.png"
+					style="height: 30px;"></span></a></li>
 		<li><a href="" class="btn btn-flat"
 			style="width: 100%; font-size: 30px;"><span>ほにゃらら機能へ</span></a></li>
 	</ul>
@@ -89,7 +93,7 @@
 		</div>
 	</form>
 	<br>
-	<table class="table_box" style="width: 100%">
+	<table class="table_box" style="width: 90%">
 		<tbody th:each="user : ${userEntity.userList}" th:object="${user}">
 
 			<tr class="box">
@@ -119,29 +123,21 @@
 			</tr>
 
 			<tr class="box">
-				<th
-					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">年齢</th>
-				<td
-					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-					class="nowrap" th:text="${user.age}"></td>
+				<th style="border-left: solid 2px #c0c0c0;">年齢</th>
+				<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+					th:text="${user.age}"></td>
 
-				<th
-					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">生年月日</th>
-				<td
-					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-					class="nowrap" th:text="${user.birth_date}"></td>
+				<th style="border-left: solid 2px #c0c0c0">生年月日</th>
+				<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+					th:text="${user.birth_date}"></td>
 
-				<th
-					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">住所</th>
-				<td
-					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-					class="nowrap" th:text="${user.address}"></td>
+				<th style="border-left: solid 2px #c0c0c0;">住所</th>
+				<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+					th:text="${user.address}"></td>
 
-				<th
-					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">電話番号</th>
-				<td
-					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-					class="nowrap" th:text="${user.phone_number}"></td>
+				<th style="border-left: solid 2px #c0c0c0;">電話番号</th>
+				<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+					th:text="${user.phone_number}"></td>
 			</tr>
 
 			<tr>
@@ -149,6 +145,55 @@
 			</tr>
 
 		</tbody>
+
+		<tr class="box">
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザID</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_id}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ名</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_name}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ権限</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_permission}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">身体性別</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.gender}"></td>
+		</tr>
+
+		<tr class="box">
+			<th style="border-left: solid 2px #c0c0c0;">年齢</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.age}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0">生年月日</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.birth_date}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0;">住所</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.address}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0;">電話番号</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.phone_number}"></td>
+		</tr>
+
+		<tr>
+			<th style="margin: 20%"></th>
+		</tr>
+
 	</table>
 
 	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
@@ -227,6 +272,55 @@
 								</div>
 							</div>
 						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>ユーザ情報更新</b>
+	</h2>
+	<p style="font-size: 25px; margin: 10%">ユーザ情報更新の説明文</p>
+
+	<a href="" class="btn btn-3d-flip" data-toggle="modal"
+		data-target="#updateModal"> <span class="btn-3d-flip-box">
+			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
+				alt="/img/ユーザ更新画像.png" src="/img/ユーザ更新用画像.png"
+				style="width: 90px; height: 30px;"><i
+				class="fas fa-angle-right fa-position-right"></i></span> <span
+			class="btn-3d-flip-box-face btn-3d-flip-box-face--back"
+			style="font-size: 20px">更新するユーザを選ぶ</span>
+	</span>
+	</a>
+	<!-- ボタン後に表示される画面の内容 -->
+	<div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+		aria-labelledby="basicModal" aria-hidden="true"
+		style="margin-top: 230px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">
+						<b>更新ユーザ選択</b>
+					</h4>
+				</div>
+				<form method="post" th:action="@{/userList/update}">
+					<div class="modal-body">
+
+						<b><label style="font-size: 15px;">更新したいユーザのユーザIDを選択してください。</label></b>
+
+						<select class="form-control" name="user_id"
+							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+							<option th:each="user:${userEntity.userList}"
+								th:value="${user.user_id}" th:text="${user.user_id}"></option>
+							<option th:value="${userData.user_id}"
+								th:text="${userData.user_id}"></option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+						<button type="submit" class="btn btn-danger mb-12">更新</button>
 					</div>
 				</form>
 			</div>

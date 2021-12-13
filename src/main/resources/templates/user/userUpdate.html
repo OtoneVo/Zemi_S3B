@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+<meta charset="UTF-8">
+<title>病院予約システム</title>
+
+<!-- モバイル設定 -->
+<meta id="viewport" name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="manifest" th:href="@{/css/manifest.json}"
+	crossorigin="use-credentials">
+<meta name="application-name" content="WebPortal">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WebPortal">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- アイコン設定 -->
+<link rel="icon" th:href="@{/img/favicon.ico}" sizes="192x192"
+	href="../static/img/favicon.ico">
+<link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}"
+	sizes="192x192">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}" sizes="58x58">
+
+<!-- スタイル設定 -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/ress.css}"
+	href="../static/css/ress.css">
+<link rel="stylesheet" th:href="@{/css/home.css}"
+	href="../static/css/home.css">
+<link rel="stylesheet" th:href="@{/css/han.css}"
+	href="../static/css/han.css">
+<link rel="stylesheet" th:href="@{/css/button.css}"
+	href="../static/css/buttan.css">
+
+
+</head>
+<body>
+	<!-- 共通ヘッダ -->
+	<header
+		style="background: url('https://www.sozailab.jp/db_img/sozai/59040/7810c966292d01f519def4999176278d.jpg'); height: 135px;">
+		<label style="font-size: 45px; margin-top: 0px; margin-left: 10px;">病院予約</label><br>
+		<label style="font-size: 45px; margin-left: 10px;">システム</label>
+	</header>
+	<div style="width: 100%">
+		<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
+		<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
+		<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
+	</div>
+
+	<!-- ハンバーガーメニュー -->
+	<input type="checkbox" id="check">
+	<span class="span1 han_span"></span>
+	<span class="span2 han_span"></span>
+	<span class="span3 han_span"></span>
+	<label class="han_label" for="check"></label>
+	<!-- 一般メニュー -->
+	<ul>
+		<li><a href="/logout" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"><span>logout<img
+					alt="/img/ログアウト用アイコン.png" src="/img/ログアウト用アイコン.png"
+					style="height: 30px;"></span></a></li>
+		<li><a href="/" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"><span>トップ画面<img
+					alt="/img/トップ用アイコン.png" src="/img/トップ用アイコン.png"
+					style="height: 30px;"></span></a></li>
+	</ul>
+
+	<!-- コンテンツ -->
+	<br>
+	<span th:text="${userData.user_id}"></span>
+	<br>
+
+	<!-- モーダルを開くボタン・リンク -->
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-2">
+				<button type="button" class="btn btn-primary mb-12"
+					data-toggle="modal" data-target="#userNameModal">ユーザ名を変更</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- ボタン・リンククリック後に表示される画面の内容 -->
+	<div class="modal fade" id="userNameModal" tabindex="-1" role="dialog"
+		aria-labelledby="basicModal" aria-hidden="true"
+		style="margin-top: 150px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>ユーザ名変更画面</h4>
+				</div>
+				<form method="post" th:action="@{/userList/updateUserName}">
+					<div class="modal-body">
+						<h2>現在のユーザ名</h2>
+						<h3 th:text="${userData.user_name}"></h3>
+						<br> <label style="font-size: 15px;">新しいユーザ名を入力してください</label>
+						<input type="text" name="user_name" placeholder=" ユーザ名"
+							id="user_name" class="form-control"
+							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+						<input type="hidden" name="user_id" id="user_id"
+							th:value="${userData.user_id}">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+						<button type="submit" class="btn btn-primary">変更</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- モーダルを開くボタン・リンク -->
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-2">
+				<button type="button" class="btn btn-primary mb-12"
+					data-toggle="modal" data-target="#addressModal">住所を変更</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- ボタン・リンククリック後に表示される画面の内容 -->
+	<div class="modal fade" id="addressModal" tabindex="-1" role="dialog"
+		aria-labelledby="basicModal" aria-hidden="true"
+		style="margin-top: 150px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>住所変更画面</h4>
+				</div>
+				<form method="post" th:action="@{/userList/updateAddress}">
+					<div class="modal-body">
+						<h2>現在の住所</h2>
+						<h3 th:text="${userData.address}"></h3>
+						<br> <label style="font-size: 15px;">新しい住所を入力してください</label> <input
+							type="text" name="address" placeholder=" 住所" id="address"
+							class="form-control"
+							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+						<input type="hidden" name="user_id" id="user_id"
+							th:value="${userData.user_id}">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+						<button type="submit" class="btn btn-primary">変更</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- モーダルを開くボタン・リンク -->
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-2">
+				<button type="button" class="btn btn-primary mb-12"
+					data-toggle="modal" data-target="#phoneNumberModal">電話番号を変更</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- ボタン・リンククリック後に表示される画面の内容 -->
+	<div class="modal fade" id="phoneNumberModal" tabindex="-1"
+		role="dialog" aria-labelledby="basicModal" aria-hidden="true"
+		style="margin-top: 150px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>電話番号変更画面</h4>
+				</div>
+				<form method="post" th:action="@{/userList/updatePhonenNumber}">
+					<div class="modal-body">
+						<h2>現在の電話番号</h2>
+						<h3 th:text="${userData.phone_number}"></h3>
+						<br> <label style="font-size: 15px;">新しい電話番号を入力してください</label>
+						<input type="text" name="phone_number" placeholder=" 電話番号"
+							id="phone_number" class="form-control"
+							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+						<input type="hidden" name="user_id" id="user_id"
+							th:value="${userData.user_id}">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+						<button type="submit" class="btn btn-primary">変更</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- モーダルを開くボタン・リンク -->
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-2">
+				<button type="button" class="btn btn-primary mb-12"
+					data-toggle="modal" data-target="#testModal">パスワードを変更</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- ボタン・リンククリック後に表示される画面の内容 -->
+	<div class="modal fade" id="testModal" tabindex="-1" role="dialog"
+		aria-labelledby="basicModal" aria-hidden="true"
+		style="margin-top: 150px;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>ユーザ名変更画面</h4>
+				</div>
+				<form method="post" th:action="@{/userList/updateUserData}">
+					<div class="modal-body">
+						<h2>現在のユーザ名</h2>
+						<h3 th:text="${userData.user_name}"></h3>
+						<br> <label style="font-size: 15px;">新しいユーザ名を入力してください</label>
+						<input type="text" name="user_name" placeholder=" ユーザ名"
+							id="user_name" class="form-control"
+							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+						<button type="submit" class="btn btn-primary">変更</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- 共通フッタ -->
+	<footer style="height: 250px; background-color: #696969">
+		<a href="#" class="btn btn-secondary"
+			style="width: 100%; height: 50px; font-size: 25px;">↑</a><br> <br>
+		<article>
+			<div class="content" style="font-size: 15px">
+				<p style="color: white; text-align: center;">学校法人電子開発学園
+					北海道情報専門学校</p>
+				<p style="color: white; text-align: center;">所在地： 〒003-0806
+					北海道札幌市白石区菊水６条３丁目４−２８</p>
+				<p style="color: white; text-align: center;">tel： 011-831-5511</p>
+			</div>
+			<div class="side">
+				<img alt="/img/favicon.ico" src="/img/病院.png"
+					style="width: 200px; height: 150px; margin-right: 30%">
+			</div>
+		</article>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+</body>
+</html>

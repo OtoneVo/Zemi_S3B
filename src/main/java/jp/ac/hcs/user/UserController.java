@@ -31,7 +31,9 @@ public class UserController {
 
 		try {
 			UserEntity userEntity = userService.getUsers();
+			UserData userData = userService.userUpdatetRansition(principal.getName());
 			model.addAttribute("userEntity", userEntity);
+			model.addAttribute("userData", userData);
 			log.info(principal.getName() + "：ユーザ一覧画面：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ一覧画面：異常");
@@ -49,14 +51,16 @@ public class UserController {
 	 * @return	userList	正常：ユーザ一覧画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/userList/delete")
-	public String userDelete(@RequestParam("user_id")String user_id, Principal principal, Model model) {
+	public String userDelete(@RequestParam("user_id") String user_id, Principal principal, Model model) {
 
 		try {
 			UserEntity userEntity = userService.userDelete(user_id);
+			UserData userData = userService.userUpdatetRansition(principal.getName());
 			model.addAttribute("userEntity", userEntity);
-			log.info(principal.getName() + "：ユーザ一覧画面：正常");
+			model.addAttribute("userData", userData);
+			log.info(principal.getName() + "：ユーザ情報削除機能：正常");
 		} catch (DataAccessException e) {
-			log.info(principal.getName() + "：ユーザ一覧画面：異常");
+			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
 			return "errorMessage";
 		}
 
@@ -69,18 +73,112 @@ public class UserController {
 	 *
 	 * @param	principal		ログイン中のユーザ情報
 	 * @param	model			モデル情報
-	 * @return	userList	正常：ユーザ一覧画面 errorMessage 異常：エラーメッセージ表示画面
+	 * @return	userManagement	正常：ユーザ管理画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@GetMapping("/userList/UserManagement")
 	public String management(Principal principal, Model model) {
 
 		try {
-			log.info(principal.getName() + "：ユーザ一覧画面：正常");
+			log.info(principal.getName() + "：ユーザ管理画面：正常");
 		} catch (DataAccessException e) {
-			log.info(principal.getName() + "：ユーザ一覧画面：異常");
+			log.info(principal.getName() + "：ユーザ管理画面：異常");
 			return "errorMessage";
 		}
 		return "user/userManagement";
+
+	}
+
+	/**
+	 * ユーザ情報更新画面に遷移する
+	 *
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
+	 */
+	@PostMapping("/userList/update")
+	public String userUpdatetRansition(@RequestParam("user_id") String user_id, Principal principal, Model model) {
+
+		try {
+			UserData userData = userService.userUpdatetRansition(user_id);
+			model.addAttribute("userData", userData);
+			log.info(principal.getName() + "：ユーザ情報更新画面：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：ユーザ情報更新画面：異常");
+			return "errorMessage";
+		}
+		return "user/userUpdate";
+
+	}
+
+	/**
+	 * ユーザ名を更新する
+	 *
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
+	 */
+	@PostMapping("/userList/updateUserName")
+	public String updateUserName(@RequestParam("user_id") String user_id, @RequestParam("user_name") String user_name,
+			Principal principal, Model model) {
+
+		try {
+			UserData userData = userService.updateUserName(user_id, user_name);
+			model.addAttribute("userData", userData);
+			log.info(principal.getName() + "：ユーザ情報削除機能：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
+			return "errorMessage";
+		}
+
+		return "user/userUpdate";
+
+	}
+
+	/**
+	 * 住所を更新する
+	 *
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
+	 */
+	@PostMapping("/userList/updateAddress")
+	public String updateAddress(@RequestParam("user_id") String user_id, @RequestParam("address") String address,
+			Principal principal, Model model) {
+
+		try {
+			UserData userData = userService.updateAddress(user_id, address);
+			model.addAttribute("userData", userData);
+			log.info(principal.getName() + "：ユーザ情報削除機能：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
+			return "errorMessage";
+		}
+
+		return "user/userUpdate";
+
+	}
+
+	/**
+	 * 電話番号を更新する
+	 *
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
+	 */
+	@PostMapping("/userList/updatePhonenNumber")
+	public String updatePhoneNumber(@RequestParam("user_id") String user_id, @RequestParam("phone_number") String phone_number,
+			Principal principal, Model model) {
+
+		try {
+			UserData userData = userService.updatePhoneNumber(user_id, phone_number);
+			model.addAttribute("userData", userData);
+			log.info(principal.getName() + "：ユーザ情報削除機能：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
+			return "errorMessage";
+		}
+
+		return "user/userUpdate";
 
 	}
 
