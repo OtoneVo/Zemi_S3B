@@ -87,7 +87,7 @@
 	</form>
 	<br>
 	<table class="table_box">
-		<tbody th:each="hospital : ${hospitalEntity.hospitalList}"
+		<tbody th:each="hospital : ${HMEntity.hospital_medicalList}"
 			th:object="${hospital}">
 			<tr class="box">
 				<th
@@ -120,17 +120,12 @@
 					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">診療科</th>
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-					class="nowrap">
-					
-					<p th:each="medical : ${nameList}"
-						th:object="${medical}" th:text="${medical}"></p></td>
+					class="nowrap" th:text="${hospital.medical_name}"></td>
 
-				<th></th>
 				<td style="font-size: 20px"><b>予約画面へ移動</b></td>
 				<th style="font-size: 20px">➔</th>
 				<td style="border-right: solid 2px #c0c0c0;"><a href="/"
 					class="btn btn-info" style="width: 80%;"><span>予約</span></a></td>
-				<th></th>
 
 			</tr>
 			<tr>
