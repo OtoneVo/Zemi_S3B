@@ -214,16 +214,20 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4>ユーザ名変更画面</h4>
+					<h4>パスワード変更画面</h4>
 				</div>
-				<form method="post" th:action="@{/userList/updateUserData}">
+				<form method="post" th:action="@{/userList/updatePassword}">
 					<div class="modal-body">
-						<h2>現在のユーザ名</h2>
-						<h3 th:text="${userData.user_name}"></h3>
-						<br> <label style="font-size: 15px;">新しいユーザ名を入力してください</label>
-						<input type="text" name="user_name" placeholder=" ユーザ名"
-							id="user_name" class="form-control"
+						<label style="font-size: 15px;">現在のパスワードを入力してください</label> <input
+							type="password" name="now_password" placeholder=" パスワード"
+							id="now_password" class="form-control"
 							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+						<br> <label style="font-size: 15px;">新しいパスワードを入力してください</label>
+						<input type="password" name="new_password" placeholder=" パスワード"
+							id="new_password" class="form-control"
+							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
+						<input type="hidden" name="user_id" id="user_id"
+							th:value="${userData.user_id}">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>

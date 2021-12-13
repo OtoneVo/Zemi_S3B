@@ -124,9 +124,9 @@ public class UserController {
 		try {
 			UserData userData = userService.updateUserName(user_id, user_name);
 			model.addAttribute("userData", userData);
-			log.info(principal.getName() + "：ユーザ情報削除機能：正常");
+			log.info(principal.getName() + "：ユーザ情報更新機能：正常");
 		} catch (DataAccessException e) {
-			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
+			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
 			return "errorMessage";
 		}
 
@@ -148,9 +148,9 @@ public class UserController {
 		try {
 			UserData userData = userService.updateAddress(user_id, address);
 			model.addAttribute("userData", userData);
-			log.info(principal.getName() + "：ユーザ情報削除機能：正常");
+			log.info(principal.getName() + "：ユーザ情報更新機能：正常");
 		} catch (DataAccessException e) {
-			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
+			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
 			return "errorMessage";
 		}
 
@@ -172,9 +172,33 @@ public class UserController {
 		try {
 			UserData userData = userService.updatePhoneNumber(user_id, phone_number);
 			model.addAttribute("userData", userData);
-			log.info(principal.getName() + "：ユーザ情報削除機能：正常");
+			log.info(principal.getName() + "：ユーザ情報更新機能：正常");
 		} catch (DataAccessException e) {
-			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
+			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
+			return "errorMessage";
+		}
+
+		return "user/userUpdate";
+
+	}
+
+	/**
+	 * パスワードを更新する
+	 *
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
+	 */
+	@PostMapping("/userList/updatePassword")
+	public String updatePassword(@RequestParam("user_id") String user_id, @RequestParam("now_password") String now_password, @RequestParam("new_password") String new_password,
+			Principal principal, Model model) {
+
+		try {
+			UserData userData = userService.updatePassword(user_id, now_password, new_password);
+			model.addAttribute("userData", userData);
+			log.info(principal.getName() + "：ユーザ情報更新機能：正常");
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
 			return "errorMessage";
 		}
 
