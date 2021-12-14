@@ -77,7 +77,6 @@
 	<br>
 	<span th:text="${userData.user_id}"></span>
 	<br>
-
 	<!-- モーダルを開くボタン・リンク -->
 	<div class="container">
 		<div class="row mb-5">
@@ -218,13 +217,9 @@
 				</div>
 				<form method="post" th:action="@{/userList/updatePassword}">
 					<div class="modal-body">
-						<label style="font-size: 15px;">現在のパスワードを入力してください</label> <input
-							type="password" name="now_password" placeholder=" パスワード"
-							id="now_password" class="form-control"
-							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
 						<br> <label style="font-size: 15px;">新しいパスワードを入力してください</label>
-						<input type="password" name="new_password" placeholder=" パスワード"
-							id="new_password" class="form-control"
+						<input type="password" name="password" placeholder=" パスワード"
+							id="password" class="form-control"
 							style="border: 1px black solid; width: 100%; height: 40px; font-size: 20px;">
 						<input type="hidden" name="user_id" id="user_id"
 							th:value="${userData.user_id}">

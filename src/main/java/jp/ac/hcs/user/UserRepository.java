@@ -16,9 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserRepository {
 
-	@Autowired
-	PasswordEncoder passwordEncoder;
-
 	/** SQLユーザ情報全件取得 */
 	private static final String SQL_SELECT_ALL = "SELECT * FROM m_user WHERE user_permission <> 'ADMIN'";
 
@@ -37,8 +34,13 @@ public class UserRepository {
 	/** SQL電話番号を一件更新 */
 	private static final String SQL_PHONE_NUMBER_UPDATE = "UPDATE m_user SET phone_number = ? WHERE user_id = ?";
 
+	/** SQLパスワードを一件更新 */
+	private static final String SQL_PASSWORD_UPDATE = "UPDATE m_user SET encrypted_password = ? WHERE user_id = ?";
+
 	@Autowired
 	JdbcTemplate jdbc;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	/**
 	 * m_userテーブルに存在する全てのユーザ情報を取得
@@ -90,7 +92,7 @@ public class UserRepository {
 	 * @return UserData 取得したユーザデータ
 	 * @throws	DataAccessException	データベースエラー
 	 */
-	public UserData updateUserName(String user_id,String user_name) throws DataAccessException {
+	public UserData updateUserName(String user_id, String user_name) throws DataAccessException {
 
 		jdbc.update(SQL_USER_NAME_UPDATE, user_name, user_id);
 
@@ -104,7 +106,7 @@ public class UserRepository {
 	 * @return UserData 取得したユーザデータ
 	 * @throws	DataAccessException	データベースエラー
 	 */
-	public UserData updateAddress(String user_id,String address) throws DataAccessException {
+	public UserData updateAddress(String user_id, String address) throws DataAccessException {
 
 		jdbc.update(SQL_ADDRESS_UPDATE, address, user_id);
 
@@ -118,9 +120,25 @@ public class UserRepository {
 	 * @return UserData 取得したユーザデータ
 	 * @throws	DataAccessException	データベースエラー
 	 */
-	public UserData updatePhoneNumber(String user_id,String phone_number) throws DataAccessException {
+	public UserData updatePhoneNumber(String user_id, String phone_number) throws DataAccessException {
 
 		jdbc.update(SQL_PHONE_NUMBER_UPDATE, phone_number, user_id);
+
+		return userUpdatetRansition(user_id);
+
+	}
+
+	/**
+	 * m_userテーブルのパスワードをチェック
+	 *
+	 * @return UserData 取得したユーザデータ
+	 * @throws	DataAccessException	データベースエラー
+	 */
+
+	public UserData updatePassword(String user_id, String password) throws DataAccessException {
+
+		password = passwordEncoder.encode(password);
+		jdbc.update(SQL_PASSWORD_UPDATE, password, user_id);
 
 		return userUpdatetRansition(user_id);
 
@@ -225,8 +243,6 @@ public class UserRepository {
 				userData.setGender("女");
 				break;
 			}
-
-
 
 		}
 

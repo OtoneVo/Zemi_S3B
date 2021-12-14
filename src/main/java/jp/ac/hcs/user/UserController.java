@@ -166,7 +166,8 @@ public class UserController {
 	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/userList/updatePhonenNumber")
-	public String updatePhoneNumber(@RequestParam("user_id") String user_id, @RequestParam("phone_number") String phone_number,
+	public String updatePhoneNumber(@RequestParam("user_id") String user_id,
+			@RequestParam("phone_number") String phone_number,
 			Principal principal, Model model) {
 
 		try {
@@ -190,11 +191,11 @@ public class UserController {
 	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/userList/updatePassword")
-	public String updatePassword(@RequestParam("user_id") String user_id, @RequestParam("now_password") String now_password, @RequestParam("new_password") String new_password,
+	public String updatePassword(@RequestParam("user_id") String user_id, @RequestParam("password") String password,
 			Principal principal, Model model) {
 
 		try {
-			UserData userData = userService.updatePassword(user_id, now_password, new_password);
+			UserData userData = userService.updatePassword(user_id, password);
 			model.addAttribute("userData", userData);
 			log.info(principal.getName() + "：ユーザ情報更新機能：正常");
 		} catch (DataAccessException e) {

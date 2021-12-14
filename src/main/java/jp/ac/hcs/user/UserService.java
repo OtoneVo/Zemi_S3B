@@ -65,6 +65,7 @@ public class UserService {
 			log.info("全件取得:異常発生");
 			throw e;
 		}
+
 		return userData;
 
 	}
@@ -125,4 +126,24 @@ public class UserService {
 		return userData;
 
 	}
+
+	/**
+	 * パスワードを更新する
+	 *
+	 * @return userData	取得したユーザデータ
+	 */
+	public UserData updatePassword(String user_id, String password) {
+
+		UserData userData = new UserData();
+
+		try {
+			userData = userRepository.updatePassword(user_id, password);
+		} catch (DataAccessException e) {
+			log.info("全件取得:異常発生");
+			throw e;
+		}
+		return userData;
+
+	}
+
 }
