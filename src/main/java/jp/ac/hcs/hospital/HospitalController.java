@@ -1,6 +1,7 @@
 package jp.ac.hcs.hospital;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,17 +26,15 @@ public class HospitalController {
 	 *
 	 * @param	principal		ログイン中のユーザ情報
 	 * @param	model			モデル情報
-	 * @return	hospitalList	正常：病院一覧画面 errorMessage	異常：エラーメッセージ表示画面
+	 * @return	hospitalList	正常：病院一覧画面
+	 * 			errorMessage	異常：エラーメッセージ表示画面
 	 */
 	@GetMapping("/hospitalList")
 	public String getHospitals(Principal principal, Model model) {
 
 		try {
-			//病院テーブル全件取得
 			List<Map<String, Object>> hospitalList = hospitalService.getHospitals();
-			//病院Idをもとに診療科名を取得
 			List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalList);
-			//病院と診療科名を結合
 			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalList, HMList);
 			model.addAttribute("HMEntity", HMEntity);
 			log.info(principal.getName() + "：病院一覧画面：正常");
@@ -52,29 +51,47 @@ public class HospitalController {
 	/**
 	 * 条件に合致する病院を一覧表示する
 	 *
-	 * @param	principal		ログイン中のユーザ情報
-	 * @param	model			モデル情報
 	 * @param	hospital_name	病院名
 	 * @param	address			病院住所
-	 * @return	hospitalList	正常：病院一覧画面 errorMessage	異常：エラーメッセージ表示画面
+	 * @param	medical_name	診療科名
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	hospitalList	正常：病院一覧画面
+	 * 			errorMessage	異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/hospitalList/search")
-	public String getHospitalSearch(String hospital_name, String address,
+	public String getHospitalSearch(String hospital_name, String address, String medical_name,
 			Principal principal, Model model) {
 
+		List<Map<String, Object>> searchHospitalList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> HMList = new ArrayList<Map<String, Object>>();
+
 		try {
-			HospitalEntity hospitalEntity = hospitalService.getHospitalSearch(hospital_name, address);
-			if (hospitalEntity == null) {
+			searchHospitalList = hospitalService.getHospitalSearch(hospital_name, address, medical_name);
+			HMList = hospitalService.getHospitalMedicals(searchHospitalList);
+			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(searchHospitalList, HMList);
+			if (searchHospitalList.isEmpty()) {
 				model.addAttribute("message", "該当する病院はありませんでした。");
 			}
-			model.addAttribute("hospitalEntity", hospitalEntity);
+			model.addAttribute("HMEntity", HMEntity);
 			log.info(principal.getName() + "：病院検索：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院検索：異常");
+			e.printStackTrace();
 			return "errorMessage";
 		}
 
 		return "hospital/hospitalList";
+	}
+
+	/**
+	 * 病院管理画面に遷移する
+	 *
+	 * @return	hospitalControl	病院管理画面
+	 */
+	public String hospitalcontrol() {
+
+		return "hospital/hospitalControl";
 	}
 
 	//TODO 病院新規登録画面
@@ -94,19 +111,20 @@ public class HospitalController {
 	/**
 	 * システムに病院を登録する（管理者用）
 	 *
-	 *@param	form			入力された病院情報
+	 * @param	hForm			入力された病院情報
 	 * @param	principal		ログイン中のユーザ情報
 	 * @param	model			モデル情報
-	 * @return	hospitalList	病院一覧画面
+	 * @return	hospitalList	正常：病院一覧画面
+	 * 			errorMessage	異常：エラーメッセージ表示画面
 	 */
-
-	/*
 	@PostMapping("/hospitalList/insert")
 	public String getHospitalInsert(HospitalForm hForm, Principal principal, Model model) {
 
 		try {
-			HospitalEntity hospitalEntity = hospitalService.getHospitalInsert(hForm);
-			model.addAttribute("hospitalEntity", hospitalEntity);
+			List<Map<String, Object>> hospitalList = hospitalService.getHospitalInsert(hForm);
+			List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalList);
+			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalList, HMList);
+			model.addAttribute("HMEntity", HMEntity);
 			log.info(principal.getName() + "：病院新規登録：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院新規登録：異常");
@@ -115,15 +133,24 @@ public class HospitalController {
 
 		return "hospital/hospitalList";
 	}
-	*/
+
 	//TODO 病院詳細画面
 	/**
 	 * 病院詳細画面に遷移する
 	 *
-	 * @return	病院詳細画面
+	 * @param	hospital_id		詳細表示する病院の病院ID
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	hospitalDetail	病院詳細画面
 	 */
 	@GetMapping("/hospitalList/detail")
-	public String getHospitalDetail() {
+	public String getHospitalDetail(String hospital_id, Principal principal, Model model) {
+		//病院IDに対応する病院の詳細情報を取得する
+
+		model.addAttribute("hospitalDetail");
+
+		log.info(principal.getName() + "：病院詳細画面：正常");
+		log.info(principal.getName() + "：病院詳細画面：異常");
 		return "hospital/hospitalDetail";
 	}
 
@@ -142,10 +169,15 @@ public class HospitalController {
 	/**
 	 * 詳細画面に表示している病院を削除する
 	 *
-	 * @return	病院一覧画面
+	 * @param	hospital_id		削除する病院の病院ID
+	 * @param	principal		ログイン中のユーザ情報
+	 * @param	model			モデル情報
+	 * @return	hospitalList	正常：病院一覧画面
+	 * 			errorMessage	異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/hospitalList/delete")
-	public String getHospitalDelete() {
+	public String getHospitalDelete(String hospital_id, Principal principal, Model model) {
+
 		return "hospital/hospitalList";
 	}
 

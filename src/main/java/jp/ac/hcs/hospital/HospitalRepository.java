@@ -22,14 +22,13 @@ public class HospitalRepository {
 	/** SQL病院情報全件取得 */
 	private static final String SQL_SELECT_HOSPITAL_ALL = "SELECT * FROM hospital_List ORDER BY hospital_id";
 
+	/** SQL病院IDに対応する病院を一件取得 */
+	private static final String SQL_SELECT_HOSPITAL_ONE = "SELECT * FROM hospital_list WHERE hospital_id = ?";
+
 	/** SQL病院IDに対応する診療科名を取得 */
 	private static final String SQL_SELECT_HOSPITAL_MEDICAL = "SELECT H.hospital_id, M.medical_name FROM hospital_List H, hospital_medical_List HM, medical_List M WHERE H.hospital_id = HM.hospital_id AND HM.medical_id = M.medical_id AND H.hospital_id = ?";
 
-	/** SQL病院検索結果取得 */
-	private static final String SQL_SELECT_SEARCH = "SELECT * FROM hospital_List "
-			+ "WHERE CASE WHEN hospital_name <> '' THEN hospital_name LIKE '%?%'"
-			+ "WHEN address <> '' THEN address = ?"
-			+ "ORDER BY hospital_id";
+	private static final String SQL_SEARCH_MEDICAL = "SELECT DISTINCT H. hospital_id, H.hospital_name, H.address, H.phone_number, H.reservations_count FROM hospital_list H, hospital_medical_list HM, medical_list M WHERE H.hospital_id = HM.hospital_id AND HM.medical_id = M.medical_id AND (hospital_name LIKE ? AND H.address LIKE ? AND medical_name LIKE ?) IS NOT FALSE";
 
 	/** SQL病院新規登録 */
 	private static final String SQL_INSERT_HOSPITAL = "INSERT INTO hospital_List(hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations) VALUES(?, ?, ?, ?, ?, ?)";
@@ -43,8 +42,8 @@ public class HospitalRepository {
 	/**
 	 * hospital_Listテーブルの全要素を取得
 	 *
-	 * @return hospitalEntity	取得した病院データ
-	 * @throws	DataAccessException	データベースエラー
+	 * @return resultList				取得した病院データ
+	 * @throws	DataAccessException		データベースエラー
 	 */
 	public List<Map<String, Object>> selectAll() throws DataAccessException {
 
@@ -55,11 +54,27 @@ public class HospitalRepository {
 	}
 
 	/**
+	 * hospital_idに対応する病院をhospital_listテーブルから一件取得
+	 *
+	 * @param	hospital_id	病院ID
+	 * @return	resultList	取得した病院データ
+	 * @throws	DataAccessException	データベースエラー
+	 */
+	public List<Map<String, Object>> selectOne(String hospital_id) throws DataAccessException {
+
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SELECT_HOSPITAL_ONE, hospital_id);
+
+		return resultList;
+	}
+
+	/**
 	 * hospital_idに対応するmedical_nameを取得
 	 *
-	 *
+	 * @param	hospital_id				病院ID
+	 * @return	HMList					病院IDと診療科名を格納したリスト
+	 * @throws	DataAccessException		データベースエラー
 	 */
-	public List<Map<String, Object>> hospitalMedicaiList(String hospital_id) {
+	public List<Map<String, Object>> hospitalMedicaiList(String hospital_id) throws DataAccessException {
 
 		List<Map<String, Object>> HMList = new ArrayList<Map<String, Object>>();
 
@@ -73,40 +88,71 @@ public class HospitalRepository {
 	 *
 	 * @param	hospital_name	病院名
 	 * @param	address			病院住所
-	 * @return	hospitalEntity	取得した病院データ
+	 * @return	resultList		取得した病院データ
 	 */
-	public HospitalEntity selectSearch(String hospital_name, String address) throws DataAccessException {
+	public List<Map<String, Object>> searchHospital(String hospital_name, String address, String medical_name)
+			throws DataAccessException {
 
-		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SELECT_SEARCH, hospital_name, address);
-		HospitalEntity hospitalEntity = mappingSelectResult(resultList);
+		String searchHospital = "";
+		String searchAddress = "";
+		String searchMedical = "";
 
-		return hospitalEntity;
+		if (hospital_name.isEmpty() == false) {
+			searchHospital = "%" + hospital_name + "%";
+		} else {
+			searchHospital = null;
+		}
+		if (address.isEmpty() == false) {
+			searchAddress = "%" + address + "%";
+		} else {
+			searchAddress = null;
+		}
+		if (medical_name.isEmpty() == false) {
+			searchMedical = "%" + medical_name + "%";
+		} else {
+			searchMedical = null;
+		}
+
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SEARCH_MEDICAL, searchHospital,
+				searchAddress, searchMedical);
+
+		return resultList;
+	}
+
+	//TODO
+	/**
+	 * hospital_table新規登録
+	 *
+	 * @param	form
+	 * @return	Entity
+	 */
+	public List<Map<String, Object>> insertHospital(Hospital_medicalData hmData) throws DataAccessException {
+
+		jdbc.update(SQL_INSERT_HOSPITAL, hmData.getHospital_id(), hmData.getHospital_name(),
+				hmData.getEncrypted_password(), hmData.getAddress(), hmData.getPhone_number(),
+				hmData.getNumber_of_reservations());
+
+		if (hmData.getMedical_id().contains(",")) {
+			String[] splitMedical = hmData.getMedical_id().split(",");
+			for (int count = 0; count < splitMedical.length; count++) {
+				jdbc.update(SQL_INSERT_MEDICAL, hmData.getHospital_id(), splitMedical[count]);
+			}
+		} else {
+			jdbc.update(SQL_INSERT_MEDICAL, hmData.getHospital_id(), hmData.getMedical_id());
+		}
+		return selectAll();
 	}
 
 	/**
-	 * Hospital_Listテーブルから取得したデータをHospitalEntity形式にマッピングする
+	 * medical_List新規登録
 	 *
-	 * @param	resultList 		Hospital_Listテーブルから取得したデータ
-	 * @return HospitalEntity	変換されたhospitalEntityデータ
+	 * @param	medical_id
 	 */
-	private HospitalEntity mappingSelectResult(List<Map<String, Object>> resultList) throws DataAccessException {
-		HospitalEntity hospitalEntity = new HospitalEntity();
+	public boolean insertMedical() {
+		boolean result = true;
 
-		for (Map<String, Object> map : resultList) {
-			HospitalData hData = new HospitalData();
-
-			hData.setHospital_id((String) map.get("hospital_id"));
-			hData.setHospital_name((String) map.get("hospital_name"));
-			hData.setEncrypted_password((String) map.get("encrypted_password"));
-			hData.setAddress((String) map.get("address"));
-			hData.setPhone_number((String) map.get("phone_number"));
-			hData.setNumber_of_reservations((String) map.get("number_of_reservations"));
-			hData.setReservations_count((Integer) map.get("reservations_count"));
-
-			hospitalEntity.getHospitalList().add(hData);
-
-		}
-		return hospitalEntity;
+		jdbc.update(SQL_INSERT_MEDICAL);
+		return result;
 	}
 
 }

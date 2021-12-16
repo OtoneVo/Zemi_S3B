@@ -41,6 +41,11 @@ public class Hospital_medicalData {
 	private int reservations_count;
 
 	/**
+	 * 診療科ID
+	 */
+	private String medical_id;
+
+	/**
 	 * 診療科名
 	 */
 	private String medical_name;

@@ -85,6 +85,31 @@
 			</button>
 		</div>
 	</form>
+
+
+	<div class="flex">
+		<form th:action="@{/hospitalList/search}" method="post" id="search">
+			<div class="form-row align-items-center">
+				<div class="col-xs-2">
+					<input type="text" name="hospital_name" class="form-control mb-2"
+						placeholder="病院名">
+				</div>
+				<div class="col-xs-2">
+					<input type="text" name="address" class="form-control mb-2"
+						placeholder="住所">
+				</div>
+				<div class="col-xs-2">
+					<input type="text" name="medical_name" class="form-control mb-2"
+						placeholder="診療科">
+				</div>
+				<div class="col-xs-2">
+					<button type="submit" class="btn btn-primary mb-2">検索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
 	<br>
 	<table class="table_box">
 		<tbody th:each="hospital : ${HMEntity.hospital_medicalList}"
@@ -100,7 +125,8 @@
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
 					class="nowrap" th:text="${hospital.address}"></td>
-				<th style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">本日の予約状況</th>
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">本日の予約状況</th>
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
 					class="nowrap" th:text="${hospital.reservations_count}"></td>
@@ -108,17 +134,13 @@
 			</tr>
 
 			<tr class="box" id="makeImg">
-				<th
-					style="border-left: solid 2px #c0c0c0;">電話番号</th>
-				<td
-					style="border-right: solid 2px #c0c0c0;"
-					class="nowrap" th:text="${hospital.phone_number}"></td>
+				<th style="border-left: solid 2px #c0c0c0;">電話番号</th>
+				<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+					th:text="${hospital.phone_number}"></td>
 
-				<th
-					style="border-left: solid 2px #c0c0c0;">診療科</th>
-				<td
-					style="border-right: solid 2px #c0c0c0;"
-					class="nowrap" th:text="${hospital.medical_name}"></td>
+				<th style="border-left: solid 2px #c0c0c0;">診療科</th>
+				<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+					th:text="${hospital.medical_name}"></td>
 
 
 				<th style="font-size: 20px"><b>予約画面へ移動➔</b></th>
