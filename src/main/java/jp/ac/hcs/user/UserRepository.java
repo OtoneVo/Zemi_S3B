@@ -134,7 +134,6 @@ public class UserRepository {
 	 * @return UserData 取得したユーザデータ
 	 * @throws	DataAccessException	データベースエラー
 	 */
-
 	public UserData updatePassword(String user_id, String password) throws DataAccessException {
 
 		password = passwordEncoder.encode(password);
