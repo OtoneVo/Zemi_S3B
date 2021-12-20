@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title>病院管理画面</title>
+<!-- モバイル設定 -->
+<meta id="viewport" name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="manifest" th:href="@{/css/manifest.json}"
+	crossorigin="use-credentials">
+<meta name="application-name" content="WebPortal">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WebPortal">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- アイコン設定 -->
+<link rel="icon" th:href="@{/img/favicon.ico}" sizes="192x192"
+	href="../static/img/favicon.ico">
+<link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}"
+	sizes="192x192">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}" sizes="58x58">
+
+<!-- スタイル設定 -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/ress.css}"
+	href="../static/css/ress.css">
+<link rel="stylesheet" th:href="@{/css/home.css}"
+	href="../static/css/home.css">
+<link rel="stylesheet" th:href="@{/css/han.css}"
+	href="../static/css/han.css">
+<link rel="stylesheet" th:href="@{/css/button.css}"
+	href="../static/css/buttan.css">
+<link rel="stylesheet" th:href="@{/css/table.css}"
+	href="../static/css/table.css">
+</head>
+<body>
+	<!-- 共通ヘッダ -->
+	<header
+		style="background: url('https://www.sozailab.jp/db_img/sozai/59040/7810c966292d01f519def4999176278d.jpg'); height: 135px;">
+		<label style="font-size: 45px; margin-top: 0px; margin-left: 10px;">病院予約</label><br>
+		<label style="font-size: 45px; margin-left: 10px;">システム</label>
+	</header>
+	<div style="width: 100%">
+		<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
+		<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
+		<a href="" class="btn btn-flat" style="width: 33%;"><span>ほにゃらら機能へ</span></a>
+	</div>
+
+	<!-- ハンバーガーメニュー -->
+	<input type="checkbox" id="check">
+	<span class="span1 han_span"></span>
+	<span class="span2 han_span"></span>
+	<span class="span3 han_span"></span>
+	<label class="han_label" for="check"></label>
+	<ul>
+		<li><a href="/logout" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"><span>logout</span></a></li>
+		<li><a href="/" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"><span>トップ画面へ</span></a></li>
+		<li><a href="" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"><span>ほにゃらら機能へ</span></a></li>
+	</ul>
+
+	<!-- コンテンツ -->
+	<br>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>病院詳細・変更</b> <a href="/hospitalList/detail" class="btn btn-3d-flip"></a>
+
+
+	</h2>
+</body>
+</html>

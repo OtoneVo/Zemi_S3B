@@ -64,6 +64,12 @@ public class HospitalForm {
 	private int reservations_count;
 
 	/**
+	 * 概要
+	 */
+	@NotBlank(message = "{require_check}")
+	private String overview;
+
+	/**
 	 *	診療科ID
 	 */
 	@NotBlank(message = "{require_check}")

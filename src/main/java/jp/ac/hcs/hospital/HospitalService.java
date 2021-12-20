@@ -24,8 +24,6 @@ public class HospitalService {
 	 */
 	public List<Map<String, Object>> getHospitals() {
 
-		//HospitalEntity hospitalEntity = new HospitalEntity();
-
 		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
 
 		try {
@@ -61,7 +59,11 @@ public class HospitalService {
 	}
 
 	/**
-	 * 病院が所持する診療科名をカンマ区切りで格納する
+	 * 病院一覧に表示する病院データと診療科データをHospital_medicalEntity形式にマッピングする
+	 *
+	 * @param	hospitalList	病院一覧から取得した病院データ
+	 * @param	medicalList		診療科一覧から取得した診療科データ
+	 * @return	HMEntity		マッピングしたHospital_medicalEntity形式のデータ
 	 */
 	public Hospital_medicalEntity getHospitalMedicalSplit(List<Map<String, Object>> hospitalList,
 			List<Map<String, Object>> HMList) {
@@ -77,6 +79,7 @@ public class HospitalService {
 			hmData.setPhone_number((String) map.get("phone_number"));
 			hmData.setNumber_of_reservations((String) map.get("number_of_reservations"));
 			hmData.setReservations_count((Integer) map.get("reservations_count"));
+			hmData.setOverview((String) map.get("overview"));
 
 			String medicalName = "";
 
@@ -102,19 +105,20 @@ public class HospitalService {
 	 *
 	 * @param	hospital_name	病院名
 	 * @param	address			病院住所
-	 * @return	hospitalEntity	取得した病院データ
+	 * @param	medical_name	診療科名
+	 * @return	searchHospitalList	取得した病院データ
 	 */
-	public HospitalEntity getHospitalSearch(String hospital_name, String address) {
+	public List<Map<String, Object>> getHospitalSearch(String hospital_name, String address, String medical_name) {
 
-		HospitalEntity hospitalEntity = new HospitalEntity();
+		List<Map<String, Object>> searchHospitalList = new ArrayList<Map<String, Object>>();
 
 		try {
-			hospitalEntity = hospitalRepository.selectSearch(hospital_name, address);
+			searchHospitalList = hospitalRepository.searchHospital(hospital_name, address, medical_name);
 		} catch (DataAccessException e) {
 			log.info("病院検索:異常発生");
 			throw e;
 		}
-		return hospitalEntity;
+		return searchHospitalList;
 	}
 
 	/**
@@ -123,26 +127,69 @@ public class HospitalService {
 	 * @param	hospitalData	入力された病院データ
 	 * @return
 	 */
-	/*
-	public HospitalEntity getHospitalInsert(HospitalForm hForm) {
+	public List<Map<String, Object>> getHospitalInsert(HospitalForm hForm) {
 
-		HospitalData hospitalData = new HospitalData();
+		Hospital_medicalData hmData = new Hospital_medicalData();
+		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
 
-		hospitalData.setHospital_id(hForm.getHospital_id());
-		hospitalData.setHospital_name(hForm.getHospital_name());
-		hospitalData.setEncrypted_password(hForm.getEncrypted_password());
-		hospitalData.setAddress(hForm.getAddress());
-		hospitalData.setPhone_number(hForm.getPhone_number());
-		hospitalData.setNumber_of_reservations(hForm.getNumber_of_reservations());
+		hmData.setHospital_id(hForm.getHospital_id());
+		hmData.setHospital_name(hForm.getHospital_name());
+		hmData.setEncrypted_password(hForm.getEncrypted_password());
+		hmData.setAddress(hForm.getAddress());
+		hmData.setPhone_number(hForm.getPhone_number());
+		hmData.setNumber_of_reservations(hForm.getNumber_of_reservations());
+		hmData.setOverview(hForm.getOverview());
+		hmData.setMedical_id(hForm.getMedical_id());
 
 		try {
-			hospitalRepository.insertOne(hospitalData);
+			hospitalList = hospitalRepository.insertHospital(hmData);
 		} catch (DataAccessException e) {
 			log.info("病院新規登録：異常");
 			throw e;
 		}
 
-		return getHospitals();
+		return hospitalList;
 	}
-	*/
+
+	/**
+	 * 病院詳細を表示する
+	 *
+	 * @param	hospital_id		取得する病院の病院ID
+	 * @return	hospitalList	取得した病院データ
+	 */
+	public List<Map<String, Object>> getHospitalDetail(String hospital_id) {
+
+		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
+
+		try {
+			hospitalList = hospitalRepository.selectOne(hospital_id);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+
+		return hospitalList;
+
+	}
+
+	/**
+	 * 病院を削除する
+	 */
+	public boolean getDeleteHospital(String hospital_id) {
+
+		int number = 0;
+
+		try {
+			number = hospitalRepository.deleteHospital(hospital_id);
+		} catch (DataAccessException e) {
+			log.info("病院削除：異常");
+			throw e;
+		}
+
+		if (number == 0) {
+			return false;
+		}
+
+		return true;
+
+	}
 }

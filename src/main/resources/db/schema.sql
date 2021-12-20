@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS m_user (
  * phone_number				電話番号
  * number_of_reservations	予約可能人数
  * reservations_count		予約済み人数
+ * overview					概要
  */
 CREATE TABLE IF NOT EXISTS hospital_list (
 	hospital_id varchar(254),
@@ -46,6 +47,7 @@ CREATE TABLE IF NOT EXISTS hospital_list (
 	phone_number varchar(20) NOT NULL,
 	number_of_reservations varchar(3) NOT NULL,
 	reservations_count int NOT NULL DEFAULT 0,
+	overview varchar(1000) NOT NULL,
 	PRIMARY KEY (hospital_id)
 );
 
@@ -64,7 +66,7 @@ CREATE TABLE IF NOT EXISTS reservation_list (
 	medical_id varchar(254),
 	reservation_date timestamp,
 	reservation_time time,
-	PRIMARY KEY (hospital_id, user_id, medical_id)
+	PRIMARY KEY (hospital_id, user_id, medical_id, reservation_date)
 );
 
 /**
