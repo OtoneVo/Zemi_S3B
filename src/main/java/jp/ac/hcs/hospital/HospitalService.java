@@ -79,6 +79,7 @@ public class HospitalService {
 			hmData.setPhone_number((String) map.get("phone_number"));
 			hmData.setNumber_of_reservations((String) map.get("number_of_reservations"));
 			hmData.setReservations_count((Integer) map.get("reservations_count"));
+			hmData.setOverview((String) map.get("overview"));
 
 			String medicalName = "";
 
@@ -128,9 +129,7 @@ public class HospitalService {
 	 */
 	public List<Map<String, Object>> getHospitalInsert(HospitalForm hForm) {
 
-		//HospitalData hospitalData = new HospitalData();
 		Hospital_medicalData hmData = new Hospital_medicalData();
-		//MedicalData medicalData = new MedicalData();
 		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
 
 		hmData.setHospital_id(hForm.getHospital_id());
@@ -139,6 +138,7 @@ public class HospitalService {
 		hmData.setAddress(hForm.getAddress());
 		hmData.setPhone_number(hForm.getPhone_number());
 		hmData.setNumber_of_reservations(hForm.getNumber_of_reservations());
+		hmData.setOverview(hForm.getOverview());
 		hmData.setMedical_id(hForm.getMedical_id());
 
 		try {
@@ -149,5 +149,47 @@ public class HospitalService {
 		}
 
 		return hospitalList;
+	}
+
+	/**
+	 * 病院詳細を表示する
+	 *
+	 * @param	hospital_id		取得する病院の病院ID
+	 * @return	hospitalList	取得した病院データ
+	 */
+	public List<Map<String, Object>> getHospitalDetail(String hospital_id) {
+
+		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
+
+		try {
+			hospitalList = hospitalRepository.selectOne(hospital_id);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+
+		return hospitalList;
+
+	}
+
+	/**
+	 * 病院を削除する
+	 */
+	public boolean getDeleteHospital(String hospital_id) {
+
+		int number = 0;
+
+		try {
+			number = hospitalRepository.deleteHospital(hospital_id);
+		} catch (DataAccessException e) {
+			log.info("病院削除：異常");
+			throw e;
+		}
+
+		if (number == 0) {
+			return false;
+		}
+
+		return true;
+
 	}
 }

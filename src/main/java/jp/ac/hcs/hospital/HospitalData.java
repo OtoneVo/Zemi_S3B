@@ -42,4 +42,9 @@ public class HospitalData {
 	 * 予約済み人数	非NULL、デフォルト0
 	 */
 	private int reservations_count;
+
+	/**
+	 * 概要	非NULL
+	 */
+	private String overview;
 }

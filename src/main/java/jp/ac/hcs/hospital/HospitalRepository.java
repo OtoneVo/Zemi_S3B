@@ -31,10 +31,16 @@ public class HospitalRepository {
 	private static final String SQL_SEARCH_MEDICAL = "SELECT DISTINCT H. hospital_id, H.hospital_name, H.address, H.phone_number, H.reservations_count FROM hospital_list H, hospital_medical_list HM, medical_list M WHERE H.hospital_id = HM.hospital_id AND HM.medical_id = M.medical_id AND (hospital_name LIKE ? AND H.address LIKE ? AND medical_name LIKE ?) IS NOT FALSE";
 
 	/** SQL病院新規登録 */
-	private static final String SQL_INSERT_HOSPITAL = "INSERT INTO hospital_List(hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations) VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String SQL_INSERT_HOSPITAL = "INSERT INTO hospital_List(hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations, overview) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
 	/** SQL診療科新規登録 */
 	private static final String SQL_INSERT_MEDICAL = "INSERT INTO hospital_medical_list(hospital_id, medical_id) VALUES (?, ?)";
+
+	/** SQL病院削除 */
+	private static final String SQL_DELETE_HOSPITAL = "DELETE FROM hospital_list WHERE hospital_id = ?";
+
+	/** SQL病院診療科削除 */
+	private static final String SQL_DELETE_MEDICAL_HOSPITAL = "DELETE FROM hospital_medical_list WHERE hospital_id = ?";
 
 	@Autowired
 	JdbcTemplate jdbc;
@@ -130,7 +136,7 @@ public class HospitalRepository {
 
 		jdbc.update(SQL_INSERT_HOSPITAL, hmData.getHospital_id(), hmData.getHospital_name(),
 				hmData.getEncrypted_password(), hmData.getAddress(), hmData.getPhone_number(),
-				hmData.getNumber_of_reservations());
+				hmData.getNumber_of_reservations(), hmData.getOverview());
 
 		if (hmData.getMedical_id().contains(",")) {
 			String[] splitMedical = hmData.getMedical_id().split(",");
@@ -144,15 +150,19 @@ public class HospitalRepository {
 	}
 
 	/**
-	 * medical_List新規登録
+	 * 選択された病院IDに対応する病院と病院診療科を削除する
 	 *
-	 * @param	medical_id
+	 * @param	hospital_id	削除する病院の病院ID
+	 * @return	number		削除したデータ件数
+	 * @throws	DataAccessException	データベースエラー
 	 */
-	public boolean insertMedical() {
-		boolean result = true;
+	public int deleteHospital(String hospital_id) throws DataAccessException {
 
-		jdbc.update(SQL_INSERT_MEDICAL);
-		return result;
+		int number = 0;
+		number += jdbc.update(SQL_DELETE_HOSPITAL, hospital_id);
+		number += jdbc.update(SQL_DELETE_MEDICAL_HOSPITAL, hospital_id);
+
+		return number;
 	}
 
 }

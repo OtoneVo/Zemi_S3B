@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -134,23 +135,36 @@ public class HospitalController {
 		return "hospital/hospitalList";
 	}
 
-	//TODO 病院詳細画面
+
 	/**
 	 * 病院詳細画面に遷移する
+	 *
+	 *
+	 */
+
+	//TODO 病院詳細画面
+	/**
+	 * 病院詳細を表示する
 	 *
 	 * @param	hospital_id		詳細表示する病院の病院ID
 	 * @param	principal		ログイン中のユーザ情報
 	 * @param	model			モデル情報
 	 * @return	hospitalDetail	病院詳細画面
 	 */
-	@GetMapping("/hospitalList/detail")
-	public String getHospitalDetail(String hospital_id, Principal principal, Model model) {
+	@GetMapping("/hospitalList/detail/{id}")
+	public String getHospitalDetail(@PathVariable("id") String hospital_id, Principal principal, Model model) {
 		//病院IDに対応する病院の詳細情報を取得する
 
-		model.addAttribute("hospitalDetail");
-
-		log.info(principal.getName() + "：病院詳細画面：正常");
-		log.info(principal.getName() + "：病院詳細画面：異常");
+		try {
+			List<Map<String, Object>> hospitalDetailList = hospitalService.getHospitalDetail(hospital_id);
+			List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalDetailList);
+			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalDetailList, HMList);
+			log.info(principal.getName() + "：病院詳細画面：正常");
+			model.addAttribute("HMEntity", HMEntity);
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：病院詳細画面：異常");
+			return "errorMessage";
+		}
 		return "hospital/hospitalDetail";
 	}
 
@@ -178,6 +192,20 @@ public class HospitalController {
 	@PostMapping("/hospitalList/delete")
 	public String getHospitalDelete(String hospital_id, Principal principal, Model model) {
 
+		boolean result = true;
+
+		try {
+			result = hospitalService.getDeleteHospital(hospital_id);
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "病院削除：異常");
+			return "errorMessage";
+		}
+
+		if (result) {
+			log.info(principal.getName() + "病院削除：正常");
+			return "hospital/hospitalList";
+		}
+		model.addAttribute("message", "削除に失敗しました。再試行してください。");
 		return "hospital/hospitalList";
 	}
 
