@@ -160,7 +160,6 @@ public class HospitalRepository {
 
 		int number = 0;
 		number += jdbc.update(SQL_DELETE_HOSPITAL, hospital_id);
-		number += jdbc.update(SQL_DELETE_MEDICAL_HOSPITAL, hospital_id);
 
 		return number;
 	}

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -135,13 +136,6 @@ public class HospitalController {
 		return "hospital/hospitalList";
 	}
 
-
-	/**
-	 * 病院詳細画面に遷移する
-	 *
-	 *
-	 */
-
 	//TODO 病院詳細画面
 	/**
 	 * 病院詳細を表示する
@@ -161,6 +155,7 @@ public class HospitalController {
 			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalDetailList, HMList);
 			log.info(principal.getName() + "：病院詳細画面：正常");
 			model.addAttribute("HMEntity", HMEntity);
+			log.info("確認：" + HMEntity);
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院詳細画面：異常");
 			return "errorMessage";
@@ -172,11 +167,24 @@ public class HospitalController {
 	/**
 	 * 詳細画面に表示している病院の情報を変更する
 	 *
-	 * @return	病院詳細画面
+	 * @return	病院情報変更画面
 	 */
-	@PostMapping("/hospitalList/detail")
-	public String getHospitalUpdate() {
-		return "hospital/hospitalDetail";
+	@PostMapping("/hospitalList/change/{id}")
+	public String getHospitalUpdate(@PathVariable("id") String hospital_id, Principal principal, Model model) {
+
+		try {
+			List<Map<String, Object>> hospitalDetailList = hospitalService.getHospitalDetail(hospital_id);
+			List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalDetailList);
+			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalDetailList, HMList);
+			log.info(principal.getName() + "：病院変更画面：正常");
+			model.addAttribute("HMEntity", HMEntity);
+			log.info("確認：" + HMEntity);
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：病院変更画面：異常");
+			return "errorMessage";
+		}
+
+		return "hospital/hospitalChange";
 	}
 
 	//TODO 病院削除機能
@@ -190,7 +198,7 @@ public class HospitalController {
 	 * 			errorMessage	異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/hospitalList/delete")
-	public String getHospitalDelete(String hospital_id, Principal principal, Model model) {
+	public String getHospitalDelete(@RequestParam("hospital_id") String hospital_id, Principal principal, Model model) {
 
 		boolean result = true;
 
@@ -203,7 +211,7 @@ public class HospitalController {
 
 		if (result) {
 			log.info(principal.getName() + "病院削除：正常");
-			return "hospital/hospitalList";
+			return getHospitals(principal, model);
 		}
 		model.addAttribute("message", "削除に失敗しました。再試行してください。");
 		return "hospital/hospitalList";

@@ -38,6 +38,17 @@ VALUES('1', '外科');
 INSERT INTO medical_list (medical_id, medical_name)
 VALUES('2', '内科');
 
+INSERT INTO medical_list (medical_id, medical_name)
+VALUES('3', '皮膚科');
+
+INSERT INTO medical_list (medical_id, medical_name)
+VALUES('4', '精神科');
+
+INSERT INTO medical_list (medical_id, medical_name)
+VALUES('5', '産婦人科');
+
+INSERT INTO medical_list (medical_id, medical_name)
+VALUES('6', '脳神経外科');
 
 /* 病院診療科テーブル */
 INSERT INTO hospital_medical_list (hospital_id, medical_id)
