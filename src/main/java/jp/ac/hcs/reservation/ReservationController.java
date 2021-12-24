@@ -1,6 +1,12 @@
 package jp.ac.hcs.reservation;
 
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class ReservationController {
+
+	@Autowired
+	private ReservationService reservationService;
 
 	//TODO 予約キャンセル機能
 	/**
@@ -46,8 +55,26 @@ public class ReservationController {
 	 *
 	 * @return	予約管理画面
 	 */
-	public String getReservations() {
-		return null;
+	@GetMapping("/reservationsList")
+	public String getReservations(Model model, Principal principal) {
+		String result = null;
+
+		ReservationEntity entity = new ReservationEntity();
+
+		//TODO 権限チェック
+
+		try {
+			entity = reservationService.selectReservation(principal.getName());
+			model.addAttribute("entity",entity);
+			result = "reservation/reservationsList";
+		} catch(DataAccessException e) {
+			e.printStackTrace();
+			return "errorMessage";
+		}
+
+
+
+		return result;
 	}
 
 	//TODO 予約検索機能
@@ -57,6 +84,8 @@ public class ReservationController {
 	 * @return	予約管理画面
 	 */
 	public String getReservationSelect() {
+//		entity = reservationService.searchReservation(principal.getName(),hospital_name, medical_name, reservation_date);
+
 		return null;
 	}
 }
