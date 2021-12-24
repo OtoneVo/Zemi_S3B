@@ -77,22 +77,19 @@
 	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
 		<b>病院詳細・変更画面</b>
 	</h2>
-	<form action="post">
-		<table class="box_hospital" border="1"
-			style="border-collapse: collapse; width: 90%; font-size: 20px;">
+	<form name="hospitalForm" action="post" th:action="@{/hospital/change}">
+		<table class="box_hospital" border="1" style="border-collapse: collapse; width: 90%; font-size: 20px;">
 			<tr bgcolor="black" style="width: 90%">
 				<th colspan="3" style="color: #FFF;">詳細情報</th>
 			</tr>
 			<tr>
 				<th rowspan="2" class="th_hospital text-nowrap">病院名</th>
 				<td class="text_hospital">変更前：</td>
-				<td class="text-nowrap"
-					th:text="${HMEntity.hospital_medicalList[0].hospital_name}"></td>
+				<td class="text-nowrap" th:text="${HMEntity.hospital_medicalList[0].hospital_name}"></td>
 			</tr>
 			<tr>
 				<td class="text_hospital text-nowrap">変更後：</td>
-				<td><input type="text" name="hospital_name"
-					class="form-control"></td>
+				<td><input type="text" name="hospital_name" class="form-control"></td>
 			</tr>
 
 			<tr>
@@ -106,15 +103,13 @@
 			</tr>
 			<tr>
 				<td class="text_hospital text-nowrap">再入力：</td>
-				<td><input type="password" name="new_pass_re"
-					class="form-control"></td>
+				<td><input type="password" name="new_pass_re" class="form-control"></td>
 			</tr>
 
 			<tr>
 				<th rowspan="2" class="th_hospital text-nowrap">病院住所</th>
 				<td class="text_hospital text-nowrap">変更前：</td>
-				<td class="text-nowrap"
-					th:text="${HMEntity.hospital_medicalList[0].address}"></td>
+				<td class="text-nowrap" th:text="${HMEntity.hospital_medicalList[0].address}"></td>
 			</tr>
 			<tr>
 				<td class="text_hospital text-nowrap">変更後：</td>
@@ -124,44 +119,37 @@
 			<tr>
 				<th rowspan="2" class="th_hospital text-nowrap">電話番号</th>
 				<td class="text_hospital text-nowrap">変更前：</td>
-				<td class="text-nowrap"
-					th:text="${HMEntity.hospital_medicalList[0].phone_number}"></td>
+				<td class="text-nowrap" th:text="${HMEntity.hospital_medicalList[0].phone_number}"></td>
 			</tr>
 			<tr>
 				<td class="text_hospital text-nowrap">変更後：</td>
-				<td><input type="text" name="hospital_name"
-					class="form-control"></td>
+				<td><input type="text" name="hospital_name" class="form-control"></td>
 			</tr>
 
 			<tr>
 				<th rowspan="2" class="th_hospital text-nowrap">予約可能人数</th>
 				<td class="text_hospital text-nowrap">変更前：</td>
-				<td class="text-nowrap"
-					th:text="${HMEntity.hospital_medicalList[0].number_of_reservations}"></td>
+				<td class="text-nowrap" th:text="${HMEntity.hospital_medicalList[0].number_of_reservations}"></td>
 			</tr>
 			<tr>
 				<td class="text_hospital text-nowrap">変更後：</td>
-				<td><input type="text" name="hospital_name"
-					class="form-control"></td>
+				<td><input type="text" name="hospital_name" class="form-control"></td>
 			</tr>
 
 			<tr>
 				<th rowspan="2" class="th_hospital text-nowrap">概要</th>
 				<td class="text_hospital text-nowrap">変更前：</td>
-				<td class="text-nowrap"
-					th:text="${HMEntity.hospital_medicalList[0].overview}"></td>
+				<td class="text-nowrap" th:text="${HMEntity.hospital_medicalList[0].overview}"></td>
 			</tr>
 			<tr>
 				<td class="text_hospital text-nowrap">変更後：</td>
-				<td><input type="text" name="hospital_name"
-					class="form-control"></td>
+				<td><input type="text" name="hospital_name" class="form-control"></td>
 			</tr>
 
 			<tr>
 				<th rowspan="2" class="th_hosupital text-nowrap">診療科</th>
 				<td class="text_hospital text-nowrap">変更前：</td>
-				<td class="text-nowrap"
-					th:text="${HMEntity.hospital_medicalList[0].medical_name}"></td>
+				<td class="text-nowrap" th:text="${HMEntity.hospital_medicalList[0].medical_name}"></td>
 			</tr>
 			<tr>
 				<td class="text_hospital text-nowrap">変更後：</td>
@@ -180,36 +168,10 @@
 
 		<div class="aspe">
 			<div class="adhd">
-				<button type="button" data-toggle="modal" class="btn btn-danger"
-					data-target="#hospitalDeleteModal">病院削除</button>
+				<button type="submit"class="btn btn-danger">変更確定</button>
 			</div>
 		</div>
 	</form>
-
-	<!-- ボタン・リンククリック後に表示される画面の内容 -->
-	<div class="modal fade" id="hospitalDeleteModal" tabindex="-1"
-		role="dialog" aria-labelledby="basicModal" aria-hidden="true"
-		style="margin-top: 150px;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4>病院削除</h4>
-				</div>
-				<form th:action="@{/hospitalList/delete}" method="post">
-					<div class="modal-body">
-						<h2>以下の病院を削除します。よろしいでしょうか？</h2>
-						<h3 th:text="${HMEntity.hospital_medicalList[0].hospital_name}"></h3>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-						<button type="submit" class="btn btn-primary"
-							th:value="${HMEntity.hospital_medicalList[0].hospital_id}"
-							name="hospital_id">削除</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 
 	<!-- 共通フッタ -->
 	<footer style="height: 250px; background-color: #696969">

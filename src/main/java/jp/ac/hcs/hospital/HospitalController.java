@@ -187,6 +187,16 @@ public class HospitalController {
 		return "hospital/hospitalChange";
 	}
 
+	/**
+	 * 変更画面で入力された情報に変更する
+	 *
+	 * @return	病院詳細画面
+	 */
+	@PostMapping("/hospital/change")
+	public String hospitalChange(HospitalForm form, Principal principal, Model model) {
+		return null;
+	}
+
 	//TODO 病院削除機能
 	/**
 	 * 詳細画面に表示している病院を削除する
