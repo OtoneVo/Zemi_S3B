@@ -58,12 +58,11 @@ h1 {
 }
 
 .text_hospital {
-	width:7%;
+	width: 7%;
 	margin: 0;
 	padding: 0;
 	text-align: center;
 }
-
 /*病院変更画面に関するCSSここまで*/
 .side {
 	width: 30%;
@@ -87,13 +86,13 @@ article {
 	width: 30em;
 }
 
-.aspe {
+.button-position {
 	width: 510px;
 	height: 100px;
 	text-align: center;
 }
 
-.adhd {
+.button-interval {
 	padding-top: 30px;
 	display: flex;
 	justify-content: space-evenly;

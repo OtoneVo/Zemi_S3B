@@ -77,7 +77,8 @@
 	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
 		<b>病院詳細・変更画面</b>
 	</h2>
-	<form name="hospitalForm" action="post" th:action="@{/hospital/change}">
+	<form name="hospitalForm" method="post" th:action="@{/hospital/change}">
+	<input type="hidden" th:value="${HMEntity.hospital_medicalList[0].hospital_id}" id="hospital_id">
 		<table class="box_hospital" border="1" style="border-collapse: collapse; width: 90%; font-size: 20px;">
 			<tr bgcolor="black" style="width: 90%">
 				<th colspan="3" style="color: #FFF;">詳細情報</th>
@@ -155,19 +156,19 @@
 				<td class="text_hospital text-nowrap">変更後：</td>
 				<td>
 					<input type="hidden" th:value="${HMEntity.hospital_medicalList[0].medical_name}" id="medical_name">
-					<input type="checkbox" name="surgical" value="外科" class="checkbox_list" id="surgical" checked="checked">外科
-					<input type="checkbox" name="internal_medicine" value="内科" class="checkbox_list" id="internal_medicine" checked="checked">内科
-					<input type="checkbox" name="hihu" value="皮膚科" class="checkbox_list" id="hihu" checked="checked">皮膚科
-					<input type="checkbox" name="sei" value="精神科" class="checkbox_list" id="sei" checked="checked">精神科
-					<input type="checkbox" name="san" value="産婦人科" class="checkbox_list" id="san" checked="checked">産婦人科
-					<input type="checkbox" name="nou" value="脳神経外科" class="checkbox_list" id="nou" checked="checked">脳神経外科
+					<input type="checkbox" name="surgical" value="外科" class="text-nowrap" id="surgical" checked="checked">外科
+					<input type="checkbox" name="internal_medicine" value="内科" class="text-nowrap" id="internal_medicine" checked="checked">内科
+					<input type="checkbox" name="hihu" value="皮膚科" class="text-nowrap" id="hihu" checked="checked">皮膚科
+					<input type="checkbox" name="sei" value="精神科" class="text-nowrap" id="sei" checked="checked">精神科
+					<input type="checkbox" name="san" value="産婦人科" class="text-nowrap" id="san" checked="checked">産婦人科
+					<input type="checkbox" name="nou" value="脳神経外科" class="text-nowrap" id="nou" checked="checked">脳神経外科
 				</td>
 			</tr>
 		</table>
 
 
-		<div class="aspe">
-			<div class="adhd">
+		<div class="button-position">
+			<div class="button-interval">
 				<button type="submit"class="btn btn-danger">変更確定</button>
 			</div>
 		</div>

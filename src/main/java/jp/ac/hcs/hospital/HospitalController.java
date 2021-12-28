@@ -193,7 +193,9 @@ public class HospitalController {
 	 * @return	病院詳細画面
 	 */
 	@PostMapping("/hospital/change")
-	public String hospitalChange(HospitalForm form, Principal principal, Model model) {
+	public String hospitalChange(Hospital_MedicalForm hmForm, Principal principal, Model model) {
+		log.info("病院ID取得確認：" + hmForm.getHospital_id());
+		
 		return null;
 	}
 
