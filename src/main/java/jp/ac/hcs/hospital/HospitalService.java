@@ -192,4 +192,19 @@ public class HospitalService {
 		return true;
 
 	}
+	
+	/**
+	 * 病院の情報を更新する
+	 */
+	public boolean getHospitalUpdate(Hospital_MedicalForm hmForm) {
+		
+		try {
+			
+		} catch (DataAccessException e) {
+			throw e;
+		}
+		
+		return true;
+		
+	}
 }

@@ -41,6 +41,16 @@ public class HospitalRepository {
 
 	/** SQL病院診療科削除 */
 	private static final String SQL_DELETE_MEDICAL_HOSPITAL = "DELETE FROM hospital_medical_list WHERE hospital_id = ?";
+	
+	/** SQL病院情報更新 */
+	private static final String SQL_UPDATE_HOSPITAL = "UPDATE hospital_list "
+			+ "SET CASE WHEN ? IS NULL THEN hospital_name = hospital_name WHEN ? IS NOT NULL THEN hospital_name = ? "
+			+ "WHEN ? IS NULL THEN encrypted_password = encrypted_password WHEN ? IS NOT NULL THEN encrypted_password = ? "
+			+ "WHEN ? IS NULL THEN address = address WHEN ? IS NOT NULL THEN address = ? "
+			+ "WHEN ? IS NULL THEN phone_number = phone_number WHEN ? IS NOT NULL THEN phone_number = ? "
+			+ "WHEN ? IS NULL THEN number_of_reservations = number_of_reservations WHEN ? IS NOT NULL THEN number_of_reservations = ? "
+			+ "WHEN ? IS NULL THEN overview = overview WHEN ? IS NOT NULL THEN overview = ? END "
+			+ "WHERE hospital_id = ?";
 
 	@Autowired
 	JdbcTemplate jdbc;
