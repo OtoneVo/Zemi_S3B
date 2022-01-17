@@ -192,19 +192,26 @@ public class HospitalService {
 		return true;
 
 	}
-	
+
 	/**
 	 * 病院の情報を更新する
 	 */
 	public boolean getHospitalUpdate(Hospital_MedicalForm hmForm) {
-		
+		int number = 0;
+
 		try {
-			
+			number += hospitalRepository.updateHospital(hmForm);
+			number += hospitalRepository.deleteHospitalMedical(hmForm.getHospital_id());
+			number += hospitalRepository.insertMedical(hmForm.getHospital_id(), hmForm.getMedical_id());
 		} catch (DataAccessException e) {
 			throw e;
 		}
-		
+
+		if (number == 0) {
+			return false;
+		}
+
 		return true;
-		
+
 	}
 }

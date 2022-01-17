@@ -197,17 +197,25 @@ public class HospitalController {
 		log.info("電話番号取得確認：" + hmForm.getPhone_number());
 		log.info("予約可能人数取得確認：" + hmForm.getNumber_of_reservations());
 		log.info("概要取得確認：" + hmForm.getOverview());
-		log.info("診療科取得確認：" + hmForm.getMedical_name());
-		
+		log.info("診療科取得確認：" + hmForm.getMedical_id());
+
+		boolean result = true;
+
 		//フォームから取得した情報に更新する
 		try {
-			
-		} catch(DataAccessException e) {
-			
-		}
-		//更新成功：病院詳細画面
-		//更新失敗：エラー表示画面
+			result = hospitalService.getHospitalUpdate(hmForm);
 
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：病院変更画面：異常");
+			return "errorMessage";
+		}
+
+		if (result) {
+			log.info(principal.getName() + "病院削除：正常");
+			return getHospitals(principal, model);
+		}
+
+		model.addAttribute("message", "変更に失敗しました。再試行してください。");
 		return "hospital/hospitalList";
 	}
 

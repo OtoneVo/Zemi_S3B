@@ -41,15 +41,15 @@ public class HospitalRepository {
 
 	/** SQL病院診療科削除 */
 	private static final String SQL_DELETE_MEDICAL_HOSPITAL = "DELETE FROM hospital_medical_list WHERE hospital_id = ?";
-	
+
 	/** SQL病院情報更新 */
 	private static final String SQL_UPDATE_HOSPITAL = "UPDATE hospital_list "
-			+ "SET CASE WHEN ? IS NULL THEN hospital_name = hospital_name WHEN ? IS NOT NULL THEN hospital_name = ? "
-			+ "WHEN ? IS NULL THEN encrypted_password = encrypted_password WHEN ? IS NOT NULL THEN encrypted_password = ? "
-			+ "WHEN ? IS NULL THEN address = address WHEN ? IS NOT NULL THEN address = ? "
-			+ "WHEN ? IS NULL THEN phone_number = phone_number WHEN ? IS NOT NULL THEN phone_number = ? "
-			+ "WHEN ? IS NULL THEN number_of_reservations = number_of_reservations WHEN ? IS NOT NULL THEN number_of_reservations = ? "
-			+ "WHEN ? IS NULL THEN overview = overview WHEN ? IS NOT NULL THEN overview = ? END "
+			+ "SET hospital_name = CASE WHEN ? IS NULL THEN hospital_name WHEN ? IS NOT NULL THEN ? END, "
+			+ "encrypted_password = CASE WHEN ? IS NULL THEN encrypted_password WHEN ? IS NOT NULL THEN ? END, "
+			+ "address = CASE WHEN ? IS NULL THEN address WHEN ? IS NOT NULL THEN ? END, "
+			+ "phone_number = CASE WHEN ? IS NULL THEN phone_number WHEN ? IS NOT NULL THEN ? END, "
+			+ "number_of_reservations = CASE WHEN ? IS NULL THEN number_of_reservations WHEN ? IS NOT NULL THEN ? END, "
+			+ "overview = CASE WHEN ? IS NULL THEN overview WHEN ? IS NOT NULL THEN ? END "
 			+ "WHERE hospital_id = ?";
 
 	@Autowired
@@ -160,7 +160,30 @@ public class HospitalRepository {
 	}
 
 	/**
-	 * 選択された病院IDに対応する病院と病院診療科を削除する
+	 * 病院診療科テーブルに診療科を新規登録する
+	 *
+	 * @param hospital_id	登録する診療科をもつ病院の病院ID
+	 * @param medical_id	登録する診療科の診療科ID
+	 *
+	 *
+	 */
+	public int insertMedical(String hospital_id, String medical_id) throws DataAccessException {
+		int number = 0;
+
+		if (medical_id.contains(",")) {
+			String[] splitMedical = medical_id.split(",");
+			for (int count = 0; count < splitMedical.length; count++) {
+				number += jdbc.update(SQL_INSERT_MEDICAL, hospital_id, splitMedical[count]);
+			}
+		} else {
+			number += jdbc.update(SQL_INSERT_MEDICAL, hospital_id, medical_id);
+		}
+
+		return number;
+	}
+
+	/**
+	 * 選択された病院IDに対応する病院を削除する
 	 *
 	 * @param	hospital_id	削除する病院の病院ID
 	 * @return	number		削除したデータ件数
@@ -170,6 +193,40 @@ public class HospitalRepository {
 
 		int number = 0;
 		number += jdbc.update(SQL_DELETE_HOSPITAL, hospital_id);
+
+		return number;
+	}
+
+	/**
+	 * 病院の診療科を削除する
+	 *
+	 * @param hospital_id	削除する診療科をもつ病院の病院ID
+	 * @return number		削除件数
+	 * @throws DataAccessException
+	 */
+	public int deleteHospitalMedical(String hospital_id) throws DataAccessException {
+		int number = 0;
+		number += jdbc.update(SQL_DELETE_MEDICAL_HOSPITAL, hospital_id);
+
+		return number;
+	}
+
+	/**
+	 * 病院IDに対応する病院の情報を更新する
+	 *
+	 *
+	 */
+	public int updateHospital(Hospital_MedicalForm hmForm) throws DataAccessException {
+		int number = 0;
+		number += jdbc.update(SQL_UPDATE_HOSPITAL, hmForm.getHospital_name(), hmForm.getHospital_name(),
+				hmForm.getHospital_name(),
+				hmForm.getEncrypted_password(), hmForm.getEncrypted_password(), hmForm.getEncrypted_password(),
+				hmForm.getAddress(),
+				hmForm.getAddress(), hmForm.getAddress(), hmForm.getPhone_number(), hmForm.getPhone_number(),
+				hmForm.getPhone_number(),
+				hmForm.getNumber_of_reservations(), hmForm.getNumber_of_reservations(),
+				hmForm.getNumber_of_reservations(), hmForm.getOverview(),
+				hmForm.getOverview(), hmForm.getOverview(), hmForm.getHospital_id());
 
 		return number;
 	}
