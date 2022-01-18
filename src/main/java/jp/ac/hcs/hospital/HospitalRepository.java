@@ -218,15 +218,51 @@ public class HospitalRepository {
 	 */
 	public int updateHospital(Hospital_MedicalForm hmForm) throws DataAccessException {
 		int number = 0;
-		number += jdbc.update(SQL_UPDATE_HOSPITAL, hmForm.getHospital_name(), hmForm.getHospital_name(),
-				hmForm.getHospital_name(),
+		String hospital_name = "";
+		String address = "";
+		String phone_number = "";
+		String number_of_reservations = "";
+		String overview = "";
+
+		if (hmForm.getHospital_name().isEmpty()) {
+			hospital_name = null;
+		} else if (hmForm.getHospital_name().isEmpty() == false) {
+			hospital_name = hmForm.getHospital_name();
+		}
+
+		if (hmForm.getAddress().isEmpty()) {
+			address = null;
+		} else if (hmForm.getAddress().isEmpty() == false) {
+			address = hmForm.getAddress();
+		}
+
+		if (hmForm.getPhone_number().isEmpty()) {
+			phone_number = null;
+		} else if (hmForm.getPhone_number().isEmpty() == false) {
+			phone_number = hmForm.getAddress();
+		}
+
+		if (hmForm.getNumber_of_reservations().isEmpty()) {
+			number_of_reservations = null;
+		} else if (hmForm.getNumber_of_reservations().isEmpty() == false) {
+			number_of_reservations = hmForm.getNumber_of_reservations();
+		}
+
+		if (hmForm.getOverview().isEmpty()) {
+			overview = null;
+		} else if (hmForm.getOverview().isEmpty() == false) {
+			overview = hmForm.getOverview();
+		}
+
+		number += jdbc.update(SQL_UPDATE_HOSPITAL, hospital_name, hospital_name,
+				hospital_name,
 				hmForm.getEncrypted_password(), hmForm.getEncrypted_password(), hmForm.getEncrypted_password(),
-				hmForm.getAddress(),
-				hmForm.getAddress(), hmForm.getAddress(), hmForm.getPhone_number(), hmForm.getPhone_number(),
-				hmForm.getPhone_number(),
-				hmForm.getNumber_of_reservations(), hmForm.getNumber_of_reservations(),
-				hmForm.getNumber_of_reservations(), hmForm.getOverview(),
-				hmForm.getOverview(), hmForm.getOverview(), hmForm.getHospital_id());
+				address,
+				address, address, phone_number, phone_number,
+				phone_number,
+				number_of_reservations, number_of_reservations,
+				number_of_reservations, overview,
+				overview, overview, hmForm.getHospital_id());
 
 		return number;
 	}

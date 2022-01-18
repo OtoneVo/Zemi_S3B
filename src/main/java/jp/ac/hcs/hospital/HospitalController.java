@@ -89,7 +89,13 @@ public class HospitalController {
 	 *
 	 * @return hospitalControl 病院管理画面
 	 */
-	public String hospitalcontrol() {
+	@GetMapping("/hospital/management")
+	public String hospitalcontrol(Principal principal, Model model) {
+
+		List<Map<String, Object>> hospitalList = hospitalService.getHospitals();
+		List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalList);
+		Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalList, HMList);
+		model.addAttribute("HMEntity", HMEntity);
 
 		return "hospital/hospitalControl";
 	}
@@ -164,7 +170,10 @@ public class HospitalController {
 	/**
 	 * 詳細画面に表示している病院の情報を変更する
 	 *
-	 * @return 病院情報変更画面
+	 * @param	hospital_id		詳細表示する病院の病院ID
+	 * @param	principal		ユーザ情報
+	 * @param	model			モデル情報
+	 * @return hospitalChange	正常：病院情報変更画面	異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/hospitalList/change/{id}")
 	public String getHospitalUpdate(@PathVariable("id") String hospital_id, Principal principal, Model model) {
@@ -187,24 +196,17 @@ public class HospitalController {
 	/**
 	 * 変更画面で入力された情報に変更する
 	 *
-	 * @return 病院詳細画面
+	 * @param	hmForm			入力された変更する病院情報
+	 * @param	principal		ユーザ情報
+	 * @param	model			モデル情報
+	 * @return hospitalList	正常：病院詳細画面	errorMessage	異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/hospital/change")
 	public String hospitalChange(Hospital_MedicalForm hmForm, Principal principal, Model model) {
-		log.info("病院ID取得確認：" + hmForm.getHospital_id());
-		log.info("病院名取得確認：" + hmForm.getHospital_name());
-		log.info("住所取得確認：" + hmForm.getAddress());
-		log.info("電話番号取得確認：" + hmForm.getPhone_number());
-		log.info("予約可能人数取得確認：" + hmForm.getNumber_of_reservations());
-		log.info("概要取得確認：" + hmForm.getOverview());
-		log.info("診療科取得確認：" + hmForm.getMedical_id());
-
 		boolean result = true;
 
-		//フォームから取得した情報に更新する
 		try {
 			result = hospitalService.getHospitalUpdate(hmForm);
-
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院変更画面：異常");
 			return "errorMessage";
