@@ -10,6 +10,15 @@ VALUES('kashiwaya@hcs.ac.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF
 /* ユーザマスタのデータ(病院権限) PASS:password */
 INSERT INTO m_user (user_id, encrypted_password, user_name, user_permission, gender, age, birth_date, address, phone_number)
 VALUES('ima@hcs.ac.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '井馬渉太', 'HOSPITAL', 1, 21, '2000-07-29', '札幌市東区北4条東6丁目3-50', '090-7243-5143');
+/* 札幌市立病院の病院権限アカウントのデータ PASS:password */
+INSERT INTO m_user (user_id, encrypted_password, user_name, user_permission, gender, age, birth_date, address, phone_number)
+VALUES('sapporo@hosp.ac.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '札幌市立病院', 'HOSPITAL', 1, 21, '2000-07-29', '札幌市中央区北10条東5丁目', '090-2435-8204');
+
+INSERT INTO m_user (user_id, encrypted_password, user_name, user_permission, gender, age, birth_date, address, phone_number)
+VALUES('takikawa@hosp.ac.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '滝川市立病院', 'HOSPITAL', 1, 21, '2000-07-29', '滝川市空知町2丁目2−34', '090-5475-8164');
+
+INSERT INTO m_user (user_id, encrypted_password, user_name, user_permission, gender, age, birth_date, address, phone_number)
+VALUES('sunagawa@hosp.ac.jp', '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa', '砂川市立病院', 'HOSPITAL', 1, 21, '2000-07-29', '砂川市西7条北4', '090-2398-0214');
 
 
 /* 病院マスタのデータ PASS:password */

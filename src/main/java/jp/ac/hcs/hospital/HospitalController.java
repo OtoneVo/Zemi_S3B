@@ -166,6 +166,23 @@ public class HospitalController {
 		return "hospital/hospitalDetail";
 	}
 
+	@GetMapping("/hospital/detail")
+	public String getHospitalPermissionDetail(Principal principal, Model model) {
+
+		try {
+			List<Map<String, Object>> hospitalDetailList = hospitalService.getHospitalDetail(principal.getName());
+			List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalDetailList);
+			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalDetailList, HMList);
+			log.info(principal.getName() + "：病院詳細画面：正常");
+			model.addAttribute("HMEntity", HMEntity);
+			log.info("確認：" + HMEntity);
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "：病院詳細画面：異常");
+			return "errorMessage";
+		}
+		return "hospital/hospitalDetail";
+	}
+
 	// TODO 病院情報変更
 	/**
 	 * 詳細画面に表示している病院の情報を変更する
