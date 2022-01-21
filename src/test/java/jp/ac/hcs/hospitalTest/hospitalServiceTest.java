@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import jp.ac.hcs.hospital.HospitalForm;
 import jp.ac.hcs.hospital.HospitalRepository;
 import jp.ac.hcs.hospital.HospitalService;
+import jp.ac.hcs.hospital.Hospital_MedicalForm;
 import jp.ac.hcs.hospital.Hospital_medicalData;
 import jp.ac.hcs.hospital.Hospital_medicalEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -186,6 +187,114 @@ public class hospitalServiceTest {
 		assertNull(hospitalList);
 		//4.Logs
 		log.warn("[getHospitalInsertの異常系テスト]hospitalList" + hospitalList);
+	}
+
+	@Test
+	void getHospitalDetailの正常系テスト() {
+		//1.Ready
+		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
+		String hospital_id = "sapporo@hosp.ac.jp";
+		//2.Do
+		hospitalList = hospitalService.getHospitalDetail(hospital_id);
+		//3.Assert
+		assertNotNull(hospitalList);
+		//4.Logs
+		log.warn("[getHospitalDetailの正常系テスト]hospitlaList:" + hospitalList);
+	}
+
+	@Test
+	void getHospitalDetailの異常系テスト() {
+		//1.Ready
+		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
+		String hospital_id = "sapporo@hosp.ac.jp";
+		doThrow(new DataAccessResourceFailureException("")).when(hospitalRepository).selectOne(hospital_id);
+		//2.Do
+		hospitalList = hospitalService.getHospitalDetail(hospital_id);
+		//3.Assert
+		assertNull(hospitalList);
+		//4.logs
+		log.warn("[getHospitalDetailの異常系テスト]hospitalList" + hospitalList);
+	}
+
+	@Test
+	void getDeleteHospitalの削除成功正常系テスト() {
+		//1.Ready
+		String hospital_id = "sapporo@hosp.ac.jp";
+		boolean result = true;
+		//2.Do
+		result = hospitalService.getDeleteHospital(hospital_id);
+		//3.Assert
+		assertTrue(result);
+		//4.Logs
+		log.warn("[getDeleteHospitalの削除成功正常系テスト]result" + result);
+	}
+
+	@Test
+	void getDeleteHospitalの削除失敗正常系テスト() {
+		//1.Ready
+		String hospital_id = "test";//存在しない病院ID
+		boolean result = true;
+		//2.Do
+		result = hospitalService.getDeleteHospital(hospital_id);
+		//3.Assert
+		assertFalse(result);
+		//4.Logs
+		log.warn("[getDeleteHospitalの削除失敗正常系テスト]result:" + result);
+	}
+
+	@Test
+	void getDeleteHospitalの異常系テスト() {
+		//1.Ready
+		String hospital_id = "sapporo@hosp.ac.jp";
+		boolean result = true;
+		doThrow(new DataAccessResourceFailureException("")).when(hospitalRepository).deleteHospital(hospital_id);
+		//2.Do
+		result = hospitalService.getDeleteHospital(hospital_id);
+		//3.Assert
+		assertFalse(result);
+		//4.Logs
+		log.warn("[getHospitalDeleteの異常系テスト]result:" + result);
+	}
+
+	@Test
+	void getHospitalUpdateの正常系テスト() {
+		//1.Ready
+		Hospital_MedicalForm hmForm = new Hospital_MedicalForm();
+		hmForm.setHospital_id("sapporo@hosp.ac.jp");
+		hmForm.setHospital_name("札幌市立病院");
+		hmForm.setEncrypted_password("password");
+		hmForm.setAddress("札幌市東区北3条西2丁目");
+		hmForm.setPhone_number("000-0000-0000");
+		hmForm.setNumber_of_reservations("20");
+		hmForm.setOverview("概要");
+		boolean result = true;
+		//2.Do
+		result = hospitalService.getHospitalUpdate(hmForm);
+		//3.Assert
+		assertTrue(result);
+		//4.Logs
+		log.warn("[getHospitalUpdateの正常系テスト]result" + result);
+	}
+
+	@Test
+	void getHospitalUpdateの異常系テスト() {
+		//1.Ready
+		Hospital_MedicalForm hmForm = new Hospital_MedicalForm();
+		hmForm.setHospital_id("sapporo@hosp.ac.jp");
+		hmForm.setHospital_name("札幌市立病院");
+		hmForm.setEncrypted_password("password");
+		hmForm.setAddress("札幌市東区北3条西2丁目");
+		hmForm.setPhone_number("000-0000-0000");
+		hmForm.setNumber_of_reservations("20");
+		hmForm.setOverview("概要");
+		boolean result = true;
+		doThrow(new DataAccessResourceFailureException("")).when(hospitalRepository).updateHospital(hmForm);
+		//2.Do
+		result = hospitalService.getHospitalUpdate(hmForm);
+		//3.Assert
+		assertFalse(result);
+		//4.Logs
+		log.warn("[getHospitalUpdateの異常系テスト]result:" + result);
 	}
 
 }
