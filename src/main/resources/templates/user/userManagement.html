@@ -79,7 +79,7 @@
 		<b>ユーザ情報更新</b>
 	</h2>
 	<p style="font-size: 25px; margin: 10%">ユーザ情報更新の説明文</p>
-	<a href="" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
+	<a th:href="@{'/userList/update/' + *{userData.user_id}}" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
 			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
 				alt="/img/ユーザ更新画像.png" src="/img/ユーザ更新用画像.png"
 				style="width: 90px; height: 30px;"><i
@@ -104,7 +104,7 @@
 	</span>
 	</a>
 	<br>
-
+<span th:text="${userData}"></span>
 	<!-- 共通フッタ -->
 	<footer style="height: 250px; background-color: #696969">
 		<a href="#" class="btn btn-secondary"
