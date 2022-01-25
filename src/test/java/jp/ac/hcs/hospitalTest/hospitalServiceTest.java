@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import jp.ac.hcs.hospital.HospitalForm;
@@ -49,10 +50,9 @@ public class hospitalServiceTest {
 	@Test
 	void getHospitalsの異常系テスト() {
 		//1.Ready
-		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
 		doThrow(new DataAccessResourceFailureException("")).when(hospitalRepository).selectAll();
 		//2.Do
-		hospitalList = hospitalService.getHospitals();
+		List<Map<String, Object>> hospitalList = hospitalService.getHospitals();
 		//3.Assert
 		assertNull(hospitalList);
 		// 4.Logs
@@ -78,7 +78,7 @@ public class hospitalServiceTest {
 		//1.Ready
 		List<Map<String, Object>> hospitalList = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> HMList = new ArrayList<Map<String, Object>>();
-		String hospital_id = "test";
+		String hospital_id = "sapporo@hosp.ac.jp";
 		doThrow(new DataAccessResourceFailureException("")).when(hospitalRepository).hospitalMedicaiList(hospital_id);
 		//2.Do
 		hospitalList = hospitalService.getHospitals();
@@ -141,8 +141,8 @@ public class hospitalServiceTest {
 	void getHospitalInsertの正常系テスト() {
 		//1.Ready
 		HospitalForm hForm = new HospitalForm();
-		hForm.setHospital_id("sapporo@hosp.ac.jp");
-		hForm.setHospital_name("札幌市立病院");
+		hForm.setHospital_id("test@hosp.ac.jp");
+		hForm.setHospital_name("test病院");
 		hForm.setEncrypted_password("password");
 		hForm.setAddress("札幌市東区北3条西2丁目");
 		hForm.setPhone_number("000-0000-0000");
@@ -267,6 +267,7 @@ public class hospitalServiceTest {
 		hmForm.setPhone_number("000-0000-0000");
 		hmForm.setNumber_of_reservations("20");
 		hmForm.setOverview("概要");
+		hmForm.setMedical_id("1");
 		boolean result = true;
 		//2.Do
 		result = hospitalService.getHospitalUpdate(hmForm);
@@ -295,6 +296,28 @@ public class hospitalServiceTest {
 		assertFalse(result);
 		//4.Logs
 		log.warn("[getHospitalUpdateの異常系テスト]result:" + result);
+	}
+
+	@Test
+	void getHospitalUpdateの異常系テスト2() {
+		//1.Ready
+		Hospital_MedicalForm hmForm = new Hospital_MedicalForm();
+		hmForm.setHospital_id("sapporo@hosp.ac.jp");
+		hmForm.setHospital_name("札幌市立病院");
+		hmForm.setEncrypted_password("password");
+		hmForm.setAddress("札幌市東区北3条西2丁目");
+		hmForm.setPhone_number("000-0000-0000");
+		hmForm.setNumber_of_reservations("20");
+		hmForm.setOverview("概要");
+		hmForm.setMedical_id("1");
+		boolean result = true;
+		doThrow(new DataIntegrityViolationException("")).when(hospitalRepository).updateHospital(hmForm);
+		//2.Do
+		result = hospitalService.getHospitalUpdate(hmForm);
+		//3.Assert
+		assertFalse(result);
+		//4.Logs
+		log.warn("[getHospitalUpdateの異常系テスト2]result:" + result);
 	}
 
 }

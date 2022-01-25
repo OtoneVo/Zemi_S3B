@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -224,6 +225,9 @@ public class HospitalController {
 
 		try {
 			result = hospitalService.getHospitalUpdate(hmForm);
+		} catch (DataIntegrityViolationException e) {
+			log.info(principal.getName() + "：病院変更画面：異常");
+			return "errorMessage";
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院変更画面：異常");
 			return "errorMessage";
