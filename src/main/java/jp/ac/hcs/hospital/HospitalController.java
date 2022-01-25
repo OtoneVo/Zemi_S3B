@@ -265,10 +265,10 @@ public class HospitalController {
 
 		if (result) {
 			log.info(principal.getName() + "病院削除：正常");
-			return getHospitals(principal, model);
+			return hospitalcontrol(principal, model);
 		}
 		model.addAttribute("message", "削除に失敗しました。再試行してください。");
-		return "hospital/hospitalList";
+		return hospitalcontrol(principal, model);
 	}
 
 }
