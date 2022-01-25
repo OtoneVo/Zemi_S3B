@@ -233,14 +233,14 @@ public class UserController {
 	}
 
 	/**
-	 * ユーザ情報更新画面に遷移する
+	 * ユーザ新規登録（遷移）
 	 *
 	 * @param	principal		ログイン中のユーザ情報
 	 * @param	model			モデル情報
 	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@GetMapping("/userList/userInsert")
-	public String userInsertOne(String user_id, Principal principal, Model model) {
+	public String userInsertOne(Principal principal, Model model) {
 
 		try {
 			log.info(principal.getName() + "：ユーザ情報更新画面：正常");
@@ -249,7 +249,17 @@ public class UserController {
 			return "errorMessage";
 		}
 		return "user/userInsert";
-
 	}
+
+	/**
+	 * ユーザ新規登録（処理）
+	 *
+	 * @param	userForm	新規登録画面で入力された新規ユーザの情報
+	 * @param	principal	ログイン中のユーザ情報
+	 * @param	model		モデル情報
+	 * @return	正常：ユーザ管理画面	異常：エラーメッセージ表示画面
+	 */
+	@PostMapping("/userList/userInsert")
+	public String userInsertOne(UserForm userForm);
 
 }
