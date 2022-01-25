@@ -44,6 +44,26 @@ h1 {
 	text-align: center;
 }
 
+/*病院変更画面に関するCSSここから*/
+.box_hospital {
+	margin: auto;
+	width: 50%;
+	height: 50%;
+	background-color: #FFFFFF;
+}
+
+.th_hospital {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.text_hospital {
+	width: 7%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+/*病院変更画面に関するCSSここまで*/
 .side {
 	width: 30%;
 	text-align: left;
@@ -64,4 +84,16 @@ article {
 
 .text-map {
 	width: 30em;
+}
+
+.button-position {
+	width: 510px;
+	height: 100px;
+	text-align: center;
+}
+
+.button-interval {
+	padding-top: 30px;
+	display: flex;
+	justify-content: space-evenly;
 }

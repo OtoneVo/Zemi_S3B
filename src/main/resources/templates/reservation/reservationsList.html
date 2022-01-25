@@ -3,7 +3,8 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8">
-<title>病院管理画面</title>
+<title>病院一覧画面</title>
+
 <!-- モバイル設定 -->
 <meta id="viewport" name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -40,6 +41,7 @@
 <link rel="stylesheet" th:href="@{/css/table.css}"
 	href="../static/css/table.css">
 </head>
+
 <body>
 	<!-- 共通ヘッダ -->
 	<header
@@ -69,26 +71,8 @@
 	</ul>
 
 	<!-- コンテンツ -->
-	<br>
-	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main"></h2>
-	<b>病院詳細・変更</b>
-	<table class="table_box">
-
-		<thead class="table-dark">
-			<tr>
-				<th>病院名</th>
-				<th style="border-left: solid 2px #c0c0c0;">詳細画面</th>
-			</tr>
-		</thead>
-		<tbody th:each="hospital : ${HMEntity.hospital_medicalList}"
-			th:object="${hospital}">
-			<tr bgcolor="white">
-				<td th:text="${hospital.hospital_name}"></td>
-				<td class="nowrap" style="border-left: solid 2px #c0c0c0;"><a
-					th:href="@{'/hospitalList/detail/' + ${hospital.hospital_id}}">詳細</a></td>
-			</tr>
-		</tbody>
-	</table>
+	<!-- 値は取れた！一覧作れゴミ！！！！！ -->
+<span th:text="${entity.ReservationList[0]}"></span>
 
 	<!-- 共通フッタ -->
 	<footer style="height: 250px; background-color: #696969">

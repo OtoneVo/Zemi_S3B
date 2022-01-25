@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -187,6 +188,26 @@ public class HospitalService {
 
 		if (number == 0) {
 			return false;
+		}
+
+		return true;
+
+	}
+
+	/**
+	 * 病院の情報を更新する
+	 */
+	public boolean getHospitalUpdate(Hospital_MedicalForm hmForm) {
+		int number = 0;
+
+		try {
+			number += hospitalRepository.updateHospital(hmForm);
+			number += hospitalRepository.deleteHospitalMedical(hmForm.getHospital_id());
+			number += hospitalRepository.insertMedical(hmForm.getHospital_id(), hmForm.getMedical_id());
+		} catch (DataIntegrityViolationException e) {
+			throw e;
+		} catch (DataAccessException e) {
+			throw e;
 		}
 
 		return true;

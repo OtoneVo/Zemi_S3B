@@ -1,0 +1,128 @@
+/*
+input[type=checkbox], input[type=radio] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	position: relative;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	vertical-align: -0.8rem;
+	transition: all .15s ease-out 0s;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	margin: .4rem;
+	outline: none;
+	border-radius: 10%;
+}
+
+input[type=checkbox]:checked:disabled {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+
+input[type=checkbox]:before, input[type=checkbox]:after {
+	position: absolute;
+	content: "";
+	background: #fff;
+	transition: all .2s ease-in-out;
+}
+
+input[type=checkbox]:before {
+	left: 2px;
+	top: 6px;
+	width: 0;
+	height: 2px;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+}
+
+input[type=checkbox]:after {
+	right: 9px;
+	bottom: 3px;
+	width: 2px;
+	height: 0;
+	transform: rotate(40deg);
+	-webkit-transform: rotate(40deg);
+	-moz-transform: rotate(40deg);
+	-ms-transform: rotate(40deg);
+	-o-transform: rotate(40deg);
+	transition-delay: .2s;
+}
+
+input[type=checkbox]:checked:before {
+	left: 1px;
+	top: 10px;
+	width: 6px;
+	height: 2px;
+}
+
+input[type=checkbox]:checked:after {
+	right: 5px;
+	bottom: 1px;
+	width: 2px;
+	height: 14px;
+}
+
+input[type=checkbox]:indeterminate:before, input[type=checkbox]:indeterminate:after
+	{
+	width: 7px;
+	height: 2px;
+	transform: rotate(0);
+	-webkit-transform: rotate(0);
+	-moz-transform: rotate(0);
+	-ms-transform: rotate(0);
+	-o-transform: rotate(0);
+}
+
+input[type=checkbox]:indeterminate:before {
+	left: 1px;
+	top: 7px;
+}
+
+input[type=checkbox]:indeterminate:after {
+	right: 1px;
+	bottom: 7px;
+}
+
+
+input[type=checkbox].blue, input[type=radio].blue {
+	border: 2px solid #2196f3;
+}
+
+input[type=checkbox].blue:checked, input[type=checkbox].blue:indeterminate,
+	input[type=radio].blue:checked:before {
+	background: #2196f3;
+}
+
+input[type=checkbox].blue:checked:disabled, input[type=checkbox].blue:indeterminate,
+	input[type=radio].blue:checked:before {
+	background: #2196f3;
+}
+
+input[type=checkbox]:blue:checked:disabled::after {
+	font-size: 20px;
+	position: absolute;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	content: '✓';
+	text-align: center;
+}
+
+:disabled {
+	background-color: #ffff;
+	color: inherit #0000;
+	cursor: not-allowed;
+}
+*/

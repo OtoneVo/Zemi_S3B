@@ -91,6 +91,6 @@ CREATE TABLE IF NOT EXISTS hospital_medical_list (
 	hospital_id varchar(254),
 	medical_id varchar(254),
 	PRIMARY KEY (hospital_id, medical_id),
-	FOREIGN KEY (hospital_id) REFERENCES hospital_medical_list (hospital_id) ON DELETE CASCADE,
-	FOREIGN KEY (medical_id) REFERENCES hospital_medical_list (medical_id) ON DELETE CASCADE
+	FOREIGN KEY (hospital_id) REFERENCES hospital_list (hospital_id) ON DELETE CASCADE,
+	FOREIGN KEY (medical_id) REFERENCES medical_list (medical_id) ON DELETE CASCADE
 );
