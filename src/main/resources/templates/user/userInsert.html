@@ -33,7 +33,7 @@
 	href="../static/css/ress.css">
 <link rel="stylesheet" th:href="@{/css/home.css}"
 	href="../static/css/home.css">
-</head>
+
 </head>
 <body>
 	<p>ユーザ新規登録新規登録画面</p>
@@ -84,6 +84,33 @@
 						</select>
 					</div>
 
+					<label for="phone_number">年齢</label>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="age"
+							placeholder="00">
+					</div>
+
+
+					<div>
+						<select id="select_year" name="year"></select>年 <select
+							id="select_month" name="month"></select>月 <select id="select_day"
+							name="day"></select>日
+					</div>
+
+					<label for="phone_number">生年月日</label>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="birth_year"
+							placeholder="年">
+					</div>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="birth_month"
+							placeholder="月">
+					</div>
+					<div class="form-group input-box">
+						<input type="text" class="form-control" name="birth_day"
+							placeholder="日">
+					</div>
+
 					<button type="submit" class="btn btn-warning">登録</button>
 				</form>
 			</div>
@@ -92,6 +119,6 @@
 	</div>
 	<br>
 	<br>
-
+	<script type="text/javascript" th:src="@{/js/birthday.js}"></script>
 </body>
 </html>
