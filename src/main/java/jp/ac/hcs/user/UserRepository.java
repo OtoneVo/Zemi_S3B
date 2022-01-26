@@ -37,6 +37,9 @@ public class UserRepository {
 	/** SQLパスワードを一件更新 */
 	private static final String SQL_PASSWORD_UPDATE = "UPDATE m_user SET encrypted_password = ? WHERE user_id = ?";
 
+	/** SQLユーザ追加 */
+	private static final String SQL_INSERT_ONE = "INSERT INTO m_user(user_id, encrypted_password, user_name, user_permission, gender, age, birth_date, address, phone_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 	@Autowired
 	JdbcTemplate jdbc;
 	@Autowired
@@ -70,6 +73,23 @@ public class UserRepository {
 
 		return userData;
 
+	}
+
+	/**
+	 * m_userテーブルにユーザを一件追加する
+	 *
+	 * @param	userForm	追加するユーザの情報
+	 */
+	public int insertOne(UserForm userForm) throws DataAccessException {
+
+		int number = 0;
+
+		number = jdbc.update(SQL_INSERT_ONE, userForm.getUser_id(),
+				passwordEncoder.encode(userForm.getEncrypted_password()),
+				userForm.getUser_name(), userForm.getUser_permission(), userForm.getGender(), userForm.getAge(),
+				userForm.getBirth_date(), userForm.getAddress(), userForm.getPhone_number());
+
+		return number;
 	}
 
 	/**

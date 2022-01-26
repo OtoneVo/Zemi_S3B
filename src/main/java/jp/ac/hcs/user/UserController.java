@@ -260,6 +260,16 @@ public class UserController {
 	 * @return	正常：ユーザ管理画面	異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/userList/userInsert")
-	public String userInsertOne(UserForm userForm);
+	public String userInsertOne(UserForm userForm, Principal principal, Model model) {
+
+		try {
+			userService.userInsert(userForm);
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "ユーザ新規登録画面：異常");
+			return "errorMessage";
+		}
+
+		return getUsers(principal, model);
+	}
 
 }

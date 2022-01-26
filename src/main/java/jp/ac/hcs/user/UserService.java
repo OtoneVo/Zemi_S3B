@@ -1,4 +1,5 @@
 package jp.ac.hcs.user;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,25 @@ public class UserService {
 		}
 		return userEntity;
 
+	}
+
+	/**
+	 * ユーザ新規登録
+	 *
+	 * @param	userForm
+	 * @return	userEntity
+	 */
+	public int userInsert(UserForm userForm) {
+		int number = 0;
+
+		try {
+			number = userRepository.insertOne(userForm);
+		} catch (DataAccessException e) {
+			log.info("ユーザ追加：異常");
+			throw e;
+		}
+
+		return number;
 	}
 
 	/**
