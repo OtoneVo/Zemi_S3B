@@ -44,15 +44,42 @@ public class UserForm {
 	/**
 	 * 身体性別
 	 */
+	@NotBlank(message = "{require_check}")
 	private String gender;
 
 	/**
 	 * 年齢
 	 */
+	@NotBlank(message = "{require_check}")
 	private int age;
 
 	/**
-	 * 生年月日
+	 * 生年月日（年）
 	 */
-	private Date birth_date;
+	@NotBlank(message = "{require_check}")
+	private Date birth_year;
+
+	/**
+	 * 生年月日（月）
+	 */
+	@NotBlank(message = "{require_check}")
+	private Date birth_month;
+
+	/**
+	 * 生年月日（日）
+	 */
+	@NotBlank(message = "{require_check}")
+	private Date birth_day;
+
+	/**
+	 * 住所
+	 */
+	@NotBlank(message = "{require_check}")
+	private String address;
+
+	/**
+	 * 電話番号
+	 */
+	@NotBlank(message = "{require_check}")
+	private String phone_number;
 }
