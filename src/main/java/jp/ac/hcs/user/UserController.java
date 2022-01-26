@@ -1,6 +1,8 @@
 package jp.ac.hcs.user;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -262,8 +264,17 @@ public class UserController {
 	@PostMapping("/userList/userInsert")
 	public String userInsertOne(UserForm userForm, Principal principal, Model model) {
 
+		Date birth_date = null;
+
 		try {
-			userService.userInsert(userForm);
+			birth_date = userService.birthday(userForm.getBirth_year(), userForm.getBirth_month(),
+					userForm.getBirth_day());
+		} catch (ParseException e) {
+			return "errorMessage";
+		}
+
+		try {
+			userService.userInsert(userForm, birth_date);
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "ユーザ新規登録画面：異常");
 			return "errorMessage";

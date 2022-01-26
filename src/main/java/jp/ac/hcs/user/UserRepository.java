@@ -1,6 +1,7 @@
 package jp.ac.hcs.user;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -76,18 +77,18 @@ public class UserRepository {
 	}
 
 	/**
-	 * m_userテーブルにユーザを一件追加する
+	 * m_userテーブルに一般権限のユーザを一件追加する
 	 *
 	 * @param	userForm	追加するユーザの情報
 	 */
-	public int insertOne(UserForm userForm) throws DataAccessException {
+	public int insertOne(UserForm userForm, Date birth_date) throws DataAccessException {
 
 		int number = 0;
 
 		number = jdbc.update(SQL_INSERT_ONE, userForm.getUser_id(),
 				passwordEncoder.encode(userForm.getEncrypted_password()),
-				userForm.getUser_name(), userForm.getUser_permission(), userForm.getGender(), userForm.getAge(),
-				userForm.getBirth_date(), userForm.getAddress(), userForm.getPhone_number());
+				userForm.getUser_name(), "GENERAL", userForm.getGender(), userForm.getAge(),
+				birth_date, userForm.getAddress(), userForm.getPhone_number());
 
 		return number;
 	}

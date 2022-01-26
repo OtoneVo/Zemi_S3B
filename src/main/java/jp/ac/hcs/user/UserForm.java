@@ -1,7 +1,5 @@
 package jp.ac.hcs.user;
 
-import java.util.Date;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -57,19 +55,19 @@ public class UserForm {
 	 * 生年月日（年）
 	 */
 	@NotBlank(message = "{require_check}")
-	private Date birth_year;
+	private String birth_year;
 
 	/**
 	 * 生年月日（月）
 	 */
 	@NotBlank(message = "{require_check}")
-	private Date birth_month;
+	private String birth_month;
 
 	/**
 	 * 生年月日（日）
 	 */
 	@NotBlank(message = "{require_check}")
-	private Date birth_day;
+	private String birth_day;
 
 	/**
 	 * 住所

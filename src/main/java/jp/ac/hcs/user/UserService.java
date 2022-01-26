@@ -1,5 +1,9 @@
 package jp.ac.hcs.user;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -38,17 +42,36 @@ public class UserService {
 	 * @param	userForm
 	 * @return	userEntity
 	 */
-	public int userInsert(UserForm userForm) {
+	public int userInsert(UserForm userForm, Date birth_date) {
 		int number = 0;
 
 		try {
-			number = userRepository.insertOne(userForm);
+			number = userRepository.insertOne(userForm, birth_date);
 		} catch (DataAccessException e) {
 			log.info("ユーザ追加：異常");
 			throw e;
 		}
 
 		return number;
+	}
+
+	/**
+	 * userFormの生年月日を結合する
+	 * @throws ParseException
+	 */
+	public Date birthday(String birth_year, String birth_month, String birth_day) throws ParseException {
+
+		String strDate = birth_year + "/" + birth_month + "/" + birth_day;
+		Date date = null;
+
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			date = sdFormat.parse(strDate);
+		} catch (ParseException e) {
+			throw e;
+		}
+
+		return date;
 	}
 
 	/**
