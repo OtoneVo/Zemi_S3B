@@ -84,8 +84,16 @@
 	</h2>
 	<form method="post" th:action="@{/}">
 		<div class="input-group">
-			<input type="search" class="form-control" name="search"
-				placeholder="検索" style="font-size: 20px; height: 30px;">
+			<input type="search" class="form-control" name="user_id"
+				placeholder="ユーザID" style="font-size: 20px; height: 30px;">
+			<input type="search" class="form-control" name="user_name"
+				placeholder="ユーザ名" style="font-size: 20px; height: 30px;"> <input
+				type="search" class="form-control" name="user_permission"
+				placeholder="権限" style="font-size: 20px; height: 30px;"> <input
+				type="search" class="form-control" name="gender" placeholder="性別"
+				style="font-size: 20px; height: 30px;"> <input type="search"
+				class="form-control" name="phone_number" placeholder="電話番号"
+				style="font-size: 20px; height: 30px;">
 			<button type="submit" style="height: 30px; width: 30px;">
 				<img alt="/img/search.png" src="/img/search.png"
 					style="width: 25px; height: 23px;">
@@ -200,8 +208,9 @@
 		<b>ユーザ新規登録</b>
 	</h2>
 	<p style="font-size: 25px; margin: 10%">ユーザ新規登録の説明文</p>
-	<a href="userList/userInsert" class="btn btn-3d-flip"> <span class="btn-3d-flip-box">
-			<span class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
+	<a href="userList/userInsert" class="btn btn-3d-flip"> <span
+		class="btn-3d-flip-box"> <span
+			class="btn-3d-flip-box-face btn-3d-flip-box-face--front"><img
 				alt="/img/ユーザ登録画像.png" src="/img/ユーザ登録用画像.png"
 				style="width: 90px; height: 30px;"><i
 				class="fas fa-angle-right fa-position-right"></i></span> <span
