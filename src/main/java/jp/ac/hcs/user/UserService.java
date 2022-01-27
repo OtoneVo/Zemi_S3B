@@ -189,4 +189,28 @@ public class UserService {
 
 	}
 
+	/**
+	 * ユーザ検索機能
+	 *
+	 * @param	user_id
+	 * @param	user_name
+	 * @param	user_permission
+	 * @param	gender
+	 * @param	phone_number
+	 * @return	userEntity
+	 * @thorw	DataAccessException
+	 */
+	public UserEntity getUserSearch(String user_id, String user_name, String user_permission, String gender,
+			String phone_number) throws DataAccessException {
+
+		UserEntity userEntity = new UserEntity();
+		try {
+			userEntity = userRepository.userSearch(user_id, user_name, user_permission, gender, phone_number);
+		} catch (DataAccessException e) {
+			throw e;
+		}
+
+		return userEntity;
+	}
+
 }

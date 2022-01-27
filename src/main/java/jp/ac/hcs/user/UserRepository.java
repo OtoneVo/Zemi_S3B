@@ -41,6 +41,9 @@ public class UserRepository {
 	/** SQLユーザ追加 */
 	private static final String SQL_INSERT_ONE = "INSERT INTO m_user(user_id, encrypted_password, user_name, user_permission, gender, age, birth_date, address, phone_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+	/** SQLユーザ検索 */
+	private static final String SQL_SEARCH_USER = "SELECT * FROM m_user WHERE CASE WHEN ";
+
 	@Autowired
 	JdbcTemplate jdbc;
 	@Autowired
@@ -268,6 +271,27 @@ public class UserRepository {
 
 		return userData;
 
+	}
+
+	/**
+	 * ユーザ検索機能
+	 *
+	 * @param	user_id
+	 * @param	user_name
+	 * @param	user_permission
+	 * @param	gender
+	 * @param	phone_number
+	 * @return	userEntity
+	 * @throws	DataAccessException
+	 */
+	public UserEntity userSearch(String user_id, String user_name, String user_permission, String gender,
+			String phone_number) throws DataAccessException {
+
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SEARCH_USER, user_id, user_name, user_permission,
+				gender, phone_number);
+		UserEntity userEntity = mappingSelectResult(resultList);
+
+		return userEntity;
 	}
 
 }
