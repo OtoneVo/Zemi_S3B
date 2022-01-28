@@ -39,6 +39,8 @@
 	href="../static/css/han.css">
 <link rel="stylesheet" th:href="@{/css/button.css}"
 	href="../static/css/buttan.css">
+<link rel="stylesheet" th:href="@{/css/table.css}"
+	href="../static/css/table.css">
 
 
 </head>
@@ -74,21 +76,72 @@
 	</ul>
 
 	<!-- コンテンツ -->
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>更新対象ユーザ情報</b>
+	</h2>
+
 	<br>
-	<span th:text="${userData.user_id}"></span>
-	<br>
-	<!-- モーダルを開くボタン・リンク -->
+	<table class="table_box" style="width: 90%">
 
 
+		<tr class="box">
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザID</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_id}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ名</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_name}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ権限</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_permission}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">身体性別</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.gender}"></td>
+		</tr>
+
+		<tr class="box">
+			<th style="border-left: solid 2px #c0c0c0;">年齢</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.age}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0">生年月日</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.birth_date}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0;">住所</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.address}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0;">電話番号</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.phone_number}"></td>
+		</tr>
+	</table>
+	<br>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>更新項目選択</b>
+	</h2>
+	<br>
 	<table style="width: 100%">
 		<tr>
 			<th>
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#userNameModal" style="width: 670px; height: 120px;">ユーザ名を変更</button>
+					data-target="#userNameModal" style="width: 670px; height: 120px; font-size: 45px">ユーザ名を変更</button>
 			</th>
 			<td>
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#addressModal" style="width: 670px; height: 120px;">住所を変更</button>
+					data-target="#addressModal" style="width: 670px; height: 120px; font-size: 45px">住所を変更</button>
 			</td>
 		</tr>
 	</table>
@@ -99,11 +152,11 @@
 
 				<button type="button" class="btn btn-primary" data-toggle="modal"
 					data-target="#phoneNumberModal"
-					style="width: 670px; height: 120px;">電話番号を変更</button>
+					style="width: 670px; height: 120px; font-size: 45px">電話番号を変更</button>
 			</th>
 			<td>
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#testModal" style="width: 670px; height: 120px;">パスワードを変更</button>
+					data-target="#testModal" style="width: 670px; height: 120px; font-size: 45px">パスワードを変更</button>
 			</td>
 		</tr>
 	</table>
