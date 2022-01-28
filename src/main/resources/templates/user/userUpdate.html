@@ -78,14 +78,36 @@
 	<span th:text="${userData.user_id}"></span>
 	<br>
 	<!-- モーダルを開くボタン・リンク -->
-	<div class="container">
-		<div class="row mb-5">
-			<div class="col-2">
-				<button type="button" class="btn btn-primary mb-12"
-					data-toggle="modal" data-target="#userNameModal">ユーザ名を変更</button>
-			</div>
-		</div>
-	</div>
+
+
+	<table style="width: 100%">
+		<tr>
+			<th>
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#userNameModal" style="width: 670px; height: 120px;">ユーザ名を変更</button>
+			</th>
+			<td>
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#addressModal" style="width: 670px; height: 120px;">住所を変更</button>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table style="width: 100%">
+		<tr>
+			<th>
+
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#phoneNumberModal"
+					style="width: 670px; height: 120px;">電話番号を変更</button>
+			</th>
+			<td>
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#testModal" style="width: 670px; height: 120px;">パスワードを変更</button>
+			</td>
+		</tr>
+	</table>
+	<br>
 
 	<!-- ボタン・リンククリック後に表示される画面の内容 -->
 	<div class="modal fade" id="userNameModal" tabindex="-1" role="dialog"
@@ -116,15 +138,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- モーダルを開くボタン・リンク -->
-	<div class="container">
-		<div class="row mb-5">
-			<div class="col-2">
-				<button type="button" class="btn btn-primary mb-12"
-					data-toggle="modal" data-target="#addressModal">住所を変更</button>
-			</div>
-		</div>
-	</div>
 
 	<!-- ボタン・リンククリック後に表示される画面の内容 -->
 	<div class="modal fade" id="addressModal" tabindex="-1" role="dialog"
@@ -152,15 +165,6 @@
 
 					</div>
 				</form>
-			</div>
-		</div>
-	</div>
-	<!-- モーダルを開くボタン・リンク -->
-	<div class="container">
-		<div class="row mb-5">
-			<div class="col-2">
-				<button type="button" class="btn btn-primary mb-12"
-					data-toggle="modal" data-target="#phoneNumberModal">電話番号を変更</button>
 			</div>
 		</div>
 	</div>
@@ -196,15 +200,6 @@
 	</div>
 
 
-	<!-- モーダルを開くボタン・リンク -->
-	<div class="container">
-		<div class="row mb-5">
-			<div class="col-2">
-				<button type="button" class="btn btn-primary mb-12"
-					data-toggle="modal" data-target="#testModal">パスワードを変更</button>
-			</div>
-		</div>
-	</div>
 
 	<!-- ボタン・リンククリック後に表示される画面の内容 -->
 	<div class="modal fade" id="testModal" tabindex="-1" role="dialog"

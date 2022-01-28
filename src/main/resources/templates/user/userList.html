@@ -80,7 +80,7 @@
 	<!-- コンテンツ -->
 	<br>
 	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
-		<b>ユーザ一覧</b>
+		<b>ログイン中ユーザ情報</b>
 	</h2>
 	<form method="post" th:action="@{/userList/search}">
 		<div class="input-group">
@@ -102,8 +102,59 @@
 	</form>
 	<br>
 	<table class="table_box" style="width: 90%">
-		<tbody th:each="user : ${userEntity.userList}" th:object="${user}">
 
+
+		<tr class="box">
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザID</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_id}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ名</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_name}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ権限</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.user_permission}"></td>
+
+			<th
+				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">身体性別</th>
+			<td
+				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+				class="nowrap" th:text="${userData.gender}"></td>
+		</tr>
+
+		<tr class="box">
+			<th style="border-left: solid 2px #c0c0c0;">年齢</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.age}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0">生年月日</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.birth_date}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0;">住所</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.address}"></td>
+
+			<th style="border-left: solid 2px #c0c0c0;">電話番号</th>
+			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
+				th:text="${userData.phone_number}"></td>
+		</tr>
+	</table>
+	<br>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>その他ユーザ情報</b>
+	</h2>
+	<br>
+	<table class="table_box" style="width: 90%">
+		<tbody th:each="user : ${userEntity.userList}" th:object="${user}">
 			<tr class="box">
 				<th
 					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザID</th>
@@ -154,49 +205,7 @@
 
 		</tbody>
 
-		<tr class="box">
-			<th
-				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザID</th>
-			<td
-				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-				class="nowrap" th:text="${userData.user_id}"></td>
 
-			<th
-				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ名</th>
-			<td
-				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-				class="nowrap" th:text="${userData.user_name}"></td>
-
-			<th
-				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ権限</th>
-			<td
-				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-				class="nowrap" th:text="${userData.user_permission}"></td>
-
-			<th
-				style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">身体性別</th>
-			<td
-				style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-				class="nowrap" th:text="${userData.gender}"></td>
-		</tr>
-
-		<tr class="box">
-			<th style="border-left: solid 2px #c0c0c0;">年齢</th>
-			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
-				th:text="${userData.age}"></td>
-
-			<th style="border-left: solid 2px #c0c0c0">生年月日</th>
-			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
-				th:text="${userData.birth_date}"></td>
-
-			<th style="border-left: solid 2px #c0c0c0;">住所</th>
-			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
-				th:text="${userData.address}"></td>
-
-			<th style="border-left: solid 2px #c0c0c0;">電話番号</th>
-			<td style="border-right: solid 2px #c0c0c0;" class="nowrap"
-				th:text="${userData.phone_number}"></td>
-		</tr>
 
 		<tr>
 			<th style="margin: 20%"></th>
