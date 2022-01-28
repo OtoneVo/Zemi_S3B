@@ -295,15 +295,22 @@ public class UserController {
 	 */
 	@PostMapping("/userList/search")
 	public String userSearch(String user_id, String user_name, String user_permission, String gender,
-			String phone_number) {
+			String phone_number, Principal principal, Model model) {
+
+		UserEntity userEntity = new UserEntity();
+		UserData userData = new UserData();
 
 		try {
-			userService.getUserSearch(user_id, user_name, user_permission, gender, phone_number);
+			userEntity = userService.getUserSearch(user_id, user_name, user_permission, gender, phone_number);
+			model.addAttribute("userEntity", userEntity);
+			userData = userService.userUpdatetRansition(principal.getName());
+			model.addAttribute("userData", userData);
+			log.info(principal.getName() + "ユーザ検索機能：正常");
 		} catch (DataAccessException e) {
-			log.info("ユーザ検索機能：異常");
+			log.info(principal.getName() + "ユーザ検索機能：異常");
 			return "errorMessage";
 		}
-		return "user/userManagement";
+		return "user/userList";
 	}
 
 }

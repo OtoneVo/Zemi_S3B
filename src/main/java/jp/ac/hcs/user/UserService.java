@@ -207,6 +207,7 @@ public class UserService {
 		try {
 			userEntity = userRepository.userSearch(user_id, user_name, user_permission, gender, phone_number);
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			throw e;
 		}
 
