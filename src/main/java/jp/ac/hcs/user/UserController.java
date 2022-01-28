@@ -283,4 +283,27 @@ public class UserController {
 		return getUsers(principal, model);
 	}
 
+	/**
+	 * ユーザ検索
+	 *
+	 * @param	user_id
+	 * @param	user_name
+	 * @param	user_permission
+	 * @param	gender
+	 * @param	phone_number
+	 * @return	userManagement
+	 */
+	@PostMapping("/userList/search")
+	public String userSearch(String user_id, String user_name, String user_permission, String gender,
+			String phone_number) {
+
+		try {
+			userService.getUserSearch(user_id, user_name, user_permission, gender, phone_number);
+		} catch (DataAccessException e) {
+			log.info("ユーザ検索機能：異常");
+			return "errorMessage";
+		}
+		return "user/userManagement";
+	}
+
 }
