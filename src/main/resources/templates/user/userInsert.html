@@ -84,65 +84,66 @@
 	</h2>
 	<br>
 	<div class="input-form">
-		<form method="post" th:action="@{/userList/userInsert}">
+		<form method="post" th:action="@{/userList/userInsert}" th:object="${userForm}">
 
 			<label for="user_id" style="font-size: 20px;">ユーザID(メールアドレス)</label>
-			<div class="form-group input-box">
-				<input type="text" class="form-control" name="user_id"
-					placeholder="xxxxxxx@xxx.xxx"  style="font-size: 15px; height: 30px;">
-
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
+				<input type="text" class="form-control" name="user_id" placeholder="xxxxxxx@xxx.xxx" th:field="*{user_id}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('user_id')}" th:errors="*{user_id}">user_id error</span>
 			</div>
 
 			<label for="user_name"  style="font-size: 20px;">ユーザ名</label>
-			<div class="form-group input-box">
-				<input type="text" class="form-control" name="user_name" style="font-size: 15px; height: 30px;">
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('user_name')} ? 'has-error'">
+				<input type="text" class="form-control" name="user_name" th:field="*{user_name}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('user_name')}" th:errors="*{user_name}">user_name error</span>
 			</div>
 
 			<label for="encrypted_password"  style="font-size: 20px;">パスワード</label>
-			<div class="form-group input-box">
-				<input type="password" class="form-control"
-					name="encrypted_password" placeholder="xxxxxxxx" style="font-size: 15px; height: 30px;">
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('encrypted_password')} ? 'has-error'">
+				<input type="password" class="form-control" name="encrypted_password" placeholder="xxxxxxxx" th:field="*{encrypted_password}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('encrypted_password')}" th:errors="encrypted_password">encrypted_password error</span>
 
 			</div>
 
 			<label for="address"  style="font-size: 20px;">住所</label>
-			<div class="form-group input-box">
-				<input type="text" class="form-control" name="address"
-					placeholder="xxxx-xx-xxxx" style="font-size: 15px; height: 30px;">
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('address')} ? 'has-error'">
+				<input type="text" class="form-control" name="address" placeholder="xxxx-xx-xxxx" th:field="*{address}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address error</span>
 			</div>
 
 			<label for="phone_number"  style="font-size: 20px;">電話番号</label>
-			<div class="form-group input-box">
-				<input type="text" class="form-control" name="phone_number"
-					placeholder="xxxx-xx-xxxx" style="font-size: 15px; height: 30px;">
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('phone_number')} ? 'has-error'">
+				<input type="text" class="form-control" name="phone_number" placeholder="xxxx-xx-xxxx" th:field="*{phone_number}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}">phone_number error</span>
 			</div>
 
-			<label for="phone_number"  style="font-size: 20px;">身体性別</label>
-			<div class="form-group input-box">
-				<select class="form-control" name="gender"
+			<label for="gender"  style="font-size: 20px;">身体性別</label>
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('gender')} ? 'has-error'">
+				<select class="form-control" name="gender" th:field="*{gender}"
 					style="font-size: 15px; height: 30px;">
 					<option value="男">男</option>
 					<option value="女">女</option>
 				</select>
+				<span class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">gender error</span>
 			</div>
 
-			<label for="phone_number"  style="font-size: 20px;">年齢</label>
+			<label for="age" style="font-size: 20px;">年齢</label>
 			<div class="form-group input-box">
-				<input type="text" class="form-control" name="age" placeholder="00" style="font-size: 15px; height: 30px;">
+				<input type="text" class="form-control" name="age" placeholder="00"style="font-size: 15px; height: 30px;">
 			</div>
 
-			<label for="phone_number"  style="font-size: 20px;">生年月日</label>
-			<div class="form-group input-box">
-				<input type="text" class="form-control" name="birth_year"
-					placeholder="年" style="font-size: 15px; height: 30px;">
+			<label for="birth_year"  style="font-size: 20px;">生年月日</label>
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('birth_year')} ? 'has-error'">
+				<input type="text" class="form-control" name="birth_year" placeholder="年" th:field="*{birth_year}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('birth_year')}" th:errors="*{birth_year}">birth_year error</span>
 			</div>
-			<div class="form-group input-box">
-				<input type="text" class="form-control" name="birth_month"
-					placeholder="月" style="font-size: 15px; height: 30px;">
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('birth_month')} ? 'has-error'">
+				<input type="text" class="form-control" name="birth_month" placeholder="月" th:field="*{birth_month}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('birth_month')}" th:errors="*{birth_month}">birth_month error</span>
 			</div>
-			<div class="form-group input-box">
-				<input type="text" class="form-control" name="birth_day"
-					placeholder="日" style="font-size: 15px; height: 30px;">
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('birth_day')} ? 'has-error'">
+				<input type="text" class="form-control" name="birth_day" placeholder="日" th:field="*{birth_day}" style="font-size: 15px; height: 30px;">
+				<span class="text-danger" th:if="${#fields.hasErrors('birth_day')}" th:errors="*{birth_day}">birth_day error</span>
 			</div>
 
 			<button type="submit" class="btn btn-primary" style="color: white;">登録</button>

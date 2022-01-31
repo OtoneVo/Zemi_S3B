@@ -48,7 +48,6 @@ public class UserForm {
 	/**
 	 * 年齢
 	 */
-	@NotBlank(message = "{require_check}")
 	private int age;
 
 	/**

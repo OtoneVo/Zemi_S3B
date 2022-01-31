@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -242,14 +245,8 @@ public class UserController {
 	 * @return	userUpdate	正常：ユーザ情報更新画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@GetMapping("/userList/userInsert")
-	public String userInsertOne(Principal principal, Model model) {
+	public String userInsertOne(UserForm userForm, Principal principal, Model model) {
 
-		try {
-			log.info(principal.getName() + "：ユーザ情報更新画面：正常");
-		} catch (DataAccessException e) {
-			log.info(principal.getName() + "：ユーザ情報更新画面：異常");
-			return "errorMessage";
-		}
 		return "user/userInsert";
 	}
 
@@ -262,7 +259,13 @@ public class UserController {
 	 * @return	正常：ユーザ管理画面	異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/userList/userInsert")
-	public String userInsertOne(UserForm userForm, Principal principal, Model model) {
+	public String userInsertOne(@ModelAttribute @Validated UserForm userForm, BindingResult bindingResult,
+			Principal principal, Model model) {
+
+		// 入力チェックに引っかかった場合、前の画面に戻る
+		if (bindingResult.hasErrors()) {
+			return userInsertOne(userForm, principal, model);
+		}
 
 		Date birth_date = null;
 
@@ -270,6 +273,7 @@ public class UserController {
 			birth_date = userService.birthday(userForm.getBirth_year(), userForm.getBirth_month(),
 					userForm.getBirth_day());
 		} catch (ParseException e) {
+			e.printStackTrace();
 			return "errorMessage";
 		}
 
@@ -277,6 +281,7 @@ public class UserController {
 			userService.userInsert(userForm, birth_date);
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "ユーザ新規登録画面：異常");
+			e.printStackTrace();
 			return "errorMessage";
 		}
 
