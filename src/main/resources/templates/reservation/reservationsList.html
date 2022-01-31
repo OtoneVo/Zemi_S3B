@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8">
-<title>病院一覧画面</title>
+<title>履歴一覧画面</title>
 
 <!-- モバイル設定 -->
 <meta id="viewport" name="viewport"
@@ -72,7 +72,98 @@
 
 	<!-- コンテンツ -->
 	<!-- 値は取れた！一覧作れゴミ！！！！！ -->
-<span th:text="${entity.ReservationList[0]}"></span>
+<span th:text="${entity}"></span>
+<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+		<b>履歴一覧</b>
+	</h2>
+	<form method="post" th:action="@{/}">
+		<div class="input-group">
+			<input type="search" class="form-control" name="search"
+				placeholder="検索" style="font-size: 20px; height: 30px;">
+			<button type="submit" style="height: 30px; width: 30px;">
+				<img alt="/img/search.png" src="/img/search.png"
+					style="width: 25px; height: 23px;">
+			</button>
+		</div>
+	</form>
+
+
+	<div class="flex">
+		<form th:action="@{/reservationList/search}" method="post" id="search">
+			<div class="form-row align-items-center">
+				<div class="col-xs-2">
+					<input type="text" name="hospital_name" class="form-control mb-2"
+						placeholder="病院名">
+				</div>
+				<div class="col-xs-2">
+					<input type="text" name="medical_name" class="form-control mb-2"
+						placeholder="診療科">
+				</div>
+				<div class="col-xs-2">
+					<button type="submit" class="btn btn-primary mb-2">検索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+	<br>
+
+	<p th:if="${message != null}" class="alert alert-danger"
+		th:text="${message}" style="font-size: 15px;"></p>
+
+	<table class="table_box">
+		<tbody th:each="reservation : ${entity.ReservationList}"
+			th:object="${reservation}">
+			<tr class="box">
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">病院名</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap"><a style="color: #000000;"
+					th:href="@{'/hospitalList/detail/' + ${reservation.hospital_id}}"
+					th:text="${reservation.hospital_name}"></a></td>
+
+					<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">予約日</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${reservation.reservation_date}"></td>
+					<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">予約時間</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${reservation.reservation_time}"></td>
+			</tr>
+
+			<tr class="box" id="makeImg">
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">診療科</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${reservation.medical_name}"></td>
+
+
+
+				<th style="font-size: 20px; border-bottom: solid 2px #c0c0c0;"><b>予約画面へ移動➔</b></th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"><a
+					th:href="@{'/hospitalList/detail/' + ${reservation.hospital_id}}"
+					class="btn btn-info"><span>予約</span></a></td>
+			</tr>
+			<tr>
+				<th style="font-size: 20px; border-bottom: solid 2px #c0c0c0;"><b>キャンセルはこちら➔</b></th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"><a
+					th:href="@{'/hospitalList/detail/' + ${reservation.hospital_id}}"
+					class="btn btn-info"><span>予約</span></a></td>
+			</tr>
+			<tr>
+				<th style="margin: 20%"></th>
+			</tr>
+
+		</tbody>
+	</table>
 
 	<!-- 共通フッタ -->
 	<footer style="height: 250px; background-color: #696969">

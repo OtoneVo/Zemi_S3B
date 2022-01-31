@@ -1,5 +1,6 @@
 package jp.ac.hcs.reservation;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,35 @@ public class ReservationService {
 		}
 
 		return searchReservation;
+	}
+
+	public boolean insertReservation(ReservationForm form) throws ParseException {
+
+		int rowNumber = 0;
+
+		ReservationData data = chenge(form);
+
+		try {
+			rowNumber = reservationRepository.reservationInsert(data);
+		} catch(DataAccessException e) {
+			e.printStackTrace();
+			rowNumber = 0;
+		}
+
+		return rowNumber > 0;
+
+	}
+
+	private ReservationData chenge(ReservationForm form) {
+
+		ReservationData data = new ReservationData();
+
+		data.setHospital_id(form.getHospital_id());
+		data.setUser_id(form.getUser_id());
+		data.setMedical_id(form.getMedical_id());
+		data.setReservation_date(form.getReservation_date());
+		data.setReservation_time(form.getReservation_time());
+
+		return data;
 	}
 }
