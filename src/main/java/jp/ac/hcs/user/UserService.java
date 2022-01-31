@@ -205,7 +205,12 @@ public class UserService {
 
 		UserEntity userEntity = new UserEntity();
 		try {
-			userEntity = userRepository.userSearch(user_id, user_name, user_permission, gender, phone_number);
+			if (user_id.isEmpty() && user_name.isEmpty() && user_permission.isEmpty() && gender.isEmpty()
+					&& phone_number.isEmpty()) {
+				userEntity = userRepository.selectAll();
+			} else {
+				userEntity = userRepository.userSearch(user_id, user_name, user_permission, gender, phone_number);
+			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw e;

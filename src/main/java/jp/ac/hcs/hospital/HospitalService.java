@@ -30,9 +30,13 @@ public class HospitalService {
 		try {
 			hospitalList = hospitalRepository.selectAll();
 		} catch (DataAccessException e) {
-			log.info("全件取得:異常発生");
+			log.info("全件取得：異常");
+			throw e;
+		} catch (Exception e) {
+			log.info("全件取得：想定外のエラー");
 			throw e;
 		}
+
 		return hospitalList;
 
 	}
@@ -52,7 +56,10 @@ public class HospitalService {
 			try {
 				HMList.addAll(hospitalRepository.hospitalMedicaiList(hospitalId));
 			} catch (DataAccessException e) {
-				log.info("全件取得:異常発生");
+				log.info("病院・診療科取得：異常");
+				throw e;
+			} catch (Exception e) {
+				log.info("病院・診療科取得：想定外のエラー");
 				throw e;
 			}
 		}
@@ -116,7 +123,10 @@ public class HospitalService {
 		try {
 			searchHospitalList = hospitalRepository.searchHospital(hospital_name, address, medical_name);
 		} catch (DataAccessException e) {
-			log.info("病院検索:異常発生");
+			log.info("病院検索：異常");
+			throw e;
+		} catch (Exception e) {
+			log.info("病院検索：想定外のエラー");
 			throw e;
 		}
 		return searchHospitalList;
@@ -147,6 +157,9 @@ public class HospitalService {
 		} catch (DataAccessException e) {
 			log.info("病院新規登録：異常");
 			throw e;
+		} catch (Exception e) {
+			log.info("病院新規登録：想定外のエラー");
+			throw e;
 		}
 
 		return hospitalList;
@@ -165,6 +178,10 @@ public class HospitalService {
 		try {
 			hospitalList = hospitalRepository.selectOne(hospital_id);
 		} catch (DataAccessException e) {
+			log.info("病院詳細：異常");
+			throw e;
+		} catch (Exception e) {
+			log.info("病院詳細：想定外のエラー");
 			throw e;
 		}
 
@@ -183,6 +200,9 @@ public class HospitalService {
 			number = hospitalRepository.deleteHospital(hospital_id);
 		} catch (DataAccessException e) {
 			log.info("病院削除：異常");
+			throw e;
+		} catch (Exception e) {
+			log.info("病院削除：想定外のエラー");
 			throw e;
 		}
 
@@ -207,6 +227,8 @@ public class HospitalService {
 		} catch (DataIntegrityViolationException e) {
 			throw e;
 		} catch (DataAccessException e) {
+			throw e;
+		} catch (Exception e) {
 			throw e;
 		}
 

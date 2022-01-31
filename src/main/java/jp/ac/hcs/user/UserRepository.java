@@ -42,12 +42,10 @@ public class UserRepository {
 	private static final String SQL_INSERT_ONE = "INSERT INTO m_user(user_id, encrypted_password, user_name, user_permission, gender, age, birth_date, address, phone_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	/** SQLユーザ検索 */
-	private static final String SQL_SEARCH_USER = "SELECT * FROM m_user WHERE user_id = CASE WHEN ? IS NULL THEN user_id ELSE ? END "
-			+ "AND user_name = CASE WHEN ? IS NULL THEN user_name ELSE ? END "
+	private static final String SQL_SEARCH_USER = "SELECT * FROM m_user WHERE (user_id LIKE ? AND user_name LIKE ?) IS NOT FALSE "
 			+ "AND user_permission = CASE WHEN ? IS NULL THEN user_permission ELSE ? END "
 			+ "AND gender = CASE WHEN ? IS NULL THEN gender ELSE ? END "
 			+ "AND phone_number = CASE WHEN ? IS NULL THEN phone_number ELSE ? END";
-
 	@Autowired
 	JdbcTemplate jdbc;
 	@Autowired
@@ -300,13 +298,13 @@ public class UserRepository {
 		if (user_id.isEmpty()) {
 			id = null;
 		} else {
-			id = user_id;
+			id = "%" + user_id + "%";
 		}
 
 		if (user_name.isEmpty()) {
 			name = null;
 		} else {
-			name = user_name;
+			name = "%" + user_name + "%";
 		}
 
 		if (user_permission.isEmpty()) {
@@ -327,8 +325,8 @@ public class UserRepository {
 			phone = phone_number;
 		}
 
-		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SEARCH_USER, id, id, name,
-				name, permission, permission, gen, gen, phone, phone);
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SEARCH_USER, id, name, permission, permission, gen,
+				gen, phone, phone);
 		UserEntity userEntity = mappingSelectResult(resultList);
 
 		return userEntity;
