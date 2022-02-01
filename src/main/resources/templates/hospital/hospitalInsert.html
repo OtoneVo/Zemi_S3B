@@ -47,55 +47,54 @@
 					th:object="${hospitalForm}">
 
 					<label for="hospital_id">病院ID(メールアドレス)</label>
-					<div class="form-group input-box">
-						<input type="text" class="form-control" name="hospital_id"
-							placeholder="xxxxxxx@xxx.xxx">
-
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('hospital_id')} ? 'has-error'">
+						<input type="text" class="form-control" name="hospital_id" placeholder="xxxxxxx@xxx.xxx" th:field="*{hospital_id}">
+						<span class="text-danger" th:if="${#fields.hasErrors('hospital_id')}" th:errors="*{hospital_id}">hospital_id error</span>
 					</div>
 
-					<label for="user_name">病院名</label>
-					<div class="form-group input-box">
-						<input type="text" class="form-control" name="hospital_name"
-							placeholder="〇〇〇〇病院">
+					<label for="hospital_name">病院名</label>
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('hospital_name')} ? 'has-error'">
+						<input type="text" class="form-control" name="hospital_name" placeholder="〇〇〇〇病院" th:field="*{hospital_name}">
+						<span class="text-danger" th:if="${#fields.hasErrors('hospital_name')}" th:errors="*{hospital_name}">hospital_name error</span>
 					</div>
 
 					<label for="encrypted_password">パスワード</label>
-					<div class="form-group input-box">
-						<input type="password" class="form-control"
-							name="encrypted_password" placeholder="xxxxxxxx">
-
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('encrypted_password')} ? 'has-error'">
+						<input type="password" class="form-control" name="encrypted_password" placeholder="xxxxxxxx" th:field="*{encrypted_password}">
+						<span class="text-danger" th:if="${#fields.hasErrors('encrypted_password')}" th:errors="*{encrypted_password}">encrypted_password error</span>
 					</div>
 
 					<label for="address">住所</label>
-					<div class="form-group input-box">
-						<input type="text" class="form-control" name="address"
-							placeholder="xxxx-xx-xxxx">
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('address')} ? 'has-error'">
+						<input type="text" class="form-control" name="address" placeholder="xxxx-xx-xxxx" th:field="*{address}">
+						<span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address error</span>
 					</div>
 
 					<label for="phone_number">電話番号</label>
-					<div class="form-group input-box">
-						<input type="text" class="form-control" name="phone_number"
-							placeholder="xxxx-xx-xxxx">
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('phone_number')} ? 'has-error'">
+						<input type="text" class="form-control" name="phone_number" placeholder="xxxx-xx-xxxx" th:field="*{phone_number}">
+						<span class="text-danger" th:if="${#fields.hasErrors('phone_number')}" th:errors="*{phone_number}">phone_number error</span>
 					</div>
 
 					<label for="number_of_reservations">予約可能人数</label>
-					<div class="form-group input-box">
-						<input type="text" class="form-control"
-							name="number_of_reservations" placeholder="xxxx-xx-xxxx">
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('number_of_reservations')} ? 'has-error'">
+						<input type="text" class="form-control" name="number_of_reservations" placeholder="xxxx-xx-xxxx" th:field="*{number_of_reservations}">
+						<span class="text-danger" th:if="${#fields.hasErrors('number_of_reservations')}" th:errors="*{number_of_reservations}">number_of_reservations error</span>
 					</div>
 
 					<label for="medical_id">診療科</label>
-					<div class="form-group input-box">
-						<input type="checkbox" name="medical_id" value="1"
-							class="checkbox_list" id="medical_id">外科 <input
-							type="checkbox" name="medical_id" value="2" class="checkbox_list"
-							id="medical_id">内科 <input type="checkbox"
-							name="medical_id" value="3" class="checkbox_list" id="medical_id">皮膚科
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('medical_id')} ? 'has-error'">
+						<input type="checkbox" name="medical_id" value="1" class="checkbox_list" id="medical_id" th:field="*{medical_id}">外科
+						<input type="checkbox" name="medical_id" value="2" class="checkbox_list" id="medical_id" th:field="*{medical_id}">内科
+						<input type="checkbox" name="medical_id" value="3" class="checkbox_list" id="medical_id" th:field="*{medical_id}">皮膚科
+						<br>
+						<span class="text-danger" th:if="${#fields.hasErrors('medical_id')}" th:errors="*{medical_id}">medical_id error</span>
 					</div>
 
-					<div class="form-group input-box">
-						<input type="text" class="form-control" name="overview"
-							placeholder="定休日や休み時間などの概要を入力してください。">
+					<label for="overview">概要</label>
+					<div class="form-group input-box" th:classappend="${#fields.hasErrors('overview')} ? 'has-error'">
+						<input type="text" class="form-control" name="overview" placeholder="定休日や休み時間などの概要を入力してください。" th:field="*{overview}">
+						<span class="text-danger" th:if="${#fields.hasErrors('overview')}" th:errors="*{overview}">overview error</span>
 					</div>
 
 					<button type="submit" class="btn btn-warning">登録</button>

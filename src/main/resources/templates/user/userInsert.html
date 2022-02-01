@@ -101,7 +101,7 @@
 			<label for="encrypted_password"  style="font-size: 20px;">パスワード</label>
 			<div class="form-group input-box" th:classappend="${#fields.hasErrors('encrypted_password')} ? 'has-error'">
 				<input type="password" class="form-control" name="encrypted_password" placeholder="xxxxxxxx" th:field="*{encrypted_password}" style="font-size: 15px; height: 30px;">
-				<span class="text-danger" th:if="${#fields.hasErrors('encrypted_password')}" th:errors="encrypted_password">encrypted_password error</span>
+				<span class="text-danger" th:if="${#fields.hasErrors('encrypted_password')}" th:errors="*{encrypted_password}">encrypted_password error</span>
 
 			</div>
 
