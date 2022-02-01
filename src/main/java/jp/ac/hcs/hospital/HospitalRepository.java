@@ -28,7 +28,7 @@ public class HospitalRepository {
 	/** SQL病院IDに対応する診療科名を取得 */
 	private static final String SQL_SELECT_HOSPITAL_MEDICAL = "SELECT H.hospital_id, M.medical_name FROM hospital_List H, hospital_medical_List HM, medical_List M WHERE H.hospital_id = HM.hospital_id AND HM.medical_id = M.medical_id AND H.hospital_id = ?";
 
-	private static final String SQL_SEARCH_MEDICAL = "SELECT DISTINCT H. hospital_id, H.hospital_name, H.address, H.phone_number, H.reservations_count FROM hospital_list H, hospital_medical_list HM, medical_list M WHERE H.hospital_id = HM.hospital_id AND HM.medical_id = M.medical_id AND (hospital_name LIKE ? AND H.address LIKE ? AND medical_name LIKE ?) IS NOT FALSE";
+	private static final String SQL_SEARCH_MEDICAL = "SELECT DISTINCT H. hospital_id, H.hospital_name, H.address, H.phone_number, H.reservations_count, H.overview FROM hospital_list H, hospital_medical_list HM, medical_list M WHERE H.hospital_id = HM.hospital_id AND HM.medical_id = M.medical_id AND (hospital_name LIKE ? AND H.address LIKE ? AND medical_name LIKE ?) IS NOT FALSE";
 
 	/** SQL病院新規登録 */
 	private static final String SQL_INSERT_HOSPITAL = "INSERT INTO hospital_List(hospital_id, hospital_name, encrypted_password, address, phone_number, number_of_reservations, overview) VALUES(?, ?, ?, ?, ?, ?, ?)";

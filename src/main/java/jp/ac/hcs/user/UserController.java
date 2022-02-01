@@ -44,6 +44,9 @@ public class UserController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ一覧画面：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ一覧画面：想定外のエラー");
+			return "errorMessage";
 		}
 		return "user/userList";
 
@@ -68,6 +71,9 @@ public class UserController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ情報削除機能：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ情報削除機能：想定外のエラー");
+			return "errorMessage";
 		}
 
 		return "user/userList";
@@ -91,6 +97,9 @@ public class UserController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ管理画面：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ管理画面：想定外のエラー");
+			return "errorMessage";
 		}
 		return "user/userManagement";
 
@@ -113,6 +122,9 @@ public class UserController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ情報更新画面：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ情報更新画面：想定外のエラー");
+			return "errorMessage";
 		}
 		return "user/userUpdate";
 
@@ -134,6 +146,9 @@ public class UserController {
 			log.info(principal.getName() + "：ユーザ情報更新画面：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ情報更新画面：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ情報更新画面：想定外のエラー");
 			return "errorMessage";
 		}
 		return "user/userUpdate";
@@ -158,6 +173,9 @@ public class UserController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ情報更新画面：想定外のエラー");
+			return "errorMessage";
 		}
 
 		return "user/userUpdate";
@@ -181,6 +199,9 @@ public class UserController {
 			log.info(principal.getName() + "：ユーザ情報更新機能：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ情報更新画面：想定外のエラー");
 			return "errorMessage";
 		}
 
@@ -207,6 +228,9 @@ public class UserController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ情報更新画面：想定外のエラー");
+			return "errorMessage";
 		}
 
 		return "user/userUpdate";
@@ -230,6 +254,9 @@ public class UserController {
 			log.info(principal.getName() + "：ユーザ情報更新機能：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：ユーザ情報更新機能：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ情報更新画面：想定外のエラー");
 			return "errorMessage";
 		}
 
@@ -273,7 +300,10 @@ public class UserController {
 			birth_date = userService.birthday(userForm.getBirth_year(), userForm.getBirth_month(),
 					userForm.getBirth_day());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.info(principal.getName() + "：ユーザ新規登録画面：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ新規登録画面：想定外のエラー");
 			return "errorMessage";
 		}
 
@@ -282,6 +312,9 @@ public class UserController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "ユーザ新規登録画面：異常");
 			e.printStackTrace();
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "：ユーザ新規登録画面：想定外のエラー");
 			return "errorMessage";
 		}
 
