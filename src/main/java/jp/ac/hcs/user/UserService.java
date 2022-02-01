@@ -42,7 +42,7 @@ public class UserService {
 	 * @param	userForm
 	 * @return	userEntity
 	 */
-	public int userInsert(UserForm userForm, Date birth_date) {
+	public UserEntity userInsert(UserForm userForm, Date birth_date) {
 		int number = 0;
 
 		try {
@@ -56,7 +56,7 @@ public class UserService {
 			throw e;
 		}
 
-		return number;
+		return getUsers();
 	}
 
 	/**

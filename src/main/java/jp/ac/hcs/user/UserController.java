@@ -274,6 +274,9 @@ public class UserController {
 	@GetMapping("/userList/userInsert")
 	public String userInsertOne(UserForm userForm, Principal principal, Model model) {
 
+		//ユーザフォーム初期化
+		userForm = new UserForm();
+
 		return "user/userInsert";
 	}
 
@@ -295,6 +298,7 @@ public class UserController {
 		}
 
 		Date birth_date = null;
+		UserEntity userEntity = new UserEntity();
 
 		try {
 			birth_date = userService.birthday(userForm.getBirth_year(), userForm.getBirth_month(),
@@ -308,7 +312,10 @@ public class UserController {
 		}
 
 		try {
-			userService.userInsert(userForm, birth_date);
+			userEntity = userService.userInsert(userForm, birth_date);
+			UserData userData = userService.userUpdatetRansition(principal.getName());
+			model.addAttribute("userEntity", userEntity);
+			model.addAttribute("userData", userData);
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "ユーザ新規登録画面：異常");
 			e.printStackTrace();
@@ -318,7 +325,7 @@ public class UserController {
 			return "errorMessage";
 		}
 
-		return getUsers(principal, model);
+		return "user/userList";
 	}
 
 	/**
