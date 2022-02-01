@@ -46,7 +46,11 @@ public class UserService {
 		int number = 0;
 
 		try {
-			number = userRepository.insertOne(userForm, birth_date);
+			if (userForm.getUser_permission().isEmpty()) {
+				number = userRepository.insertOne(userForm, birth_date);
+			} else if (userForm.getUser_permission().isEmpty() == false) {
+				number = userRepository.insertUserOne(userForm, birth_date);
+			}
 		} catch (DataAccessException e) {
 			log.info("ユーザ追加：異常");
 			throw e;

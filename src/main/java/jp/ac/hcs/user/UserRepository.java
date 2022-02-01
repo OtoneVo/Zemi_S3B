@@ -99,6 +99,21 @@ public class UserRepository {
 	}
 
 	/**
+	 * m_userテーブルに管理者、または病院権限のユーザを一件追加する
+	 */
+	public int insertUserOne(UserForm userForm, Date birth_date) throws DataAccessException {
+
+		int number = 0;
+
+		number = jdbc.update(SQL_INSERT_ONE, userForm.getUser_id(),
+				passwordEncoder.encode(userForm.getEncrypted_password()),
+				userForm.getUser_name(), userForm.getUser_permission(), userForm.getGender(), userForm.getAge(),
+				birth_date, userForm.getAddress(), userForm.getPhone_number());
+
+		return number;
+	}
+
+	/**
 	 * m_userテーブルのユーザ情報を一件削除
 	 *
 	 * @return userEntity	取得したユーザデータ

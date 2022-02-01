@@ -102,8 +102,18 @@
 			<div class="form-group input-box" th:classappend="${#fields.hasErrors('encrypted_password')} ? 'has-error'">
 				<input type="password" class="form-control" name="encrypted_password" placeholder="xxxxxxxx" th:field="*{encrypted_password}" style="font-size: 15px; height: 30px;">
 				<span class="text-danger" th:if="${#fields.hasErrors('encrypted_password')}" th:errors="*{encrypted_password}">encrypted_password error</span>
-
 			</div>
+
+
+			<label for=user_permission style="font-size: 20px;" role="presentation" sec:authorize="hasAuthority('ADMIN')">ユーザ権限</label>
+			<div class="form-group input-box" th:classappend="${#fields.hasErrors('user_permission')} ? 'has-error'" role="presentation" sec:authorize="hasAuthority('ADMIN')">
+				<input type="radio" class="form-control" name="user_permission" th:field="*{user_permission}" style="font-size: 15px; height: 30px;" value="ADMIN">管理者
+				<input type="radio" class="form-control" name="user_permission" th:field="*{user_permission}" style="font-size: 15px; height: 30px;" value="HOSPITAL">病院
+				<input type="radio" class="form-control" name="user_permission" th:field="*{user_permission}" style="font-size: 15px; height: 30px;" value="GENERAL">一般
+				<br>
+				<span class="text-danger" th:if="${#fields.hasErrors('user_permission')}" th:errors="*{user_permission}"></span>
+			</div>
+
 
 			<label for="address"  style="font-size: 20px;">住所</label>
 			<div class="form-group input-box" th:classappend="${#fields.hasErrors('address')} ? 'has-error'">
