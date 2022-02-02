@@ -98,6 +98,7 @@ article {
 	justify-content: space-evenly;
 }
 
+/*テキストを右に寄せるだけのcss*/
 .text-right {
 	display: grid;
 	justify-content: right;
