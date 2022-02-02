@@ -75,17 +75,6 @@
 	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
 		<b>病院一覧</b>
 	</h2>
-	<form method="post" th:action="@{/}">
-		<div class="input-group">
-			<input type="search" class="form-control" name="search"
-				placeholder="検索" style="font-size: 20px; height: 30px;">
-			<button type="submit" style="height: 30px; width: 30px;">
-				<img alt="/img/search.png" src="/img/search.png"
-					style="width: 25px; height: 23px;">
-			</button>
-		</div>
-	</form>
-
 
 	<div class="flex">
 		<form th:action="@{/hospitalList/search}" method="post" id="search">
@@ -124,7 +113,6 @@
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
 					class="nowrap"><a style="color: #000000;"
-					th:href="@{'/hospitalList/detail/' + ${hospital.hospital_id}}"
 					th:text="${hospital.hospital_name}"></a></td>
 				<th
 					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">住所

@@ -232,6 +232,10 @@ public class HospitalService {
 			throw e;
 		}
 
+		if (number == 0) {
+			return false;
+		}
+
 		return true;
 
 	}
