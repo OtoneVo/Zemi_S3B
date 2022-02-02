@@ -325,7 +325,7 @@ public class UserController {
 			return "errorMessage";
 		}
 
-		return "user/userList";
+		return getUsers(principal, model);
 	}
 
 	/**
