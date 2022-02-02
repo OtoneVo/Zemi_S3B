@@ -97,3 +97,8 @@ article {
 	display: flex;
 	justify-content: space-evenly;
 }
+
+.text-right {
+	display: grid;
+	justify-content: right;
+}
