@@ -124,9 +124,10 @@
 					data-target="#hospitalDeleteModal">病院削除</button>
 			</div>
 
-			<form
-				th:action="@{'/hospitalList/change/' + ${HMEntity.hospital_medicalList[0].hospital_id}}"
-				method="post" id="change">
+			<form th:action="@{'/hospitalList/change/'}" method="post"
+				id="change">
+				<input type="hidden" name="hospital_id"
+					th:value="${HMEntity.hospital_medicalList[0].hospital_id}">
 				<button type="submit" class="btn btn-primary">病院詳細変更</button>
 			</form>
 		</div>
