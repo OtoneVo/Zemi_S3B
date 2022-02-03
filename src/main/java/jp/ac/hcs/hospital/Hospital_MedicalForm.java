@@ -2,6 +2,7 @@ package jp.ac.hcs.hospital;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -57,7 +58,7 @@ public class Hospital_MedicalForm {
 	/**
 	 * 予約済み人数
 	 */
-	@NotBlank(message = "{require_check}")
+	@NotNull(message = "{require_check}")
 	private int reservations_count;
 
 	/**
@@ -71,7 +72,7 @@ public class Hospital_MedicalForm {
 	 */
 	@NotBlank(message = "{require_check}")
 	private String medical_id;
-	
+
 	/**
 	 * 診療科名
 	 */
