@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.ac.hcs.hospital.Hospital_MedicalForm;
@@ -38,7 +39,8 @@ public class ReservationController {
 	 * @return	予約画面
 	 */
 	@PostMapping("/reservationsSend")
-	public String getReservationSend(Hospital_MedicalForm hmForm, Model model, Principal principal) {
+	public String getReservationSend(@ModelAttribute("hmForm") Hospital_MedicalForm hmForm, Model model,
+			Principal principal) {
 
 		String result = null;
 

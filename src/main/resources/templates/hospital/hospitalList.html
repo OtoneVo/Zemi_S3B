@@ -104,8 +104,8 @@
 	<p th:if="${message != null}" class="alert alert-danger"
 		th:text="${message}" style="font-size: 15px;"></p>
 
-	<form method="post" th:action="@{/reservationsSend}"
-		th:object="${hospitalForm}">
+	<form method="post"
+		th:action="@{/reservationsSend}" th:Object="${hmForm}">
 		<table class="table_box">
 			<tbody th:each="hospital : ${HMEntity.hospital_medicalList}"
 				th:object="${hospital}">
@@ -149,17 +149,12 @@
 					<th style="font-size: 20px; border-bottom: solid 2px #c0c0c0;"><b>予約画面へ移動➔</b></th>
 					<td
 						style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">
-						<input
-						type="hidden" th:value="${hospital.reservations_count}">
-						<input
-						type="hidden" th:value="${hospital.medical_name}">
-						<input
-						type="hidden" th:value="${hospital.hospital_name}">
-						<div class="button-position">
-							<div class="button-interval">
-								<button type="submit" class="btn btn-danger">予約</button>
-							</div>
-						</div></td>
+						<input type="hidden" th:value="${hospital.reservations_count}">
+						<input type="hidden" th:value="${hospital.medical_name}">
+						<input type="hidden" th:value="${hospital.hospital_name}">
+
+						<button type="submit" class="btn btn-primary">予約</button>
+					</td>
 				</tr>
 
 				<tr class="text-map box" id="makeImg">
