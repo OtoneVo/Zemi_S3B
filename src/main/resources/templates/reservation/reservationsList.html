@@ -71,40 +71,21 @@
 	</ul>
 
 	<!-- コンテンツ -->
-	<!-- 値は取れた！一覧作れゴミ！！！！！ -->
-<span th:text="${entity}"></span>
-<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
 		<b>履歴一覧</b>
 	</h2>
-	<form method="post" th:action="@{/}">
+	<form th:action="@{/reservationList/search}" method="post" id="search">
 		<div class="input-group">
-			<input type="search" class="form-control" name="search"
-				placeholder="検索" style="font-size: 20px; height: 30px;">
+			<input type="text" name="hospital_name" class="form-control mb-2"
+				placeholder="病院名" style="font-size: 15px;"> <input
+				type="text" name="medical_name" class="form-control mb-2"
+				placeholder="診療科" style="font-size: 15px;">
 			<button type="submit" style="height: 30px; width: 30px;">
 				<img alt="/img/search.png" src="/img/search.png"
 					style="width: 25px; height: 23px;">
 			</button>
 		</div>
 	</form>
-
-
-	<div class="flex">
-		<form th:action="@{/reservationList/search}" method="post" id="search">
-			<div class="form-row align-items-center">
-				<div class="col-xs-2">
-					<input type="text" name="hospital_name" class="form-control mb-2"
-						placeholder="病院名">
-				</div>
-				<div class="col-xs-2">
-					<input type="text" name="medical_name" class="form-control mb-2"
-						placeholder="診療科">
-				</div>
-				<div class="col-xs-2">
-					<button type="submit" class="btn btn-primary mb-2">検索</button>
-				</div>
-			</div>
-		</form>
-	</div>
 
 
 	<br>
@@ -124,12 +105,12 @@
 					th:href="@{'/hospitalList/detail/' + ${reservation.hospital_id}}"
 					th:text="${reservation.hospital_name}"></a></td>
 
-					<th
+				<th
 					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">予約日</th>
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
 					class="nowrap" th:text="${reservation.reservation_date}"></td>
-					<th
+				<th
 					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">予約時間</th>
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
@@ -145,19 +126,18 @@
 
 
 
-				<th style="font-size: 20px; border-bottom: solid 2px #c0c0c0;"><b>予約画面へ移動➔</b></th>
-				<td
-					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"><a
+				<th
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					colspan="2"><a
 					th:href="@{'/hospitalList/detail/' + ${reservation.hospital_id}}"
-					class="btn btn-info"><span>予約</span></a></td>
-			</tr>
-			<tr>
-				<th style="font-size: 20px; border-bottom: solid 2px #c0c0c0;"><b>キャンセルはこちら➔</b></th>
+					class="btn btn-primary" style="width: 80%;"><span>予約する</span></a></th>
 				<td
-					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"><a
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					colspan="2"><a
 					th:href="@{'/hospitalList/detail/' + ${reservation.hospital_id}}"
-					class="btn btn-info"><span>予約</span></a></td>
+					class="btn btn-danger" style="width: 80%;"><span>予約をキャンセル</span></a></td>
 			</tr>
+
 			<tr>
 				<th style="margin: 20%"></th>
 			</tr>
