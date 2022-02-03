@@ -14,6 +14,7 @@ public class ReservationService {
 
 	@Autowired
 	ReservationRepository reservationRepository;
+
 	/**
 	 * ログイン中のユーザの予約リストを全件取得するメソッド
 	 * @param user_id
@@ -24,7 +25,7 @@ public class ReservationService {
 
 		try {
 			selectReservation = reservationRepository.reservationListAll(user_id);
-		} catch(DataAccessException e) {
+		} catch (DataAccessException e) {
 			e.printStackTrace();
 			selectReservation = null;
 		}
@@ -32,12 +33,23 @@ public class ReservationService {
 		return selectReservation;
 	}
 
-	public ReservationEntity searchReservation(String user_id, String hospital_name, String medical_name,Date reservation_date) {
+	/**
+	 * 予約の検索を行う機能
+	 *
+	 * @param user_id
+	 * @param hospital_name
+	 * @param medical_name
+	 * @param reservation_date
+	 * @return
+	 */
+	public ReservationEntity searchReservation(String user_id, String hospital_name, String medical_name,
+			Date reservation_date) {
 		ReservationEntity searchReservation;
 
 		try {
-			searchReservation = reservationRepository.reservationListSearch(user_id, hospital_name, medical_name, reservation_date);
-		} catch(DataAccessException e) {
+			searchReservation = reservationRepository.reservationListSearch(user_id, hospital_name, medical_name,
+					reservation_date);
+		} catch (DataAccessException e) {
 			e.printStackTrace();
 			searchReservation = null;
 		}
@@ -59,22 +71,30 @@ public class ReservationService {
 
 		try {
 			rowNumber = reservationRepository.reservationInsert(data);
-		} catch(DataAccessException e) {
+		} catch (DataAccessException e) {
 			e.printStackTrace();
-			rowNumber = 0;
+			throw e;
 		}
 
 		return rowNumber > 0;
 
 	}
 
+	/**
+	 * reservationFormに入力されたデータをreservationDataにsetする機能
+	 * @param form
+	 * @return data
+	 */
 	private ReservationData chenge(ReservationForm form) {
 
 		ReservationData data = new ReservationData();
 
 		data.setHospital_id(form.getHospital_id());
-		data.setUser_id(form.getUser_id());
+		data.setHospital_name(form.getHospital_name());
 		data.setMedical_id(form.getMedical_id());
+		data.setMedical_name(form.getMedical_name());
+		data.setUser_id(form.getUser_id());
+		data.setUser_name(form.getUser_name());
 		data.setReservation_date(form.getReservation_date());
 		data.setReservation_time(form.getReservation_time());
 
