@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.ac.hcs.hospital.Hospital_MedicalForm;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -39,14 +39,14 @@ public class ReservationController {
 	 * @return	予約画面
 	 */
 	@PostMapping("/reservationsSend")
-	public String getReservationSend(@ModelAttribute @Validated ReservationForm reservationForm, Model model,
+	public String getReservationSend(@RequestParam Hospital_MedicalForm HMForm, Model model,
 			Principal principal) {
 
 		String result = null;
 
 		try {
 			result = "reservation/reservationsSend";
-			log.info(reservationForm + "病院情報取得確認");
+			log.info(HMForm + "病院情報取得確認");
 			model.addAttribute("");
 		} catch (Exception e) {
 			log.info(principal.getName() + "予約画面遷移：想定外のエラー");
