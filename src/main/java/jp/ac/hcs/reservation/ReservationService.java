@@ -45,6 +45,12 @@ public class ReservationService {
 		return searchReservation;
 	}
 
+	/**
+	 * 病院予約新規作成するメソッド
+	 * @param form
+	 * @return
+	 * @throws ParseException
+	 */
 	public boolean insertReservation(ReservationForm form) throws ParseException {
 
 		int rowNumber = 0;

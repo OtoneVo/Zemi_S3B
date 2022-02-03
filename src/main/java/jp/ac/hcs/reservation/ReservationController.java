@@ -35,9 +35,23 @@ public class ReservationController {
 	 *
 	 * @return	予約画面
 	 */
-	public String getReservationSend() {
-		return null;
+	@GetMapping("/reservationsSend")
+	public String getReservationSend(ReservationForm form, Model model, Principal principal) {
+
+		String result = null;
+
+		try {
+			result = "reservation/reservationsSend";
+		} catch(DataAccessException e) {
+			e.printStackTrace();
+			return "errorMessage";
+		}
+
+		return result;
 	}
+
+
+
 
 	//TODO 予約機能
 	/**
@@ -45,6 +59,7 @@ public class ReservationController {
 	 *
 	 * @return
 	 */
+	@PostMapping("/reservationsSave")
 	public String getReservationSave() {
 		return null;
 	}
