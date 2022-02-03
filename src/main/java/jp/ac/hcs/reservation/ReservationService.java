@@ -57,6 +57,20 @@ public class ReservationService {
 		return searchReservation;
 	}
 
+	public ReservationEntity hospitalInfo(String hospital_id) {
+
+		ReservationEntity hospitalInfo;
+
+		try {
+			hospitalInfo = reservationRepository.hospitalInfo(hospital_id);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			hospitalInfo = null;
+		}
+
+		return hospitalInfo;
+	}
+
 	/**
 	 * 病院予約新規作成するメソッド
 	 * @param form

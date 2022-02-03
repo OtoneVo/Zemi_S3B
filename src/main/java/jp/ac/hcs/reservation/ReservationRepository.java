@@ -30,6 +30,11 @@ public class ReservationRepository {
 	private static final String SQL_RESERVATION_INSERT = "INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)"
 			+ "VALUES('?', '?', '?', '?', '?')";
 
+	/** 予約用病院情報取得 */
+	private static final String SQL_HOSPITAL_INFO = "SELECT H.hospital_id, H.hospital_name, M.medical_id, M.medical_name, H.number_of_reservations, H.RESERVATIONS_COUNT "
+			+ "FROM hospital_list H, medical_list M, hospital_medical_list HM "
+			+ "WHERE H.hospital_id = HM.hospital_id AND H.hospital_id = ? "
+			+ "AND M.medical_id = HM.medical_id";
 	@Autowired
 	JdbcTemplate jdbc;
 
@@ -41,6 +46,17 @@ public class ReservationRepository {
 	public ReservationEntity reservationListAll(String user_id) {
 		System.out.println(user_id);
 		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_RESERVATION_LIST, user_id);
+		ReservationEntity entity = mappingListResult(resultList);
+		return entity;
+	}
+
+	/**
+	 * 選択された病院情報をDBから取得する処理
+	 * @param hospital_id
+	 * @return
+	 */
+	public ReservationEntity hospitalInfo(String hospital_id) {
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_HOSPITAL_INFO, hospital_id);
 		ReservationEntity entity = mappingListResult(resultList);
 		return entity;
 	}
@@ -59,7 +75,6 @@ public class ReservationRepository {
 		ReservationEntity entity = mappingListResult(resultList);
 		return entity;
 	}
-
 
 	public int reservationInsert(ReservationData data) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

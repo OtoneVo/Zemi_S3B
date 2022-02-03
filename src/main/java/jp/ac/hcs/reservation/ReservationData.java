@@ -21,4 +21,9 @@ public class ReservationData {
 	private String reservation_date;
 	/** 予約時間 */
 	private String reservation_time;
+	/** 予約可能人数 */
+	private String number_of_reservations;
+	/** 予約人数 */
+	private String reservations_count;
+
 }
