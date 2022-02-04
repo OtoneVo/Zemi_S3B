@@ -2,6 +2,8 @@ package jp.ac.hcs.reservation;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.ac.hcs.hospital.Hospital_MedicalForm;
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +40,18 @@ public class ReservationController {
 	 * @return	予約画面
 	 */
 	@PostMapping("/reservationsSend")
-	public String getReservationSend(@RequestParam Hospital_MedicalForm HMForm, Model model,
+	public String getReservationSend(Hospital_MedicalForm hmForm, Model model,
 			Principal principal) {
 
 		String result = null;
 
 		try {
 			result = "reservation/reservationsSend";
-			log.info(HMForm + "病院情報取得確認");
-			model.addAttribute("");
+			log.info(hmForm + "病院情報取得確認");
+			List<String> medicalList = new ArrayList<String>();
+			medicalList = reservationService.getMedicalList(hmForm.getMedical_name());
+			model.addAttribute("hmForm", hmForm);
+			model.addAttribute("medicalList", medicalList);
 		} catch (Exception e) {
 			log.info(principal.getName() + "予約画面遷移：想定外のエラー");
 			return "errorMessage";

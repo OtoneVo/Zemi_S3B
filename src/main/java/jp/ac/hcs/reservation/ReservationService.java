@@ -1,7 +1,9 @@
 package jp.ac.hcs.reservation;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -92,6 +94,27 @@ public class ReservationService {
 
 		return rowNumber > 0;
 
+	}
+
+	/**
+	 * 予約画面遷移時に取得した診療科データをカンマ区切りで配列に格納する機能
+	 *
+	 * @param	medical_name
+	 * @return	medicalList
+	 */
+	public List<String> getMedicalList(String medical_name) {
+
+		List<String> medicalList = new ArrayList<String>();
+		String medicals = "";
+
+		medicals = medical_name;
+
+		String[] medicalAddList = medicals.split(",");
+		for (int i = 0; i < medicalAddList.length; i++) {
+			medicalList.add(medicalAddList[i]);
+		}
+
+		return medicalList;
 	}
 
 	/**

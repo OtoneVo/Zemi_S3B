@@ -145,7 +145,11 @@
 
 			<div role="presentation" sec:authorize="hasAuthority('GENERAL')">
 					<form name="hospital_medicalForm" th:action="@{'/reservationsSend'}" method="post" id="change">
-						<input type="hidden" name="Hospital_medicalEntity" th:value="${HMEntity}">
+						<input type="hidden" name="hospital_id" th:value="${HMEntity.hospital_medicalList[0].hospital_id}">
+						<input type="hidden" name="hospital_name" th:value="${HMEntity.hospital_medicalList[0].hospital_name}">
+						<input type="hidden" name="medical_id" th:value="${HMEntity.hospital_medicalList[0].medical_id}">
+						<input type="hidden" name="medical_name" th:value="${HMEntity.hospital_medicalList[0].medical_name}">
+						<input type="hidden" name="reservations_count" th:value="${HMEntity.hospital_medicalList[0].reservations_count}">
 						<button type="submit" class="btn btn-primary">病院予約</button>
 					</form>
 			</div>
