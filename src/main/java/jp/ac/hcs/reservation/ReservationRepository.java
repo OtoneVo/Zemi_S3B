@@ -76,6 +76,12 @@ public class ReservationRepository {
 		return entity;
 	}
 
+	/**
+	 *予約新規作成したデータをDBに保存する処理
+	 * @param data
+	 * @return
+	 * @throws ParseException
+	 */
 	public int reservationInsert(ReservationData data) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		int rowNumber = 0;
