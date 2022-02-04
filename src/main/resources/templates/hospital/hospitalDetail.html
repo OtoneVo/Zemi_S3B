@@ -78,7 +78,7 @@
 		<b>病院詳細・変更画面</b>
 	</h2>
 	<br>
-	<a th:href="@{/hospital/management}">戻る</a>
+    <button type="button" class="btn btn-primary" onclick="history.back()">戻る</button>
 	<br>
 	<table class="table table_box box" border="1"
 		style="border-collapse: collapse; width: 90%; font-size: 20px;">
@@ -115,6 +115,11 @@
 			<td class="text-nowrap"
 				th:text="${HMEntity.hospital_medicalList[0].overview}"></td>
 		</tr>
+		<tr>
+			<th class="text-nowrap" scope="col">診療科</th>
+			<td class="text-nowrap"
+				th:text="${HMEntity.hospital_medicalList[0].medical_name}"></td>
+		</tr>
 	</table>
 
 	<div class="button-position">
@@ -124,12 +129,26 @@
 					data-target="#hospitalDeleteModal">病院削除</button>
 			</div>
 
-			<form th:action="@{'/hospitalList/change/'}" method="post"
-				id="change">
-				<input type="hidden" name="hospital_id"
-					th:value="${HMEntity.hospital_medicalList[0].hospital_id}">
-				<button type="submit" class="btn btn-primary">病院詳細変更</button>
-			</form>
+			<div role="presentation" sec:authorize="hasAuthority('ADMIN')">
+					<form th:action="@{'/hospitalList/change/'}" method="post" id="change">
+						<input type="hidden" name="hospital_id" th:value="${HMEntity.hospital_medicalList[0].hospital_id}">
+						<button type="submit" class="btn btn-primary">病院詳細変更</button>
+					</form>
+			</div>
+
+			<div role="presentation" sec:authorize="hasAuthority('HOSPITAL')">
+					<form th:action="@{'/hospitalList/change/'}" method="post" id="change">
+						<input type="hidden" name="hospital_id" th:value="${HMEntity.hospital_medicalList[0].hospital_id}">
+						<button type="submit" class="btn btn-primary">病院詳細変更</button>
+					</form>
+			</div>
+
+			<div role="presentation" sec:authorize="hasAuthority('GENERAL')">
+					<form name="hospital_medicalForm" th:action="@{'/reservationsSend'}" method="post" id="change">
+						<input type="hidden" name="Hospital_medicalEntity" th:value="${HMEntity}">
+						<button type="submit" class="btn btn-primary">病院予約</button>
+					</form>
+			</div>
 		</div>
 	</div>
 
