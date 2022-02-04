@@ -1,6 +1,7 @@
 package jp.ac.hcs.user;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,9 @@ public class UserRepository {
 
 	/** SQLユーザ情報一件取得 */
 	private static final String SQL_SELECT_ONE = "SELECT * FROM m_user WHERE user_id = ?";
+
+	/** SQLユーザ名取得 */
+	private static final String SQL_SELECT_NAME = "SELECT user_name FROM m_user WHERE user_id = ?";
 
 	/** SQLユーザ名を一件更新 */
 	private static final String SQL_USER_NAME_UPDATE = "UPDATE m_user SET user_name = ? WHERE user_id = ?";
@@ -345,6 +349,18 @@ public class UserRepository {
 		UserEntity userEntity = mappingSelectResult(resultList);
 
 		return userEntity;
+	}
+
+	/**
+	 * 予約用ユーザ名取得
+	 */
+	public List<Map<String, Object>> userNameOne(String user_id) throws DataAccessException {
+
+		List<Map<String, Object>> user_name = new ArrayList<Map<String, Object>>();
+
+		user_name = jdbc.queryForList(SQL_SELECT_NAME, user_id);
+
+		return user_name;
 	}
 
 }

@@ -2,7 +2,10 @@ package jp.ac.hcs.user;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -220,6 +223,26 @@ public class UserService {
 		}
 
 		return userEntity;
+	}
+
+	/**
+	 * 予約用ユーザ名取得機能
+	 *
+	 * @param	user_id
+	 * @return	user_name
+	 */
+	public String getUserOne(String user_id) {
+		String user_name = "";
+		List<Map<String, Object>> userList = new ArrayList<Map<String,Object>>();
+
+		try {
+			userList = userRepository.userNameOne(user_id);
+			user_name = (String) userList.get(0).get("user_name");
+		}catch(DataAccessException e) {
+			throw e;
+		}
+
+		return user_name;
 	}
 
 }

@@ -87,7 +87,7 @@ public class ReservationRepository {
 		int rowNumber = 0;
 		String date = data.getReservation_date();
 		Date reservationDate = sdf.parse(date);
-		sdf = new SimpleDateFormat("HH:mm:ss");
+		sdf = new SimpleDateFormat("HH:mm");
 		date = data.getReservation_time();
 		Date reservationtime = sdf.parse(date);
 

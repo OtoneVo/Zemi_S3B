@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.ac.hcs.hospital.Hospital_MedicalForm;
+import jp.ac.hcs.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -21,6 +22,9 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService reservationService;
+
+	@Autowired
+	private UserService userService;
 
 	//TODO 予約キャンセル機能
 	/**
@@ -71,25 +75,40 @@ public class ReservationController {
 
 		ReservationEntity reservationEntity = new ReservationEntity();
 		boolean resultInsert = true;
+		String user_name = "";
+		log.info(reservationForm.getHospital_id() + "：予約確認：病院ID");
+		log.info(reservationForm.getHospital_name() + "：予約確認：病院名");
+		log.info(reservationForm.getMedical_id() + "：予約確認：診療科ID");
+		log.info(reservationForm.getMedical_name() + "：予約確認：診療科名");
+		log.info(reservationForm.getReservation_date() + "：予約確認：日");
+		log.info(reservationForm.getReservation_time() + "：予約確認：時");
 
 		try {
+			user_name = userService.getUserOne(principal.getName());
+			reservationForm.setUser_id(principal.getName());
+			reservationForm.setUser_name(user_name);
 			resultInsert = reservationService.insertReservation(reservationForm);
+			reservationEntity = reservationService.selectReservation(principal.getName());
+			model.addAttribute("reservationEntity",reservationEntity);
 			log.info(principal.getName() + "予約機能：正常");
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			log.info(principal.getName() + "予約機能：異常");
 			return "errorMessage";
 		} catch (ParseException e) {
+			e.printStackTrace();
 			log.info(principal.getName() + "予約機能：異常");
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.info(principal.getName() + "予約機能：想定外のエラー");
 			return "errorMessage";
 		}
 
 		if (resultInsert) {
-			return "";
+			return "errorMessage";
 		}
 
-		return null;
+		return "reservation/reservationList";
 	}
 
 	//TODO 予約管理画面
