@@ -2,8 +2,6 @@ package jp.ac.hcs.reservation;
 
 import java.security.Principal;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,37 +24,41 @@ public class ReservationController {
 	@Autowired
 	private UserService userService;
 
-	//TODO 予約キャンセル機能
+	// TODO 予約キャンセル機能
 	/**
 	 * 予約をキャンセルする機能、予約日3日前になるとできない
 	 *
-	 * @return	履歴確認画面
+	 * @return 履歴確認画面
 	 */
 	@PostMapping("")
 	public String getReservationDelete() {
 		return null;
 	}
 
-	//TODO 予約画面
+	// TODO 予約画面
 	/**
 	 * 予約情報を入力し予約を送信する画面
 	 *
-	 * @return	予約画面
+	 * @return 予約画面
 	 */
 	@PostMapping("/reservationsSend")
-	public String getReservationSend(Hospital_MedicalForm hmForm, Model model,
-			Principal principal) {
+	public String getReservationSend(Hospital_MedicalForm hmForm, Model model, Principal principal) {
 
 		String result = null;
+		ReservationEntity entity = new ReservationEntity();
 
 		try {
 			result = "reservation/reservationsSend";
 			log.info(hmForm + "病院情報取得確認");
-			List<String> medicalList = new ArrayList<String>();
-			medicalList = reservationService.getMedicalList(hmForm.getMedical_name());
+			//List<String> medicalList = new ArrayList<String>();
+			// TODO 病院IDから診療科IDを取ってくる
+			entity = reservationService.getHospitalMedical(hmForm.getHospital_id());
+			//medicalList = reservationService.getMedicalList(hmForm.getMedical_name());
+			model.addAttribute("reservationEntity", entity);
 			model.addAttribute("hmForm", hmForm);
-			model.addAttribute("medicalList", medicalList);
+			//model.addAttribute("medicalList", medicalList);
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.info(principal.getName() + "予約画面遷移：想定外のエラー");
 			return "errorMessage";
 		}
@@ -64,7 +66,7 @@ public class ReservationController {
 		return result;
 	}
 
-	//TODO 予約機能
+	// TODO 予約機能
 	/**
 	 * 入力された予約情報を保存する機能
 	 *
@@ -89,7 +91,7 @@ public class ReservationController {
 			reservationForm.setUser_name(user_name);
 			resultInsert = reservationService.insertReservation(reservationForm);
 			reservationEntity = reservationService.selectReservation(principal.getName());
-			model.addAttribute("reservationEntity",reservationEntity);
+			model.addAttribute("reservationEntity", reservationEntity);
 			log.info(principal.getName() + "予約機能：正常");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
@@ -111,11 +113,11 @@ public class ReservationController {
 		return "reservation/reservationList";
 	}
 
-	//TODO 予約管理画面
+	// TODO 予約管理画面
 	/**
 	 * 送信した予約を管理する機能
 	 *
-	 * @return	予約管理画面
+	 * @return 予約管理画面
 	 */
 	@GetMapping("/reservationsList")
 	public String getReservations(Model model, Principal principal) {
@@ -123,7 +125,7 @@ public class ReservationController {
 
 		ReservationEntity entity = new ReservationEntity();
 
-		//TODO 権限チェック
+		// TODO 権限チェック
 
 		try {
 			entity = reservationService.selectReservation(principal.getName());
@@ -137,14 +139,16 @@ public class ReservationController {
 		return result;
 	}
 
-	//TODO 予約検索機能
+	// TODO 予約検索機能
 	/**
 	 * 条件に合致する予約を表示する
 	 *
-	 * @return	予約管理画面
+	 * @return 予約管理画面
 	 */
 	public String getReservationSelect() {
-		//		entity = reservationService.searchReservation(principal.getName(),hospital_name, medical_name, reservation_date);
+		// entity =
+		// reservationService.searchReservation(principal.getName(),hospital_name,
+		// medical_name, reservation_date);
 
 		return null;
 	}

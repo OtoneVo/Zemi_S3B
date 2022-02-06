@@ -1,9 +1,7 @@
 package jp.ac.hcs.reservation;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -102,19 +100,36 @@ public class ReservationService {
 	 * @param	medical_name
 	 * @return	medicalList
 	 */
-	public List<String> getMedicalList(String medical_name) {
-
-		List<String> medicalList = new ArrayList<String>();
-		String medicals = "";
-
-		medicals = medical_name;
-
-		String[] medicalAddList = medicals.split(",");
-		for (int i = 0; i < medicalAddList.length; i++) {
-			medicalList.add(medicalAddList[i]);
+//	public List<String> getMedicalList(String medical_name) {
+//
+//		List<String> medicalList = new ArrayList<String>();
+//		String medicals = "";
+//
+//		medicals = medical_name;
+//
+//		String[] medicalAddList = medicals.split(",");
+//		for (int i = 0; i < medicalAddList.length; i++) {
+//			medicalList.add(medicalAddList[i]);
+//		}
+//
+//		return medicalList;
+//	}
+	
+	/**
+	 * 病院IDから診療科IDと診療科名を取得する
+	 */
+	public ReservationEntity getHospitalMedical(String hospital_id) {
+		
+		ReservationEntity entity = new ReservationEntity();
+		
+		try {
+			entity = reservationRepository.hospitalMedical(hospital_id);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw e;
 		}
-
-		return medicalList;
+		
+		return entity;
 	}
 
 	/**

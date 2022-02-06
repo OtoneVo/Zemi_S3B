@@ -120,9 +120,9 @@
 			<tr>
 				<th class="text-nowrap" scope="col">診療科選択</th>
 				<td class="text-nowrap">
-					<select name="medical_name">
+					<select name="medical_id">
 						<option value="">選択してください</option>
-						<option th:each="medical : ${medicalList}" th:value="${medical}" th:text="${medical}"></option>
+						<option th:each="medical : ${reservationEntity.ReservationList}" th:value="${medical.medical_id}" th:text="${medical.medical_name}"></option>
 					</select>
 				</td>
 			</tr>
