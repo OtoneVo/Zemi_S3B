@@ -114,21 +114,21 @@ public class ReservationService {
 //
 //		return medicalList;
 //	}
-	
+
 	/**
 	 * 病院IDから診療科IDと診療科名を取得する
 	 */
 	public ReservationEntity getHospitalMedical(String hospital_id) {
-		
+
 		ReservationEntity entity = new ReservationEntity();
-		
+
 		try {
 			entity = reservationRepository.hospitalMedical(hospital_id);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 		return entity;
 	}
 
