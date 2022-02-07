@@ -265,54 +265,6 @@ public class UserController {
 	}
 
 	/**
-	 * ユーザ新規登録（ログイン画面から）
-	 */
-	@GetMapping("/userList/userInsertLogin")
-	public String userInsertLogin(UserForm userForm, Principal principal, Model model) {
-		return "user/userInsert";
-	}
-
-	/**
-	 * ユーザ新規登録
-	 */
-	@PostMapping("/userList/userInsertLogin")
-	public String userInsertLogin(@ModelAttribute @Validated UserForm userForm, BindingResult bindingResult,
-			Principal principal, Model model) {
-
-		// 入力チェックに引っかかった場合、前の画面に戻る
-		if (bindingResult.hasErrors()) {
-			return userInsertOne(userForm, principal, model);
-		}
-
-		Date birth_date = null;
-		UserEntity userEntity = new UserEntity();
-
-		try {
-			birth_date = userService.birthday(userForm.getBirth_year(), userForm.getBirth_month(),
-					userForm.getBirth_day());
-		} catch (ParseException e) {
-			log.info(principal.getName() + "：ユーザ新規登録画面：異常");
-			return "errorMessage";
-		} catch (Exception e) {
-			log.info(principal.getName() + "：ユーザ新規登録画面：想定外のエラー");
-			return "errorMessage";
-		}
-
-		try {
-			userEntity = userService.userInsert(userForm, birth_date);
-		} catch (DataAccessException e) {
-			log.info(principal.getName() + "ユーザ新規登録画面：異常");
-			e.printStackTrace();
-			return "errorMessage";
-		} catch (Exception e) {
-			log.info(principal.getName() + "：ユーザ新規登録画面：想定外のエラー");
-			return "errorMessage";
-		}
-
-		return "/login";
-	}
-
-	/**
 	 * ユーザ新規登録（遷移）
 	 *
 	 * @param	principal		ログイン中のユーザ情報
@@ -353,6 +305,22 @@ public class UserController {
 		} catch (Exception e) {
 			log.info(principal.getName() + "：ユーザ新規登録画面：想定外のエラー");
 			return "errorMessage";
+		}
+
+		//ログイン画面からの新規登録の場合別の処理を行う
+		if (userForm.getUser_permission() == null) {
+			try {
+				userEntity = userService.userInsert(userForm, birth_date);
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+				log.info("ログイン画面ユーザ登録：異常");
+				return "errorMessage";
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.info("ログイン画面ユーザ登録：想定外のエラー");
+			}
+
+			return "/login";
 		}
 
 		try {

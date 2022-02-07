@@ -48,9 +48,9 @@ public class UserService {
 	public UserEntity userInsert(UserForm userForm, Date birth_date) {
 
 		try {
-			if (userForm.getUser_permission().isEmpty()) {
+			if (userForm.getUser_permission() == null) {
 				userRepository.insertOne(userForm, birth_date);
-			} else if (userForm.getUser_permission().isEmpty() == false) {
+			} else if (userForm.getUser_permission() != null) {
 				userRepository.insertUserOne(userForm, birth_date);
 			}
 		} catch (DataAccessException e) {
