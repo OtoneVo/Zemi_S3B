@@ -76,8 +76,7 @@
 	</h2>
 
 	<form method="post" th:action="@{/reservationsSave}"
-		th:object="${form}" name="insert">
-
+		th:object="${form}" name="ReservationForm">
 
 		<table class="table table_box box" border="1"
 			style="border-collapse: collapse; width: 90%; font-size: 20px;">
@@ -87,21 +86,16 @@
 			<tr>
 				<th class="text-nowrap" scope="col">病院名</th>
 				<td class="text-nowrap" th:text="${hmForm.hospital_name}">
-					<input type="hidden" name="hospital_id" th:value="${hmForm.hospital_id}">
-					<input type="hidden" name="hospital_name" th:value="${hmForm.hospital_name}">
 				</td>
 			</tr>
 			<tr>
 				<th class="text-nowrap" scope="col">診療科名</th>
 				<td class="text-nowrap" th:text="${hmForm.medical_name}">
-					<input type="hidden" name="medical_id" th:value="${hmForm.medical_id}">
-					<input type="hidden" name="medical_name" th:value="${hmForm.medical_name}">
 				</td>
 			</tr>
 			<tr>
 				<th class="text-nowrap" scope="col">予約可能人数</th>
 				<td class="text-nowrap" th:text="${hmForm.reservations_count}">
-					<input type="hidden" name="reservations_count" th:value="${hmForm.reservations_count}">
 				</td>
 			</tr>
 		</table>
@@ -115,24 +109,29 @@
 				<td class="text-nowrap">
 					<div>
   						<label for="date">日付：</label>
-  						<input type="date" name="date" id="date">
+  						<input type="date" name="reservation_date" id="date" style="border:black;">
 					</div>
 					<div>
   						<label for="time">時刻：</label>
-  						<input type="time" name="time" id="time">
+  						<input type="time" name="reservation_time" id="time">
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th class="text-nowrap" scope="col">診療科選択</th>
 				<td class="text-nowrap">
-					<select name="medical_name">
-						<option>選択してください</option>
-						<option></option>
+					<select name="medical_id">
+						<option value="">選択してください</option>
+						<option th:each="medical : ${reservationEntity.ReservationList}" th:value="${medical.medical_id}" th:text="${medical.medical_name}"></option>
 					</select>
 				</td>
 			</tr>
 		</table>
+
+		<input type="hidden" name="hospital_id" th:value="${hmForm.hospital_id}">
+		<input type="hidden" name="hospital_name" th:value="${hmForm.hospital_name}">
+		<input type="hidden" name="medical_id" th:value="${hmForm.medical_id}">
+		<button type="submit"class="btn btn-warning">予約</button>
 
 	</form>
 

@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// ログイン不要ページの設定
 		http.authorizeRequests().antMatchers("/css/**").permitAll() // cssへアクセス許可
 				.antMatchers("/login").permitAll() // ログインページは直リンクOK
-				.antMatchers("/signup").permitAll() // 新規ユーザー登録画面は直リンクOK
+				.antMatchers("/userList/userInsert").permitAll() // 新規ユーザー登録画面は直リンクOK
 				.antMatchers("/user/**").hasAuthority("TEACHER") // ユーザ管理機能は管理権限ユーザに許可
 				.antMatchers("/h2-console/**").permitAll() // XXX h2-console使用時は有効にする.
 				.anyRequest().authenticated(); // それ以外は直リンク禁止

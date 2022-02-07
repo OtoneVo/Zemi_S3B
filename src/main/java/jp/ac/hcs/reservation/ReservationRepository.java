@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +36,10 @@ public class ReservationRepository {
 			+ "FROM hospital_list H, medical_list M, hospital_medical_list HM "
 			+ "WHERE H.hospital_id = HM.hospital_id AND H.hospital_id = ? "
 			+ "AND M.medical_id = HM.medical_id";
+
+	/** 診療科ID取得 */
+	private static final String SQL_MEDICAL_ID = "SELECT M.medical_id, M.medical_name FROM hospital_medical_list HM, medical_list M WHERE HM.medical_id = M.medical_id AND HM.hospital_id = ?";
+
 	@Autowired
 	JdbcTemplate jdbc;
 
@@ -87,7 +92,7 @@ public class ReservationRepository {
 		int rowNumber = 0;
 		String date = data.getReservation_date();
 		Date reservationDate = sdf.parse(date);
-		sdf = new SimpleDateFormat("HH:mm:ss");
+		sdf = new SimpleDateFormat("HH:mm");
 		date = data.getReservation_time();
 		Date reservationtime = sdf.parse(date);
 
@@ -132,6 +137,25 @@ public class ReservationRepository {
 		}
 		return entity;
 
+	}
+
+	/**
+	 * 病院IDから診療科IDを取得する機能
+	 */
+	public ReservationEntity hospitalMedical(String hospital_id) throws DataAccessException {
+
+		ReservationEntity entity = new ReservationEntity();
+
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_MEDICAL_ID, hospital_id);
+		for (Map<String, Object> reservationList : resultList) {
+			ReservationData data = new ReservationData();
+			data.setMedical_id((String) reservationList.get("medical_id"));
+			data.setMedical_name((String) reservationList.get("medical_name"));
+
+			entity.getReservationList().add(data);
+		}
+
+		return entity;
 	}
 
 }
