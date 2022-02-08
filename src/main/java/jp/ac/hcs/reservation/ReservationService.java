@@ -47,6 +47,7 @@ public class ReservationService {
 			//reservationEntityを使って不足している項目を取得する
 			//病院名、診療科名、ユーザ名、予約可能人数、予約人数
 
+
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw e;
