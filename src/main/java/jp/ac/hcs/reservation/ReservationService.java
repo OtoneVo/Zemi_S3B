@@ -17,7 +17,7 @@ public class ReservationService {
 
 	/**
 	 * ログイン中のユーザの予約リストを全件取得するメソッド
-	 * 
+	 *
 	 * @param user_id
 	 * @return selectReservation
 	 */
@@ -44,6 +44,7 @@ public class ReservationService {
 		// repository作成
 		try {
 			reservationEntity = reservationRepository.hospitalReservation(hospital_id);
+			reservationEntity = reservationRepository.hospitalReservationAdd(reservationEntity);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw e;
@@ -92,7 +93,7 @@ public class ReservationService {
 
 	/**
 	 * 病院予約新規作成するメソッド
-	 * 
+	 *
 	 * @param form
 	 * @return
 	 * @throws ParseException
@@ -120,20 +121,20 @@ public class ReservationService {
 	 * @param medical_name
 	 * @return medicalList
 	 */
-//	public List<String> getMedicalList(String medical_name) {
-//
-//		List<String> medicalList = new ArrayList<String>();
-//		String medicals = "";
-//
-//		medicals = medical_name;
-//
-//		String[] medicalAddList = medicals.split(",");
-//		for (int i = 0; i < medicalAddList.length; i++) {
-//			medicalList.add(medicalAddList[i]);
-//		}
-//
-//		return medicalList;
-//	}
+	//	public List<String> getMedicalList(String medical_name) {
+	//
+	//		List<String> medicalList = new ArrayList<String>();
+	//		String medicals = "";
+	//
+	//		medicals = medical_name;
+	//
+	//		String[] medicalAddList = medicals.split(",");
+	//		for (int i = 0; i < medicalAddList.length; i++) {
+	//			medicalList.add(medicalAddList[i]);
+	//		}
+	//
+	//		return medicalList;
+	//	}
 
 	/**
 	 * 病院IDから診療科IDと診療科名を取得する
@@ -154,7 +155,7 @@ public class ReservationService {
 
 	/**
 	 * reservationFormに入力されたデータをreservationDataにsetする機能
-	 * 
+	 *
 	 * @param form
 	 * @return data
 	 */

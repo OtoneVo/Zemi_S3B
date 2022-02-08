@@ -85,6 +85,13 @@ public class ReservationController {
 		log.info(reservationForm.getReservation_date() + "：予約確認：日");
 		log.info(reservationForm.getReservation_time() + "：予約確認：時");
 
+		if (reservationForm.getHospital_id() == null || reservationForm.getHospital_name() == null
+				|| reservationForm.getMedical_id() == null || reservationForm.getMedical_name() == null
+				|| reservationForm.getReservation_date() == null || reservationForm.getReservation_time() == null) {
+			log.info("入力項目不足");
+			return "errorMessage";
+		}
+
 		try {
 			user_name = userService.getUserOne(principal.getName());
 			reservationForm.setUser_id(principal.getName());
@@ -158,6 +165,7 @@ public class ReservationController {
 	 * 病院ユーザが予約を確認する機能
 	 *
 	 */
+	@GetMapping("/reservation/hospitalCheck")
 	public String checkReservation(Principal principal, Model model) {
 
 		// 病院IDから予約を取得
@@ -175,7 +183,7 @@ public class ReservationController {
 
 		model.addAttribute("reservationEntity", reservationEntity);
 		// TODO 病院に対応する予約を表示するHTMLが必要
-		return null;
+		return "reservation/reservationHospitalList";
 	}
 
 }

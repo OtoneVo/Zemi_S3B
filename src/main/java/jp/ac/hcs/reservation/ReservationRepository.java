@@ -2,6 +2,7 @@ package jp.ac.hcs.reservation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class ReservationRepository {
 	/** 予約一覧取得 一般用 */
@@ -45,6 +49,9 @@ public class ReservationRepository {
 
 	/** 病院IDに対応する予約取得 */
 	private static final String SQL_HOSPITAL_RESERVATION = "SELECT * FROM reservation_list WHERE hospital_id = ?";
+
+	/** 予約情報未取得項目取得 */
+	private static final String SQL_RESERVATION_INFO = "SELECT H.hospital_name, U.user_name, M.medical_name FROM hospital_list H, m_user U, medical_list M WHERE H.hospital_id = ? AND U.user_id = ? AND M.medical_id = ?";
 
 	@Autowired
 	JdbcTemplate jdbc;
@@ -99,6 +106,38 @@ public class ReservationRepository {
 	}
 
 	/**
+	 * 不足している予約情報を取得する
+	 */
+	public ReservationEntity hospitalReservationAdd(ReservationEntity reservationEntity) throws DataAccessException {
+
+		List<ReservationData> reservationList = reservationEntity.getReservationList();
+		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+
+		reservationList.size();
+
+		for (int i = 0; i < reservationList.size(); i++) {
+			log.info("病院ID確認：" + reservationList.get(i).getHospital_id());
+			log.info("ユーザID確認：" + reservationList.get(i).getUser_id());
+			log.info("診療科ID確認：" + reservationList.get(i).getMedical_id());
+
+			String hospital_id = reservationList.get(i).getHospital_id();
+			String user_id = reservationList.get(i).getUser_id();
+			String medical_id = reservationList.get(i).getMedical_id();
+
+			resultList = jdbc.queryForList(SQL_RESERVATION_INFO, hospital_id, user_id, medical_id);
+			reservationEntity.getReservationList().get(i)
+					.setHospital_name((String) resultList.get(i).get("hospital_name"));
+			reservationEntity.getReservationList().get(i).setUser_name((String) resultList.get(i).get("user_name"));
+			reservationEntity.getReservationList().get(i)
+					.setMedical_name((String) resultList.get(i).get("medical_name"));
+
+		}
+
+		log.info("予約情報取得確認：" + reservationEntity);
+		return reservationEntity;
+	}
+
+	/**
 	 *予約新規作成したデータをDBに保存する処理
 	 * @param data
 	 * @return
@@ -114,7 +153,7 @@ public class ReservationRepository {
 		Date reservationtime = sdf.parse(date);
 
 		String medical_id = data.getMedical_id();
-		medical_id = medical_id.substring(0,1);
+		medical_id = medical_id.substring(0, 1);
 
 		rowNumber += jdbc.update(SQL_RESERVATION_INSERT,
 				data.getHospital_id(),
@@ -123,7 +162,7 @@ public class ReservationRepository {
 				reservationDate,
 				reservationtime);
 
-		int result = jdbc.update(SQL_RESERVATIONS_COUNT,data.getHospital_id(),data.getHospital_id());
+		int result = jdbc.update(SQL_RESERVATIONS_COUNT, data.getHospital_id(), data.getHospital_id());
 
 		System.out.println(result);
 
