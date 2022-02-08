@@ -125,11 +125,15 @@ public class ReservationRepository {
 			String medical_id = reservationList.get(i).getMedical_id();
 
 			resultList = jdbc.queryForList(SQL_RESERVATION_INFO, hospital_id, user_id, medical_id);
-			reservationEntity.getReservationList().get(i)
-					.setHospital_name((String) resultList.get(i).get("hospital_name"));
-			reservationEntity.getReservationList().get(i).setUser_name((String) resultList.get(i).get("user_name"));
-			reservationEntity.getReservationList().get(i)
-					.setMedical_name((String) resultList.get(i).get("medical_name"));
+
+			for (int count = 0; count < resultList.size(); count++) {
+				reservationEntity.getReservationList().get(i)
+						.setHospital_name((String) resultList.get(count).get("hospital_name"));
+				reservationEntity.getReservationList().get(i)
+						.setUser_name((String) resultList.get(count).get("user_name"));
+				reservationEntity.getReservationList().get(i)
+						.setMedical_name((String) resultList.get(count).get("medical_name"));
+			}
 
 		}
 
