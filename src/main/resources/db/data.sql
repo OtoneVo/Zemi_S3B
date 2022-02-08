@@ -39,10 +39,10 @@ INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date
 VALUES('sapporo@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2021-12-22', '12:30:00');
 
 INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)
-VALUES('sapporo@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2021-12-25', '13:00:00');
+VALUES('sapporo@hosp.ac.jp', 'kumamoto@hcs.ac.jp', '1', '2021-12-25', '13:00:00');
 
 INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)
-VALUES('sapporo@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2021-12-31', '14:30:00');
+VALUES('sapporo@hosp.ac.jp', 'ima@hcs.ac.jp', '1', '2021-12-31', '14:30:00');
 
 INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)
 VALUES('takikawa@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2022-05-22', '12:00:00');
