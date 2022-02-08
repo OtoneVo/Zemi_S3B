@@ -91,7 +91,7 @@ public class ReservationController {
 			reservationForm.setUser_name(user_name);
 			resultInsert = reservationService.insertReservation(reservationForm);
 			reservationEntity = reservationService.selectReservation(principal.getName());
-			model.addAttribute("reservationEntity", reservationEntity);
+			model.addAttribute("entity", reservationEntity);
 			log.info(principal.getName() + "予約機能：正常");
 		} catch (DataAccessException e) {
 			e.printStackTrace();
@@ -106,11 +106,12 @@ public class ReservationController {
 			return "errorMessage";
 		}
 
-		if (resultInsert) {
+		if (!resultInsert) {
+			log.info("確認用メッセージ");
 			return "errorMessage";
 		}
 
-		return "reservation/reservationList";
+		return "reservation/reservationsList";
 	}
 
 	// TODO 予約管理画面
@@ -155,7 +156,7 @@ public class ReservationController {
 
 	/**
 	 * 病院ユーザが予約を確認する機能
-	 * 
+	 *
 	 */
 	public String checkReservation(Principal principal, Model model) {
 

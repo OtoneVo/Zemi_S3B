@@ -28,8 +28,8 @@ public class ReservationRepository {
 			+ " AND (H.hospital_name LIKE ? AND M.medical_name LIKE ? AND R.reservation_date LIKE ?)";
 
 	/** 予約新規作成 一般用 */
-	private static final String SQL_RESERVATION_INSERT = "INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)"
-			+ "VALUES('?', '?', '?', '?', '?')";
+	private static final String SQL_RESERVATION_INSERT = "INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time) "
+			+ "VALUES(?, ?, ?, ?, ?)";
 
 	/** 予約用病院情報取得 */
 	private static final String SQL_HOSPITAL_INFO = "SELECT H.hospital_id, H.hospital_name, M.medical_id, M.medical_name, H.number_of_reservations, H.RESERVATIONS_COUNT "
@@ -42,7 +42,7 @@ public class ReservationRepository {
 
 	/** 病院IDに対応する予約取得 */
 	private static final String SQL_HOSPITAL_RESERVATION = "SELECT * FROM reservation_list WHERE hospital_id = ?";
-	
+
 	@Autowired
 	JdbcTemplate jdbc;
 
@@ -83,15 +83,15 @@ public class ReservationRepository {
 		ReservationEntity entity = mappingListResult(resultList);
 		return entity;
 	}
-	
+
 	/**
 	 * 対応する病院の予約情報を取得する
 	 */
 	public ReservationEntity hospitalReservation(String hospital_id) throws DataAccessException {
-		
+
 		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_HOSPITAL_RESERVATION, hospital_id);
 		ReservationEntity reservationEntity = mappingListResult(resultList);
-		
+
 		return reservationEntity;
 	}
 
@@ -110,10 +110,13 @@ public class ReservationRepository {
 		date = data.getReservation_time();
 		Date reservationtime = sdf.parse(date);
 
+		String medical_id = data.getMedical_id();
+		medical_id = medical_id.substring(0,1);
+
 		rowNumber += jdbc.update(SQL_RESERVATION_INSERT,
 				data.getHospital_id(),
 				data.getUser_id(),
-				data.getMedical_id(),
+				medical_id,
 				reservationDate,
 				reservationtime);
 
