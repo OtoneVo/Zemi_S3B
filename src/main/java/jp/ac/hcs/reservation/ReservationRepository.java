@@ -31,6 +31,9 @@ public class ReservationRepository {
 	private static final String SQL_RESERVATION_INSERT = "INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time) "
 			+ "VALUES(?, ?, ?, ?, ?)";
 
+	/** 予約状況更新 一般用 */
+	private static final String SQL_RESERVATIONS_COUNT = "UPDATE hospital_list SET reservations_count = (SELECT reservations_count FROM hospital_list WHERE hospital_id = ?) + 1 WHERE hospital_id = ?";
+
 	/** 予約用病院情報取得 */
 	private static final String SQL_HOSPITAL_INFO = "SELECT H.hospital_id, H.hospital_name, M.medical_id, M.medical_name, H.number_of_reservations, H.RESERVATIONS_COUNT "
 			+ "FROM hospital_list H, medical_list M, hospital_medical_list HM "
@@ -120,6 +123,13 @@ public class ReservationRepository {
 				reservationDate,
 				reservationtime);
 
+		int result = jdbc.update(SQL_RESERVATIONS_COUNT,data.getHospital_id(),data.getHospital_id());
+
+		System.out.println(result);
+
+		if (result == 0) {
+			rowNumber = 0;
+		}
 		return rowNumber;
 	}
 
