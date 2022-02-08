@@ -179,4 +179,15 @@ public class ReservationController {
 		return null;
 	}
 
+//	/**
+//	 * 確認用エラー表示画面
+//	 *
+//	 */
+//	@GetMapping("/test")
+//	public String error() {
+//		log.info("エラー表示");
+//		return "errorMessage";
+//	}
+
+
 }
