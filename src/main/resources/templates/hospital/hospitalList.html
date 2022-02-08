@@ -78,22 +78,16 @@
 
 	<div class="flex">
 		<form th:action="@{/hospitalList/search}" method="post" id="search">
-			<div class="form-row align-items-center">
-				<div class="col-xs-2">
-					<input type="text" name="hospital_name" class="form-control mb-2"
-						placeholder="病院名">
-				</div>
-				<div class="col-xs-2">
-					<input type="text" name="address" class="form-control mb-2"
-						placeholder="住所">
-				</div>
-				<div class="col-xs-2">
-					<input type="text" name="medical_name" class="form-control mb-2"
-						placeholder="診療科">
-				</div>
-				<div class="col-xs-2">
-					<button type="submit" class="btn btn-primary mb-2">検索</button>
-				</div>
+			<div class="input-group">
+				<input type="text" name="hospital_name" class="form-control mb-2"
+					placeholder="病院名" style="font-size: 15px;"> <input type="text" name="address"
+					class="form-control mb-2" placeholder="住所" style="font-size: 15px;"> <input
+					type="text" name="medical_name" class="form-control mb-2"
+					placeholder="診療科" style="font-size: 15px;">
+				<button type="submit" style="height: 30px; width: 30px;">
+					<img alt="/img/search.png" src="/img/search.png"
+						style="width: 25px; height: 23px;">
+				</button>
 			</div>
 		</form>
 	</div>
@@ -105,68 +99,69 @@
 		th:text="${message}" style="font-size: 15px;"></p>
 
 
-		<table class="table_box">
-			<tbody th:each="hospital : ${HMEntity.hospital_medicalList}"
-				th:object="${hospital}">
-				<tr class="box">
-					<th
-						style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">病院名</th>
-					<td
-						style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-						class="nowrap"><a style="color: #000000;"
-						th:text="${hospital.hospital_name}"
+	<table class="table_box">
+		<tbody th:each="hospital : ${HMEntity.hospital_medicalList}"
+			th:object="${hospital}">
+			<tr class="box">
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">病院名</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap"><a style="color: #000000;"
+					th:text="${hospital.hospital_name}"
 					th:href="@{'/hospitalList/detail/' + ${hospital.hospital_id}}"></a></td>
-					<th
-						style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">住所
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">住所
 
 
-					</th>
-					<td
-						style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-						class="nowrap" th:text="${hospital.address}"></td>
-					<th
-						style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">本日の予約状況</th>
-					<td
-						style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-						class="nowrap" th:text="${hospital.reservations_count}"></td>
+				</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${hospital.address}"></td>
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">本日の予約状況</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${hospital.reservations_count}"></td>
 
-				</tr>
+			</tr>
 
-				<tr class="box" id="makeImg">
-					<th
-						style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">電話番号</th>
-					<td
-						style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-						class="nowrap" th:text="${hospital.phone_number}"></td>
+			<tr class="box" id="makeImg">
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">電話番号</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${hospital.phone_number}"></td>
 
-					<th
-						style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">診療科</th>
-					<td
-						style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-						class="nowrap" th:text="${hospital.medical_name}"></td>
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">診療科</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${hospital.medical_name}"></td>
 
 
-					<th style="font-size: 20px; border-bottom: solid 2px #c0c0c0;"><b>予約画面へ移動➔</b></th>
-					<td
-						style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">
+				<th style="font-size: 20px; border-bottom: solid 2px #c0c0c0;"><b>予約画面へ移動➔</b></th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">
 
-						<a class="btn btn-primary" th:href="@{'/hospitalList/detail/' + ${hospital.hospital_id}}">予約</a>
-					</td>
-				</tr>
+					<a class="btn btn-primary"
+					th:href="@{'/hospitalList/detail/' + ${hospital.hospital_id}}">予約</a>
+				</td>
+			</tr>
 
-				<tr class="text-map box" id="makeImg">
-					<th colspan="2"
-						style="border-left: solid 2px #c0c0c0; border-right: solid 2px #c0c0c0;">概要</th>
-					<td th:text="${hospital.overview}" colspan="5"
-						style="border-right: solid 2px #c0c0c0;"></td>
-				</tr>
+			<tr class="text-map box" id="makeImg">
+				<th colspan="2"
+					style="border-left: solid 2px #c0c0c0; border-right: solid 2px #c0c0c0;">概要</th>
+				<td th:text="${hospital.overview}" colspan="5"
+					style="border-right: solid 2px #c0c0c0;"></td>
+			</tr>
 
-				<tr>
-					<th style="margin: 20%"></th>
-				</tr>
+			<tr>
+				<th style="margin: 20%"></th>
+			</tr>
 
-			</tbody>
-		</table>
+		</tbody>
+	</table>
 
 
 	<!-- 共通フッタ -->
