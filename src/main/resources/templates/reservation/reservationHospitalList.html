@@ -71,32 +71,52 @@
 	</ul>
 
 	<!-- コンテンツ -->
-	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main">
-		<b>予約確認</b>
+	<h2 style="opacity: 0.8; font-size: 35px;" class="h2_main" th:text="${reservationEntity.reservationList[0].hospital_name} + ：予約情報">
 	</h2>
 
 	<br>
 
 	<table class="table_box">
-		<thead>
-			<tr class="box">
-				<th style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">予約情報</th>
-			</tr>
-		</thead>
 		<tbody th:each="reservation : ${reservationEntity.reservationList}">
-			<tr>
-				<td class="text-nowrap" th:text="${reservation.hospital_id}"></td>
-				<td class="text-nowrap" th:text="${reservation.hospital_name}"></td>
-				<td class="text-nowrap" th:text="${reservation.user_id}"></td>
-				<td class="text-nowrap" th:text="${reservation.user_name}"></td>
-				<td class="text-nowrap" th:text="${reservation.medical_id}"></td>
-				<td class="text-nowrap" th:text="${reservation.medical_name}"></td>
-				<td class="text-nowrap" th:text="${reservation.reservation_date}"></td>
-				<td class="text-nowrap" th:text="${reservation.reservation_time}"></td>
+			<tr class="box">
+
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">ユーザ名
+
+
+				</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${reservation.user_name}"></td>
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">診療科名</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${reservation.medical_name}"></td>
+
 			</tr>
+
+			<tr class="box" id="makeImg">
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">日付</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${reservation.reservation_date}"></td>
+
+				<th
+					style="border-left: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;">時間</th>
+				<td
+					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
+					class="nowrap" th:text="${reservation.reservation_time}"></td>
+
+			</tr>
+
+			<tr>
+				<th style="margin: 20%"></th>
+			</tr>
+
 		</tbody>
 	</table>
-
 	<!-- 共通フッタ -->
 	<footer style="height: 250px; background-color: #696969">
 		<a href="#" class="btn btn-secondary"
