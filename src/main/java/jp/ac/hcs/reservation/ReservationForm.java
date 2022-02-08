@@ -46,11 +46,13 @@ public class ReservationForm {
 	/**
 	 * 予約日時
 	 */
+	@NotBlank(message = "{require_check}")
 	private String reservation_date;
 
 	/**
 	 * 予約時間
 	 */
+	@NotBlank(message = "{require_check}")
 	private String reservation_time;
 
 }

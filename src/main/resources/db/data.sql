@@ -38,6 +38,12 @@ VALUES('sunagawa@hosp.ac.jp', '砂川市立病院', '$2a$10$xRTXvpMWly0oGiu65WZl
 INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)
 VALUES('sapporo@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2021-12-22', '12:30:00');
 
+INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)
+VALUES('takikawa@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2022-05-22', '12:00:00');
+
+INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time)
+VALUES('sunagawa@hosp.ac.jp', 'kashiwaya@hcs.ac.jp', '1', '2022-09-25', '13:30:00');
+
 
 /* 診療科マスタテーブル 1：外科 */
 INSERT INTO medical_list (medical_id, medical_name)
