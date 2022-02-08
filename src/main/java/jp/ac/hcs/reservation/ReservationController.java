@@ -158,6 +158,7 @@ public class ReservationController {
 	 * 病院ユーザが予約を確認する機能
 	 *
 	 */
+	@GetMapping("/reservation/check")
 	public String checkReservation(Principal principal, Model model) {
 
 		// 病院IDから予約を取得

@@ -17,7 +17,7 @@ public class ReservationService {
 
 	/**
 	 * ログイン中のユーザの予約リストを全件取得するメソッド
-	 * 
+	 *
 	 * @param user_id
 	 * @return selectReservation
 	 */
@@ -44,6 +44,9 @@ public class ReservationService {
 		// repository作成
 		try {
 			reservationEntity = reservationRepository.hospitalReservation(hospital_id);
+			//reservationEntityを使って不足している項目を取得する
+			//病院名、診療科名、ユーザ名、予約可能人数、予約人数
+
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			throw e;
@@ -92,7 +95,7 @@ public class ReservationService {
 
 	/**
 	 * 病院予約新規作成するメソッド
-	 * 
+	 *
 	 * @param form
 	 * @return
 	 * @throws ParseException
@@ -154,7 +157,7 @@ public class ReservationService {
 
 	/**
 	 * reservationFormに入力されたデータをreservationDataにsetする機能
-	 * 
+	 *
 	 * @param form
 	 * @return data
 	 */
