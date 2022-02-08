@@ -17,6 +17,7 @@ public class ReservationService {
 
 	/**
 	 * ログイン中のユーザの予約リストを全件取得するメソッド
+	 * 
 	 * @param user_id
 	 * @return selectReservation
 	 */
@@ -31,6 +32,24 @@ public class ReservationService {
 		}
 
 		return selectReservation;
+	}
+
+	/**
+	 * 病院IDに対応する予約を取得する機能
+	 */
+	public ReservationEntity getReservationHospital(String hospital_id) {
+
+		ReservationEntity reservationEntity = new ReservationEntity();
+
+		// repository作成
+		try {
+			reservationEntity = reservationRepository.hospitalReservation(hospital_id);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw e;
+		}
+
+		return reservationEntity;
 	}
 
 	/**
@@ -73,6 +92,7 @@ public class ReservationService {
 
 	/**
 	 * 病院予約新規作成するメソッド
+	 * 
 	 * @param form
 	 * @return
 	 * @throws ParseException
@@ -97,8 +117,8 @@ public class ReservationService {
 	/**
 	 * 予約画面遷移時に取得した診療科データをカンマ区切りで配列に格納する機能
 	 *
-	 * @param	medical_name
-	 * @return	medicalList
+	 * @param medical_name
+	 * @return medicalList
 	 */
 //	public List<String> getMedicalList(String medical_name) {
 //
@@ -134,6 +154,7 @@ public class ReservationService {
 
 	/**
 	 * reservationFormに入力されたデータをreservationDataにsetする機能
+	 * 
 	 * @param form
 	 * @return data
 	 */

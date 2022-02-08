@@ -40,6 +40,9 @@ public class ReservationRepository {
 	/** 診療科ID取得 */
 	private static final String SQL_MEDICAL_ID = "SELECT M.medical_id, M.medical_name FROM hospital_medical_list HM, medical_list M WHERE HM.medical_id = M.medical_id AND HM.hospital_id = ?";
 
+	/** 病院IDに対応する予約取得 */
+	private static final String SQL_HOSPITAL_RESERVATION = "SELECT * FROM reservation_list WHERE hospital_id = ?";
+	
 	@Autowired
 	JdbcTemplate jdbc;
 
@@ -79,6 +82,17 @@ public class ReservationRepository {
 				medical_name, reservation_date);
 		ReservationEntity entity = mappingListResult(resultList);
 		return entity;
+	}
+	
+	/**
+	 * 対応する病院の予約情報を取得する
+	 */
+	public ReservationEntity hospitalReservation(String hospital_id) throws DataAccessException {
+		
+		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_HOSPITAL_RESERVATION, hospital_id);
+		ReservationEntity reservationEntity = mappingListResult(resultList);
+		
+		return reservationEntity;
 	}
 
 	/**
