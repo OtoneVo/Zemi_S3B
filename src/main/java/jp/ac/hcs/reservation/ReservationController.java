@@ -86,8 +86,8 @@ public class ReservationController {
 		log.info(reservationForm.getReservation_time() + "：予約確認：時");
 
 		if (reservationForm.getHospital_id() == null || reservationForm.getHospital_name() == null
-				|| reservationForm.getMedical_id() == null || reservationForm.getMedical_name() == null
-				|| reservationForm.getReservation_date() == null || reservationForm.getReservation_time() == null) {
+				|| reservationForm.getMedical_id() == null || reservationForm.getReservation_date() == null
+				|| reservationForm.getReservation_time() == null) {
 			log.info("入力項目不足");
 			return "errorMessage";
 		}

@@ -48,7 +48,7 @@ public class ReservationRepository {
 	private static final String SQL_MEDICAL_ID = "SELECT M.medical_id, M.medical_name FROM hospital_medical_list HM, medical_list M WHERE HM.medical_id = M.medical_id AND HM.hospital_id = ?";
 
 	/** 病院IDに対応する予約取得 */
-	private static final String SQL_HOSPITAL_RESERVATION = "SELECT * FROM reservation_list WHERE hospital_id = ?";
+	private static final String SQL_HOSPITAL_RESERVATION = "SELECT * FROM reservation_list WHERE hospital_id = ? ORDER BY reservation_date DESC, reservation_time DESC";
 
 	/** 予約情報未取得項目取得 */
 	private static final String SQL_RESERVATION_INFO = "SELECT H.hospital_name, U.user_name, M.medical_name FROM hospital_list H, m_user U, medical_list M WHERE H.hospital_id = ? AND U.user_id = ? AND M.medical_id = ?";
