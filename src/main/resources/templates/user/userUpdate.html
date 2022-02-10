@@ -65,14 +65,49 @@
 	<label class="han_label" for="check"></label>
 	<!-- 一般メニュー -->
 	<ul>
-		<li><a href="/logout" class="btn btn-flat"
-			style="width: 100%; font-size: 30px;"><span>logout<img
-					alt="/img/ログアウト用アイコン.png" src="/img/ログアウト用アイコン.png"
-					style="height: 30px;"></span></a></li>
-		<li><a href="/" class="btn btn-flat"
-			style="width: 100%; font-size: 30px;"><span>トップ画面<img
-					alt="/img/トップ用アイコン.png" src="/img/トップ用アイコン.png"
-					style="height: 30px;"></span></a></li>
+		<li>
+			<a href="/logout" class="btn btn-flat" style="width: 100%; font-size: 30px;">
+				<span>logout<img alt="/img/ログアウト用アイコン.png" src="/img/ログアウト用アイコン.png" style="height: 30px;"></span>
+			</a>
+		</li>
+
+		<li>
+			<a href="/" class="btn btn-flat" style="width: 100%; font-size: 30px;">
+				<span>トップ画面へ</span>
+			</a>
+		</li>
+
+		<li>
+			<div role="presentation" sec:authorize="hasAuthority('ADMIN')">
+				<a href="/userList" class="btn btn-flat" style="width: 100%; font-size: 30px;">
+					<span>ユーザ情報<img alt="/img/ユーザ管理画像.png" src="/img/ユーザ管理用画像.png" style="height: 30px;"></span>
+				</a>
+			</div>
+		</li>
+
+		<li>
+			<div role="presentation" sec:authorize="hasAuthority('GENERAL')">
+				<a href="/userList/UserManagement" class="btn btn-flat" style="width: 100%; font-size: 30px;">
+					<span>ユーザ情報<img alt="/img/ユーザ管理画像.png" src="/img/ユーザ管理用画像.png" style="height: 30px;"></span>
+				</a>
+			</div>
+		</li>
+
+		<li>
+			<div role="presentation" sec:authorize="hasAuthority('ADMIN')">
+				<a href="/hospital/management" class="btn btn-flat" style="width: 100%; font-size: 30px;">
+					<span>病院管理<img alt="/img/病院管理画像.png" src="/img/病院管理用画像.png" style="height: 30px;"></span>
+				</a>
+			</div>
+		</li>
+
+		<li>
+			<div role="presentation" sec:authorize="hasAuthority('HOSPITAL')">
+				<a href="/hospital/detail" class="btn btn-flat" style="width: 100%; font-size: 30px;">
+					<span>病院管理<img alt="/img/病院管理画像.png" src="/img/病院管理用画像.png" style="height: 30px;"></span>
+				</a>
+			</div>
+		</li>
 	</ul>
 
 	<!-- コンテンツ -->

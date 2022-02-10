@@ -50,13 +50,10 @@ public class ReservationController {
 		try {
 			result = "reservation/reservationsSend";
 			log.info(hmForm + "病院情報取得確認");
-			// List<String> medicalList = new ArrayList<String>();
 			// TODO 病院IDから診療科IDを取ってくる
 			entity = reservationService.getHospitalMedical(hmForm.getHospital_id());
-			// medicalList = reservationService.getMedicalList(hmForm.getMedical_name());
 			model.addAttribute("reservationEntity", entity);
 			model.addAttribute("hmForm", hmForm);
-			// model.addAttribute("medicalList", medicalList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info(principal.getName() + "予約画面遷移：想定外のエラー");
@@ -182,7 +179,7 @@ public class ReservationController {
 		}
 
 		model.addAttribute("reservationEntity", reservationEntity);
-		// TODO 病院に対応する予約を表示するHTMLが必要
+
 		return "reservation/reservationHospitalList";
 	}
 
