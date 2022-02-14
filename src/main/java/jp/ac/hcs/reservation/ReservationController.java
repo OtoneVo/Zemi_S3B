@@ -2,6 +2,7 @@ package jp.ac.hcs.reservation;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.ac.hcs.hospital.Hospital_MedicalForm;
 import jp.ac.hcs.user.UserService;
@@ -150,10 +152,16 @@ public class ReservationController {
 	 *
 	 * @return 予約管理画面
 	 */
-	public String getReservationSelect() {
-		// entity =
-		// reservationService.searchReservation(principal.getName(),hospital_name,
-		// medical_name, reservation_date);
+	@PostMapping("/reservationList/search")
+	public String getReservationSelect(@RequestParam String hospital_name, @RequestParam String medical_name,
+			@RequestParam Date reservation_date, Principal principal, Model model) {
+
+		log.info("取得確認:" + hospital_name, medical_name, reservation_date);
+		ReservationEntity reservationEntity = new ReservationEntity();
+		reservationEntity = reservationService.searchReservation(principal.getName(), hospital_name,
+				medical_name, reservation_date);
+
+		model.addAttribute("reservationEntity", reservationEntity);
 
 		return null;
 	}

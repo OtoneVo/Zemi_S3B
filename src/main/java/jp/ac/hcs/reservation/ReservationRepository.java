@@ -29,7 +29,7 @@ public class ReservationRepository {
 			+ " WHERE R.hospital_id = H.hospital_id AND R.hospital_id = HM.hospital_id"
 			+ " AND R.medical_id = M.medical_id AND R.medical_id = HM.medical_id"
 			+ " AND U.user_id = R.user_id AND R.user_id = ?"
-			+ " AND (H.hospital_name LIKE ? AND M.medical_name LIKE ? AND R.reservation_date LIKE ?)";
+			+ " AND (H.hospital_name LIKE ? AND M.medical_name LIKE ? AND R.reservation_date LIKE ?) IS NOT FALSE";
 
 	/** 予約新規作成 一般用 */
 	private static final String SQL_RESERVATION_INSERT = "INSERT INTO reservation_list (hospital_id, user_id, medical_id, reservation_date, reservation_time) "

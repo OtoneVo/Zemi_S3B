@@ -113,13 +113,11 @@
 	</h2>
 	<form th:action="@{/reservationList/search}" method="post" id="search">
 		<div class="input-group">
-			<input type="text" name="hospital_name" class="form-control mb-2"
-				placeholder="病院名" style="font-size: 15px;"> <input
-				type="text" name="medical_name" class="form-control mb-2"
-				placeholder="診療科" style="font-size: 15px;">
+			<input type="text" name="hospital_name" class="form-control mb-2" placeholder="病院名" style="font-size: 15px;">
+			<input type="text" name="medical_name" class="form-control mb-2" placeholder="診療科" style="font-size: 15px;">
+			<input type="Date" name="reservation_date" class="form-control mb-2" placeholder="予約日" style="font-size: 15px;">
 			<button type="submit" style="height: 30px; width: 30px;">
-				<img alt="/img/search.png" src="/img/search.png"
-					style="width: 25px; height: 23px;">
+				<img alt="/img/search.png" src="/img/search.png" style="width: 25px; height: 23px;">
 			</button>
 		</div>
 	</form>
