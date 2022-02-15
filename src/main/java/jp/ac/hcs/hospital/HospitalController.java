@@ -10,7 +10,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +45,10 @@ public class HospitalController {
 			log.info(principal.getName() + "：病院一覧画面：正常");
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院一覧画面：異常");
+			e.printStackTrace();
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院一覧画面：想定外のエラー");
 			e.printStackTrace();
 			return "errorMessage";
 		}
@@ -80,6 +87,10 @@ public class HospitalController {
 			log.info(principal.getName() + "：病院検索：異常");
 			e.printStackTrace();
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院検索：想定外のエラー");
+			e.printStackTrace();
+			return "errorMessage";
 		}
 
 		return "hospital/hospitalList";
@@ -93,11 +104,20 @@ public class HospitalController {
 	@GetMapping("/hospital/management")
 	public String hospitalcontrol(Principal principal, Model model) {
 
-		List<Map<String, Object>> hospitalList = hospitalService.getHospitals();
-		List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalList);
-		Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalList, HMList);
-		model.addAttribute("HMEntity", HMEntity);
-
+		try {
+			List<Map<String, Object>> hospitalList = hospitalService.getHospitals();
+			List<Map<String, Object>> HMList = hospitalService.getHospitalMedicals(hospitalList);
+			Hospital_medicalEntity HMEntity = hospitalService.getHospitalMedicalSplit(hospitalList, HMList);
+			log.info(principal.getName() + "病院管理画面：正常");
+			model.addAttribute("HMEntity", HMEntity);
+		} catch (DataAccessException e) {
+			log.info(principal.getName() + "病院管理画面：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院管理画面：想定外のエラー");
+			e.printStackTrace();
+			return "errorMessage";
+		}
 		return "hospital/hospitalControl";
 	}
 
@@ -109,7 +129,7 @@ public class HospitalController {
 	 * @return hospitalInsert 病院新規登録画面
 	 */
 	@GetMapping("/hospitalList/insert")
-	public String getHospitalRegistration(Principal principal) {
+	public String getHospitalRegistration(HospitalForm hospitalForm, Principal principal, Model model) {
 		log.info(principal.getName() + "：病院新規登録");
 		return "/hospital/hospitalInsert";
 	}
@@ -124,7 +144,13 @@ public class HospitalController {
 	 * @return hospitalList 正常：病院一覧画面 errorMessage 異常：エラーメッセージ表示画面
 	 */
 	@PostMapping("/hospitalList/insert")
-	public String getHospitalInsert(HospitalForm hForm, Principal principal, Model model) {
+	public String getHospitalInsert(@ModelAttribute @Validated HospitalForm hForm, BindingResult bindingResult,
+			Principal principal, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			log.info(principal.getName() + "病院新規登録：不正な入力値");
+			return getHospitalRegistration(hForm, principal, model);
+		}
 
 		try {
 			List<Map<String, Object>> hospitalList = hospitalService.getHospitalInsert(hForm);
@@ -135,9 +161,12 @@ public class HospitalController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院新規登録：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院新規登録：想定外のエラー");
+			return "errorMessage";
 		}
 
-		return "hospital/hospitalList";
+		return "hospital/hospitalControl";
 	}
 
 	// TODO 病院詳細画面
@@ -163,10 +192,20 @@ public class HospitalController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院詳細画面：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院詳細画面：想定外のエラー");
+			return "errorMessage";
 		}
 		return "hospital/hospitalDetail";
 	}
 
+	/**
+	 * 病院ユーザ用病院詳細画面表示
+	 *
+	 * @param principal
+	 * @param model
+	 * @return hospitalDetail	正常：病院詳細画面	errorMessage 異常：エラーメッセージ表示画面
+	 */
 	@GetMapping("/hospital/detail")
 	public String getHospitalPermissionDetail(Principal principal, Model model) {
 
@@ -179,6 +218,9 @@ public class HospitalController {
 			log.info("確認：" + HMEntity);
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院詳細画面：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院詳細画面：想定外のエラー");
 			return "errorMessage";
 		}
 		return "hospital/hospitalDetail";
@@ -193,8 +235,8 @@ public class HospitalController {
 	 * @param	model			モデル情報
 	 * @return hospitalChange	正常：病院情報変更画面	異常：エラーメッセージ表示画面
 	 */
-	@PostMapping("/hospitalList/change/{id}")
-	public String getHospitalUpdate(@PathVariable("id") String hospital_id, Principal principal, Model model) {
+	@PostMapping("/hospitalList/change")
+	public String getHospitalUpdate(String hospital_id, Principal principal, Model model) {
 
 		try {
 			List<Map<String, Object>> hospitalDetailList = hospitalService.getHospitalDetail(hospital_id);
@@ -205,6 +247,9 @@ public class HospitalController {
 			log.info("確認：" + HMEntity);
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "：病院変更画面：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院変更画面：想定外のエラー");
 			return "errorMessage";
 		}
 
@@ -226,15 +271,18 @@ public class HospitalController {
 		try {
 			result = hospitalService.getHospitalUpdate(hmForm);
 		} catch (DataIntegrityViolationException e) {
-			log.info(principal.getName() + "：病院変更画面：異常");
+			log.info(principal.getName() + "：病院変更：異常");
 			return "errorMessage";
 		} catch (DataAccessException e) {
-			log.info(principal.getName() + "：病院変更画面：異常");
+			log.info(principal.getName() + "：病院変更：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院変更：想定外のエラー");
 			return "errorMessage";
 		}
 
 		if (result) {
-			log.info(principal.getName() + "病院削除：正常");
+			log.info(principal.getName() + "病院変更：正常");
 			return getHospitals(principal, model);
 		}
 
@@ -261,14 +309,17 @@ public class HospitalController {
 		} catch (DataAccessException e) {
 			log.info(principal.getName() + "病院削除：異常");
 			return "errorMessage";
+		} catch (Exception e) {
+			log.info(principal.getName() + "病院削除：想定外のエラー");
+			return "errorMessage";
 		}
 
 		if (result) {
 			log.info(principal.getName() + "病院削除：正常");
-			return hospitalcontrol(principal, model);
+			return getHospitals(principal, model);
 		}
 		model.addAttribute("message", "削除に失敗しました。再試行してください。");
-		return hospitalcontrol(principal, model);
+		return "hospital/hospitalList";
 	}
 
 }
