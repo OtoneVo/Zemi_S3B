@@ -62,46 +62,50 @@
 	<span class="span3 han_span"></span>
 	<label class="han_label" for="check"></label>
 	<ul>
-		<li>
-			<a href="/logout" class="btn btn-flat" style="width: 100%; font-size: 30px;">
-				<span>logout<img alt="/img/ログアウト用アイコン.png" src="/img/ログアウト用アイコン.png" style="height: 30px;"></span>
-			</a>
-		</li>
+		<li><a href="/logout" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"> <span>logout<img
+					alt="/img/ログアウト用アイコン.png" src="/img/ログアウト用アイコン.png"
+					style="height: 30px;"></span>
+		</a></li>
 
-		<li>
-			<a href="/" class="btn btn-flat" style="width: 100%; font-size: 30px;">
-				<span>トップ画面へ</span>
-			</a>
-		</li>
+		<li><a href="/" class="btn btn-flat"
+			style="width: 100%; font-size: 30px;"> <span>トップ画面へ</span>
+		</a></li>
 
 		<li>
 			<div role="presentation" sec:authorize="hasAuthority('ADMIN')">
-				<a href="/userList" class="btn btn-flat" style="width: 100%; font-size: 30px;">
-					<span>ユーザ情報<img alt="/img/ユーザ管理画像.png" src="/img/ユーザ管理用画像.png" style="height: 30px;"></span>
+				<a href="/userList" class="btn btn-flat"
+					style="width: 100%; font-size: 30px;"> <span>ユーザ情報<img
+						alt="/img/ユーザ管理画像.png" src="/img/ユーザ管理用画像.png"
+						style="height: 30px;"></span>
 				</a>
 			</div>
 		</li>
 
 		<li>
 			<div role="presentation" sec:authorize="hasAuthority('GENERAL')">
-				<a href="/userList/UserManagement" class="btn btn-flat" style="width: 100%; font-size: 30px;">
-					<span>ユーザ情報<img alt="/img/ユーザ管理画像.png" src="/img/ユーザ管理用画像.png" style="height: 30px;"></span>
+				<a href="/userList/UserManagement" class="btn btn-flat"
+					style="width: 100%; font-size: 30px;"> <span>ユーザ情報<img
+						alt="/img/ユーザ管理画像.png" src="/img/ユーザ管理用画像.png"
+						style="height: 30px;"></span>
 				</a>
 			</div>
 		</li>
 
 		<li>
 			<div role="presentation" sec:authorize="hasAuthority('ADMIN')">
-				<a href="/hospital/management" class="btn btn-flat" style="width: 100%; font-size: 30px;">
-					<span>病院管理<img alt="/img/病院管理画像.png" src="/img/病院管理用画像.png" style="height: 30px;"></span>
+				<a href="/hospital/management" class="btn btn-flat"
+					style="width: 100%; font-size: 30px;"> <span>病院管理<img
+						alt="/img/病院管理画像.png" src="/img/病院管理用画像.png" style="height: 30px;"></span>
 				</a>
 			</div>
 		</li>
 
 		<li>
 			<div role="presentation" sec:authorize="hasAuthority('HOSPITAL')">
-				<a href="/hospital/detail" class="btn btn-flat" style="width: 100%; font-size: 30px;">
-					<span>病院管理<img alt="/img/病院管理画像.png" src="/img/病院管理用画像.png" style="height: 30px;"></span>
+				<a href="/hospital/detail" class="btn btn-flat"
+					style="width: 100%; font-size: 30px;"> <span>病院管理<img
+						alt="/img/病院管理画像.png" src="/img/病院管理用画像.png" style="height: 30px;"></span>
 				</a>
 			</div>
 		</li>
@@ -113,11 +117,15 @@
 	</h2>
 	<form th:action="@{/reservationList/search}" method="post" id="search">
 		<div class="input-group">
-			<input type="text" name="hospital_name" class="form-control mb-2" placeholder="病院名" style="font-size: 15px;">
-			<input type="text" name="medical_name" class="form-control mb-2" placeholder="診療科" style="font-size: 15px;">
-			<input type="Date" name="reservation_date" class="form-control mb-2" placeholder="予約日" style="font-size: 15px;">
+			<input type="text" name="hospital_name" class="form-control mb-2"
+				placeholder="病院名" style="font-size: 15px;"> <input
+				type="text" name="medical_name" class="form-control mb-2"
+				placeholder="診療科" style="font-size: 15px;"> <input
+				type="Date" name="reservation_date" class="form-control mb-2"
+				placeholder="予約日" style="font-size: 15px;">
 			<button type="submit" style="height: 30px; width: 30px;">
-				<img alt="/img/search.png" src="/img/search.png" style="width: 25px; height: 23px;">
+				<img alt="/img/search.png" src="/img/search.png"
+					style="width: 25px; height: 23px;">
 			</button>
 		</div>
 	</form>
@@ -168,9 +176,15 @@
 					class="btn btn-primary" style="width: 80%;"><span>予約する</span></a></th>
 				<td
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
-					colspan="2"><a
-					th:href="@{'/hospitalList/detail/' + ${reservation.hospital_id}}"
-					class="btn btn-danger" style="width: 80%;"><span>予約をキャンセル</span></a></td>
+					colspan="2">
+					<form th:action="@{'/reservationList/delete/' + ${reservation.reservation_date}}" method="post">
+						<div class="input-group">
+							<input type="hidden" name="hospital_id" class="form-control mb-2" th:value="${reservation.hospital_id}">
+							<input type="hidden" name="medical_id" class="form-control mb-2" th:value="${reservation.medical_id}">
+							<button type="submit" style="height: 30px; width: 30px;" class="btn btn-danger">予約をキャンセル</button>
+						</div>
+					</form>
+				</td>
 			</tr>
 
 			<tr>

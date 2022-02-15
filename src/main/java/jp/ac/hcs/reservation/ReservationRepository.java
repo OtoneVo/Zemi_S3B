@@ -53,6 +53,9 @@ public class ReservationRepository {
 	/** 予約情報未取得項目取得 */
 	private static final String SQL_RESERVATION_INFO = "SELECT H.hospital_name, U.user_name, M.medical_name FROM hospital_list H, m_user U, medical_list M WHERE H.hospital_id = ? AND U.user_id = ? AND M.medical_id = ?";
 
+	/** SQL予約削除 */
+	private static final String SQL_RESERVATION_DELETE = "DELETE FROM reservaton_list WHERE user_id = ?";
+
 	@Autowired
 	JdbcTemplate jdbc;
 
@@ -174,6 +177,18 @@ public class ReservationRepository {
 			rowNumber = 0;
 		}
 		return rowNumber;
+	}
+
+	/**
+	 * 予約を削除する
+	 */
+	public int deleteReservation(String user_id) {
+
+		int number = 0;
+
+		number = jdbc.update(SQL_RESERVATION_DELETE, user_id);
+
+		return number;
 	}
 
 	/**

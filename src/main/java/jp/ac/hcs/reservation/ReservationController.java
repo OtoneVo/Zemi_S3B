@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,9 +33,33 @@ public class ReservationController {
 	 *
 	 * @return 履歴確認画面
 	 */
-	@PostMapping("")
-	public String getReservationDelete() {
-		return null;
+	@PostMapping("/reservationList/delete/{date}")
+	public String getReservationDelete(@RequestParam String hospital_id, @RequestParam String medical_id,
+			@PathVariable("date") Date reservation_date, Principal principal, Model model) {
+
+		boolean result = true;
+		ReservationEntity reservationEntity = new ReservationEntity();
+
+		log.info("病院ID：" + hospital_id + "診療科ID：" + medical_id + "予約日時：" + reservation_date);
+
+		try {
+			result = reservationService.deleteReservation(principal.getName());
+			reservationEntity = reservationService.selectReservation(principal.getName());
+			model.addAttribute("entity", reservationEntity);
+		} catch (DataAccessException e) {
+			log.info("予約削除：異常");
+			return "errorMessage";
+		} catch (Exception e) {
+			log.info("予約削除：想定外のエラー");
+			return "errorMessage";
+		}
+
+		if (result) {
+			log.info("予約削除：失敗");
+			return "errorMessage";
+		}
+
+		return "reservation/reservationsList";
 	}
 
 	// TODO 予約画面

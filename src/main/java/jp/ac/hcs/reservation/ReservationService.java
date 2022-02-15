@@ -54,6 +54,23 @@ public class ReservationService {
 	}
 
 	/**
+	 * 予約削除
+	 */
+	public boolean deleteReservation(String user_id) {
+
+		int number = 0;
+
+		try {
+			number = reservationRepository.deleteReservation(user_id);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			throw e;
+		}
+
+		return number > 0;
+	}
+
+	/**
 	 * 予約の検索を行う機能
 	 *
 	 * @param user_id
