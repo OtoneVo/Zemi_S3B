@@ -178,11 +178,9 @@
 					style="border-right: solid 2px #c0c0c0; border-bottom: solid 2px #c0c0c0;"
 					colspan="2">
 					<form th:action="@{'/reservationList/delete/' + ${reservation.reservation_date}}" method="post">
-						<div class="input-group">
 							<input type="hidden" name="hospital_id" class="form-control mb-2" th:value="${reservation.hospital_id}">
 							<input type="hidden" name="medical_id" class="form-control mb-2" th:value="${reservation.medical_id}">
-							<button type="submit" style="height: 30px; width: 30px;" class="btn btn-danger">予約をキャンセル</button>
-						</div>
+							<button type="submit" style="width: 80%;" class="btn btn-danger">予約をキャンセル</button>
 					</form>
 				</td>
 			</tr>
